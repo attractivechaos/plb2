@@ -78,7 +78,36 @@ static inline uint32_t splitmix32(uint32_t *x)
  * IITree *
  **********/
 
-typedef int64_t stype_t;
+typedef int64_t stype_t; // scalar type
+
+/* Suppose there are N=2^(K+1)-1 sorted numbers in an array a[]. They
+ * implicitly form a complete binary tree of height K+1. We consider leaves to
+ * be at level 0. The binary tree has the following properties:
+ *
+ * 1. The lowest k-1 bits of nodes at level k are all 1. The k-th bit is 0.
+ *    The first node at level k is indexed by 2^k-1. The root of the tree is
+ *    indexed by 2^K-1.
+ *
+ * 2. For a node x at level k, its left child is x-2^(k-1) and the right child
+ *    is x+2^(k-1).
+ *
+ * 3. For a node x at level k, it is a left child if its (k+1)-th bit is 0. Its
+ *    parent node is x+2^k. Similarly, if the (k+1)-th bit is 1, x is a right
+ *    child and its parent is x-2^k.
+ *
+ * 4. For a node x at level k, there are 2^(k+1)-1 nodes in the subtree
+ *    descending from x, including x. The left-most leaf is x&~(2^k-1) (masking
+ *    the lowest k bits to 0).
+ *
+ * When numbers can't fill a complete binary tree, the parent of a node may not
+ * be present in the array. The implementation here still mimics a complete
+ * tree, though getting the special casing right is a little complex. There may
+ * be alternative solutions.
+ *
+ * As a sorted array can be considered as a binary search tree, we can
+ * implement an interval tree on top of the idea. We only need to record, for
+ * each node, the maximum value in the subtree descending from the node.
+ */
 
 typedef struct {
 	stype_t st, en, max;
