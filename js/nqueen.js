@@ -29,7 +29,7 @@ var ccc = {
 function main(args) {
 	let n = 15;
 	if (args.length > 0) n = parseInt(args[0]);
-	print(nq_solve(n));
+	ccc.print(nq_solve(n));
 }
 
 main(ccc.argv);
