@@ -82,7 +82,7 @@ func nqueens(N int) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%d", s.count);
+	fmt.Printf("%d\n", s.count);
 	return nil
 }
 
