@@ -1,7 +1,10 @@
 CFLAGS=-O3
-EXE=sudoku nqueen
+EXE=sudoku nqueen matmul
 
 all:$(EXE)
+
+matmul:matmul.c
+	$(CC) $(CFLAGS) -o $@ $<
 
 sudoku:sudoku.c
 	$(CC) $(CFLAGS) -o $@ $<
