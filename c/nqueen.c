@@ -25,7 +25,7 @@ int nq_solve(int n) // inspired the 2nd C implementation from Rossetta Code
 
 int main(int argc, char *argv[])
 {
-	int n = 8, m;
+	int n = 15, m;
 	if (argc > 1) n = atoi(argv[1]);
 	if (n > NQ_MAX) abort();
 	m = nq_solve(n);
