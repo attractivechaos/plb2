@@ -11,10 +11,7 @@ pub fn nq_solve(n: usize) -> usize {
 		let y = (l[k] | c[k] | r[k]) & y0;
 		if (y ^ y0) >> (a[k] + 1) != 0 {
 			let mut i = a[k] + 1;
-			while i < n as i32 {
-				if (y & (1<<i)) == 0 {
-					break
-				}
+			while i < n as i32 && (y & (1<<i)) != 0 {
 				i += 1;
 			}
 			if k < n - 1 {
