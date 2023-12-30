@@ -1,9 +1,10 @@
+RUSTC=rustc
 EXE=nqueen
 
 all:$(EXE)
 
 nqueen:nqueen.rs
-	rustc -O -o $@ $<
+	$(RUSTC) -O -o $@ $<
 
 clean:
 	rm -f $(EXE)
