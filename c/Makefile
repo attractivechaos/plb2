@@ -1,5 +1,5 @@
 CFLAGS=-O3
-EXE=sudoku nqueen matmul
+EXE=sudoku nqueen matmul bedcov
 
 all:$(EXE)
 
@@ -10,6 +10,9 @@ sudoku:sudoku.c
 	$(CC) $(CFLAGS) -o $@ $<
 
 nqueen:nqueen.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+bedcov:bedcov.c
 	$(CC) $(CFLAGS) -o $@ $<
 
 clean:
