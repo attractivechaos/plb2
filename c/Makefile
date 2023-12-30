@@ -1,7 +1,10 @@
 CFLAGS=-O3
-EXE=nqueen
+EXE=sudoku nqueen
 
 all:$(EXE)
+
+sudoku:sudoku.c
+	$(CC) $(CFLAGS) -o $@ $<
 
 nqueen:nqueen.c
 	$(CC) $(CFLAGS) -o $@ $<
