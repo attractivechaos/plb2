@@ -1,12 +1,12 @@
-|Symbol   |Language  |Runtime|Version| nqueen | matmul | sudoku | bedcov |
+|Label    |Language  |Runtime|Version| nqueen | matmul | sudoku | bedcov |
 |:--------|:---------|:------|:------|-------:|-------:|-------:|-------:|
 |c:clang+ |C         |Clang  |15.0.0 | 2.70   | 0.16   | 0.78   | 0.22   |
 |crystal+ |Crystal   |       |1.10.0 | 3.28   |        |        |        |
-|csharp+  |C#        |.NET   |8.0.100| 3.00   |        |        |        |
+|cs:.net+ |C#        |.NET   |8.0.100| 3.00   |        |        |        |
 |d:ldc2+  |D         |LDC2   |2.105.2| 2.68   |        | 0.82   |        |
 |dart     |Dart      |       |3.2.4  | 3.62   |        | 1.71   |        |
 |go+      |Go        |       |1.21.5 | 2.94   |        | 1.04   |        |
-|java+    |Java      |OpenJDK|20.0.1 | 3.92   |        |        |        |
+|java+    |Java      |OpenJDK|20.0.1 | 3.92   |        | 1.67   |        |
 |js:bun   |JavaScript|Bun    |1.0.20 | 3.11   | 0.52   | 1.55   | 1.69   |
 |js:deno  |JavaScript|Deno   |1.39.1 | 4.00   | 0.94   | 2.05   | 1.97   |
 |js:k8    |JavaScript|k8     |1.0    | 3.79   | 0.90   | 1.93   | 1.91   |
