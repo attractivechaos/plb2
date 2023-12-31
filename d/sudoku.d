@@ -1,3 +1,5 @@
+// ported from plb/sudoku/sudoku_v2.d
+
 import std.stdio: readln, writeln, writef;
 import std.array: split;
 
