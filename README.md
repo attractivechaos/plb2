@@ -5,13 +5,13 @@
 |csharp+  |C#        |.NET   |8.0.100| 3.00   |        |        |        |
 |d:ldc2+  |D         |LDC2   |2.105.2| 2.68   |        | 0.82   |        |
 |dart     |Dart      |       |3.2.4  | 3.62   |        |        |        |
-|go+      |Go        |       |1.20.5 | 2.98   |        |        |        |
+|go+      |Go        |       |1.21.5 | 2.94   |        | 1.04   |        |
 |java+    |Java      |OpenJDK|20.0.1 | 3.92   |        |        |        |
 |js:bun   |JavaScript|Bun    |1.0.20 | 3.11   | 0.52   | 1.55   | 1.69   |
 |js:deno  |JavaScript|Deno   |1.39.1 | 4.00   | 0.94   | 2.05   | 1.97   |
 |js:k8    |JavaScript|k8     |1.0    | 3.79   | 0.90   | 1.93   | 1.91   |
 |js:node  |JavaScript|Node   |21.5.0 | 3.73   | 0.88   | 1.92   | 1.94   |
-|julia    |Julia     |       |1.10.0 | 5.03   |        | 2.86   |        |
+|julia    |Julia     |       |1.10.0 | 3.75   |        | 1.55   |        |
 |luajit   |Lua       |LuaJIT |2.1    | 5.31   |        | 2.27   |        |
 |mojo+    |Mojo      |       |0.6.1  | 3.24   |        |        |        |
 |nim+     |Nim       |       |2.0.2  | 3.18   |        |        |        |
