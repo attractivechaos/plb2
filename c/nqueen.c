@@ -6,19 +6,23 @@
 
 int nq_solve(int n) // inspired the 2nd C implementation from Rossetta Code
 {
-	int i, k, a[NQ_MAX+1], m = 0;
-	uint32_t l[NQ_MAX+1], c[NQ_MAX+1], r[NQ_MAX+1], y, y0 = (1U<<n) - 1;
+	int k, a[NQ_MAX+1], m = 0;
+	uint32_t l[NQ_MAX+1], c[NQ_MAX+1], r[NQ_MAX+1], y0 = (1U<<n) - 1;
 	for (k = 0; k < n; ++k) a[k] = -1, l[k] = c[k] = r[k] = 0;
 	for (k = 0; k >= 0;) {
-		y = (l[k] | c[k] | r[k]) & y0; // bit array for possible solutions
-		if ((y ^ y0) >> (a[k] + 1)) { // solution found
-			for (i = a[k] + 1; i < n; ++i) // find the first solution
+		uint32_t y = (l[k] | c[k] | r[k]) & y0; // bit array for possible choices at row k
+		if ((y ^ y0) >> (a[k] + 1)) { // possible to make a choice
+			int i;
+			for (i = a[k] + 1; i < n; ++i) // look for the first choice
 				if ((y & 1<<i) == 0) break;
-			if (k < n - 1) {
-				a[k++] = i, y = 1<<i; // keep the solution
-				l[k] = (l[k-1]|y)<<1, c[k] = c[k-1]|y, r[k] = (r[k-1]|y)>>1;
-			} else ++m, --k;
-		} else a[k--] = -1; // no solution
+			if (k < n - 1) { // store the choice
+				uint32_t z = 1<<i;
+				a[k++] = i;
+				l[k] = (l[k-1]|z)<<1;
+				c[k] =  c[k-1]|z;
+				r[k] = (r[k-1]|z)>>1;
+			} else ++m, --k; // solution found
+		} else a[k--] = -1; // no choice; backtrack
 	}
 	return m;
 }
