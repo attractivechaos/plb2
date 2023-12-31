@@ -87,7 +87,7 @@ def sd_solve(mr, mc, s)
 		end
 		if i < 0 then break end
 		o = []
-		(0...81).each do |j| o.push(s[j].ord - 49) end
+		(0...81).each do |j| o.push(s[j].ord - 48) end
 		(0...i).each do |j|
 			r = mr[cc[j]][cr[j]]
 			o[r/9] = r % 9 + 1
