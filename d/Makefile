@@ -1,9 +1,12 @@
 LDC=ldc2
-EXE=nqueen
+EXE=nqueen sudoku
 
 all:$(EXE)
 
 nqueen:nqueen.d
+	$(LDC) -O3 -release $<
+
+sudoku:sudoku.d
 	$(LDC) -O3 -release $<
 
 clean:
