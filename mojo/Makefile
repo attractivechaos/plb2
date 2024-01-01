@@ -1,9 +1,12 @@
 MOJO=mojo
-EXE=nqueen
+EXE=nqueen matmul
 
 all:$(EXE)
 
 nqueen:nqueen.mojo
+	$(MOJO) build -o $@ $<
+
+matmul:matmul.mojo
 	$(MOJO) build -o $@ $<
 
 clean:
