@@ -11,7 +11,7 @@
 |js:deno  |JavaScript|Deno   |1.39.1 | 4.00   | 0.94   | 2.05   | 1.97   |
 |js:k8    |JavaScript|k8     |1.0    | 3.79   | 0.90   | 1.93   | 1.91   |
 |js:node  |JavaScript|Node   |21.5.0 | 3.73   | 0.88   | 1.92   | 1.94   |
-|julia    |Julia     |       |1.10.0 | 3.75   | 1.08   | 1.55   |        |
+|julia    |Julia     |       |1.10.0 | 3.75   | 1.08   | 1.55   | 1.10   |
 |luajit   |Lua       |LuaJIT |2.1    | 5.31   | 0.80   | 2.27   |        |
 |mojo+    |Mojo      |       |0.6.1  | 3.24   | 0.34   |        |        |
 |nim+     |Nim       |       |2.0.2  | 3.18   | 0.20   |        |        |
