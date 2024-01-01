@@ -111,6 +111,7 @@ typedef int64_t stype_t; // scalar type
 
 typedef struct {
 	stype_t st, en, max;
+	int64_t data;
 } intv_t;
 
 #define intv_key(x) ((x).st)
@@ -196,6 +197,7 @@ intv_t *gen_intv(size_t n, uint32_t *x, int bit_st, int bit_len)
 	for (i = 0; i < n; ++i) {
 		a[i].st = splitmix32(x) & mask_st;
 		a[i].en = a[i].st + (splitmix32(x) & mask_len);
+		a[i].data = i;
 	}
 	return a;
 }

@@ -1,13 +1,17 @@
 CRYSTAL=crystal
-EXE=nqueen matmul
+CRYSTAL_FLAGS=--release
+EXE=nqueen matmul bedcov
 
 all:$(EXE)
 
-matmul:matmul.cr
-	$(CRYSTAL) build --release $<
-
 nqueen:nqueen.cr
-	$(CRYSTAL) build --release $<
+	$(CRYSTAL) build $(CRYSTAL_FLAGS) $<
+
+matmul:matmul.cr
+	$(CRYSTAL) build $(CRYSTAL_FLAGS) $<
+
+bedcov:bedcov.cr
+	$(CRYSTAL) build $(CRYSTAL_FLAGS) $<
 
 clean:
 	rm -f $(EXE) *.dwarf
