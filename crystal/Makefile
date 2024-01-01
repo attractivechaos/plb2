@@ -1,7 +1,10 @@
 CRYSTAL=crystal
-EXE=nqueen
+EXE=nqueen matmul
 
 all:$(EXE)
+
+matmul:matmul.cr
+	$(CRYSTAL) build --release $<
 
 nqueen:nqueen.cr
 	$(CRYSTAL) build --release $<
