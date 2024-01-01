@@ -1,2 +1,6 @@
 .*.swp
 *.o
+*.class
+*.dwarf
+*.json
+*.dll

@@ -23,7 +23,7 @@
 |rust+    |Rust      |       |1.64.0 | 2.65   | 0.74   | 0.88   |        |
 |swift+   |Swift     |       |5.9.0  | 3.01   | 2.88   | 10.80  |        |
 |v+       |V         |       |0.4.3  | 2.63   | 0.94   |        |        |
-|zig+     |Zig       |       |0.11.0 | 2.74   |        |        |        |
+|zig+     |Zig       |       |0.11.0 | 2.74   | 0.29   |        |        |
 
 <!--
 |System      |Language  |Runtime|Version| sudoku | bedcov | matmul |
