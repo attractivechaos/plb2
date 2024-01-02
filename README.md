@@ -8,7 +8,7 @@ library functions. We do not intend to evaluate different algorithms or the
 quality of the standard libraries in these languages.
 
 The four tasks in plb2 all take a few seconds for a fast implementation to
-complete. They are:
+complete. The tasks are:
 
 * **nqueen**: solving a [15-queens problem][8queen]. The algorithm was inspired
   by the second C implementation [from Rosetta Code][8qrc]. It involves nested
@@ -36,12 +36,67 @@ lacking. **Pull requests are welcomed!**
 The following figure summarizes the elapsed time of each implementation
 measured on an Apple M1 MacBook Pro. [Hyperfine][hyperfine] was used for timing
 except for a few slow implementations which were timed with the "time" bash
-command without repetition. A plus sign "+" indicates [ahead-of-time
-compliation][aot]. Exact timing can be found in the table towards the end of
-this README. The figure was generated from the table but may be a little
-outdated.
+command without repetition. A plus sign "+" indicates an explicit compilation
+step. Exact timing can be found in the table towards the end of this README.
+The figure was programmatically generated from the table but may be outdated.
 
 <img align="left" src="analysis/rst-m1.png"/>
+
+### Overall impression
+
+It is not surprising that purely interpreated languages including Perl and
+[CPython][cpy] (the official Python implementation) are the slowest. Although
+the latest PHP and Ruby have integrated JIT compilation and are faster than
+Perl and CPython, they do not compete with [PyPy][pypy], a JIT-based Python
+implementation. It is unfortunate that PyPy is not adopted as the official
+Python implementation.
+
+The other JIT-based language implementations without requiring a separate
+compilation step, including [Bun][bun] and Node for JavaScript, Dart, LuaJIT,
+PyPy and Julia, are broadly comparable in performance. They are tens of times
+faster than PHP, Ruby, Perl and CPython. Although Julia is somehow slower on
+matmul, it is a lot faster on bedcov (see side notes below for explanation).
+LuaJIT was often [considered][luablog] as one of the fastest scripting language
+implementations but it is no longer competitive due to continuous improvements
+to the Julia and JavaScript runtimes.
+
+Except Swift, language implementations requiring explicit compilation are also
+broadly comparable in performance. They are probably all fast enough for
+practical use cases. Nonetheless, no task in plb2 puts stress on memory
+allocations. We might see large differences for a task allocating millions of
+small objects.
+
+### Side notes
+
+#### Most language implementations cannot optimize matmul
+
+The bottleneck of matrix multiplication falls in the following nested loop:
+```cpp
+for (int i = 0; i < n; ++i)
+    for (int k = 0; k < n; ++k)
+        for (int j = 0; j < n; ++j)
+            c[i][j] += a[i][k] * b[k][j];
+```
+It is obvious that `c[i]`, `b[k]` and `a[i][k]` can be moved out of the inner
+loop to reduce the frequency of matrix access. The Clang compiler can apply
+this optimization. Manual optimization may actually hurt performance.
+
+However, most other languages cannot optimize this nested loop. If we manually
+move `a[i][k]` to the loop above it, we can often improve their performance.
+Manual optimization may still be necessary.
+
+#### Elapsed time vs CPU time
+
+Although all implementations intend to use one thread only, language runtimes
+may invoke garbage collection in a separate thread. In this case, the CPU time
+(user plus system) may be longer than elapsed wall-clock time. Julia, in
+particular, takes noticeably more CPU time than wall-clock time even for the
+simplest nqueen benchmark. In plb2, we are measuring the elapsed wall-clock
+time. The ranking of CPU time may be slightly different.
+
+#### Startup time
+
+### Tabled results on Apple M1 Macbook Pro
 
 |Label    |Language  |Runtime|Version| nqueen | matmul | sudoku | bedcov |
 |:--------|:---------|:------|:------|-------:|-------:|-------:|-------:|
@@ -77,4 +132,7 @@ outdated.
 [kudoku]: https://attractivechaos.github.io/plb/kudoku.html
 [iitree]: https://academic.oup.com/bioinformatics/article/37/9/1315/5910546
 [hyperfine]: https://github.com/sharkdp/hyperfine
-[aot]: https://en.wikipedia.org/wiki/Ahead-of-time_compilation
+[cpy]: https://en.wikipedia.org/wiki/CPython
+[pypy]: https://www.pypy.org
+[bun]: https://bun.sh
+[luablog]: https://attractivechaos.wordpress.com/2011/01/23/amazed-by-luajit/
