@@ -11,8 +11,9 @@ function matmul(n, a, b)
 	c = zeros(Float64, n, n)
 	for i = 1:n
 		for k = 1:n
+			aik = a[i,k]
 			for j = 1:n
-				c[i,j] += a[i,k] * b[k,j]
+				c[i,j] += aik * b[k,j]
 			end
 		end
 	end
