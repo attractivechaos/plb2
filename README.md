@@ -1,3 +1,35 @@
+## Introduction
+
+Programming Language Benchmark v2 (plb2) evaluates the performance of 20
+programming languages on four CPU-intensive tasks. It is a follow-up to
+[plb][plb] conducted in 2011. In plb2, all implementations use the same
+algorithm for each task and their performance bottlenecks do not fall in
+library functions. We do not intend to evaluate different algorithms or the
+quality of the standard libraries in these languages.
+
+The four tasks in plb2 all take a few seconds for a fast implementation to
+complete. They are:
+
+* **nqueen**: solving a [15-queens problem][8queen]. The algorithm was inspired
+  by the second C implementation [from Rosetta Code][8qrc]. It involves nested
+  loops and integer bit operations.
+
+* **matmul**: multiplying two square matrices of 1500x1500 in size.
+
+* **sudoku**: solving 4000 hard [Sudokus][sudoku] (20 puzzles repeated for 200
+  times) using the [kudoku algorithm][kudoku]. This algorithm heavily uses
+  small fixed-sized arrays with a bit complex logic.
+
+* **bedcov**: finding the overlaps between two arrays of 1,000,000 intervals
+  with [implicit interval trees][iitree]. The algorithm involves frequent
+  array access in a pattern similar to binary searches.
+
+Most of the implementations in plb2 were written by me. A few matmul and sudoku
+implementations were adapted from plb implementations contributed by others.
+I am mostly a C programmer and am not familiar with most languages in plb2. **If
+you can improve the performance of some implementations, please send a pull
+requst.**
+
 |Label    |Language  |Runtime|Version| nqueen | matmul | sudoku | bedcov |
 |:--------|:---------|:------|:------|-------:|-------:|-------:|-------:|
 |c:clang+ |C         |Clang  |15.0.0 | 2.70   | 0.54   | 1.54   | 0.84   |
@@ -24,3 +56,10 @@
 |swift+   |Swift     |       |5.9.0  | 3.01   | 9.70   | 21.40  |        |
 |v+       |V         |       |0.4.3  | 2.63   | 3.17   |        |        |
 |zig+     |Zig       |       |0.11.0 | 2.74   | 0.73   |        |        |
+
+[plb]: https://github.com/attractivechaos/plb
+[8queen]: https://en.wikipedia.org/wiki/Eight_queens_puzzle
+[8qrc]: https://rosettacode.org/wiki/N-queens_problem#C
+[sudoku]: https://en.wikipedia.org/wiki/Sudoku
+[kudoku]: https://attractivechaos.github.io/plb/kudoku.html
+[iitree]: https://academic.oup.com/bioinformatics/article/37/9/1315/5910546
