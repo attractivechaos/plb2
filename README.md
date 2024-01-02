@@ -1,3 +1,8 @@
+**TL;DR**: see the figure below (the subfigure on the right is a zoom-in
+focusing on high-performance languages).
+
+<img align="left" src="analysis/rst-m1.png"/>
+
 ## Table of Contents
 
 - [Introduction](#intro)
@@ -47,15 +52,13 @@ lacking. **Pull requests are welcomed!**
 
 ## <a name="result"></a>Results
 
-The following figure summarizes the elapsed time of each implementation
+The figure at the top of the page summarizes the elapsed time of each implementation
 measured on an Apple M1 MacBook Pro. [Hyperfine][hyperfine] was used for timing
 except for a few slow implementations which were timed with the "time" bash
 command without repetition. A plus sign "+" indicates an explicit compilation
 step. Exact timing can be found in the [table](#table) towards the end of this
 README. The figure was programmatically generated from the table but may be
 outdated.
-
-<img align="left" src="analysis/rst-m1.png"/>
 
 ### <a name="overall"></a>Overall impression
 
