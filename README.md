@@ -24,13 +24,24 @@ complete. They are:
   with [implicit interval trees][iitree]. The algorithm involves frequent
   array access in a pattern similar to binary searches.
 
-Most of the implementations in plb2 were written by me. A few matmul and sudoku
-implementations were adapted from plb implementations contributed by others.
-I am mostly a C programmer and am not familiar with most languages in plb2. **If
-you can improve the performance of some implementations, please raise an issue
-or send a pull requst.**
+Every language has nqueen and matmul implementations. Some languages do not
+have sudoku or bedcov implementations. In addition, I implemented most
+algorithms in plb2 and adapted a few contributed matmul and sudoku
+implementations in plb. As I am mostly a C programmer, implementations in other
+languages may be suboptimal and implementations in functional languages are
+lacking. **Pull requests are welcomed!**
 
 ## Results and Discussions
+
+The following figure summarizes the elapsed time of each implementation
+measured on an Apple M1 MacBook Pro. [Hyperfine][hyperfine] was used for timing
+except for a few slow implementations which were timed with the "time" bash
+command without repetition. A plus sign "+" indicates [ahead-of-time
+compliation][aot]. Exact timing can be found in the table towards the end of
+this README. The figure was generated from the table but may be a little
+outdated.
+
+<img align="left" src="analysis/rst-m1.png"/>
 
 |Label    |Language  |Runtime|Version| nqueen | matmul | sudoku | bedcov |
 |:--------|:---------|:------|:------|-------:|-------:|-------:|-------:|
@@ -65,3 +76,5 @@ or send a pull requst.**
 [sudoku]: https://en.wikipedia.org/wiki/Sudoku
 [kudoku]: https://attractivechaos.github.io/plb/kudoku.html
 [iitree]: https://academic.oup.com/bioinformatics/article/37/9/1315/5910546
+[hyperfine]: https://github.com/sharkdp/hyperfine
+[aot]: https://en.wikipedia.org/wiki/Ahead-of-time_compilation
