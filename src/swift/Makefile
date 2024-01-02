@@ -1,5 +1,5 @@
 SWIFTC=swiftc
-SWIFTC_FLAGS=-O
+SWIFTC_FLAGS=-Ounchecked
 EXE=nqueen matmul sudoku
 
 all:$(EXE)

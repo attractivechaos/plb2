@@ -1,5 +1,5 @@
-**TL;DR**: see the figure below (the subfigure on the right is a zoom-in
-focusing on high-performance languages).
+**TL;DR**: see the figure below. Note that nqueen and matmul are implemented in
+all languages but sudoku and bedcov are only implemented in some.
 
 <img align="left" src="analysis/rst-m1.png"/>
 
@@ -71,8 +71,9 @@ depending on how and when compilation is done:
 
 2. JIT compiled without a separate compilation step (Dart, all JavaScript
    runtimes, Julia, LuaJIT, PHP, PyPy and Ruby3 with [YJIT][yjit]). These
-   language implementations have to balance compilation and running time to
-   achieve the best overall performance.
+   language implementations compile the source code on the fly and execute.
+   They have to balance compilation and running time to achieve the best
+   overall performance.
 
    In this group, although PHP and Ruby3 are faster than Perl and CPython, they
    are still tens of times slower than PyPy and others. Notably, LuaJIT was
@@ -138,6 +139,21 @@ performance. Manual optimization may still be necessary for these languages.
 
 ## <a name="conclusion"></a>Discussions
 
+The most well-known and the longest running language benchmark is the [Computer
+Language Benchmark Games][clbg]. Plb2 differs in that it includes more recent
+languages (e.g. Nim and Crystal), more language runtimes (e.g. PyPy and
+LuaJIT), more tasks, comes with more uniform implementations and focuses more
+on the performance of the language itself without library functions. It
+complements the Computer Language Benchmark Games.
+
+One important area that plb2 does not evaluate is the performance of memory
+allocation and/or garbage collection. This may contribute more to practical
+performance than generating machine code. Nonetheless, it is challenging to
+design a realistic micro-benchmark to evaluate memory allocation. If the
+built-in allocator in a language implementation does not work well, we can
+implement customized memory allocator just for the specific task but this, in
+my view, would not represent typical use cases.
+
 ## <a name="table"></a>Appendix: Timing on Apple M1 Macbook Pro
 
 |Label    |Language  |Runtime|Version| nqueen | matmul | sudoku | bedcov |
@@ -163,7 +179,7 @@ performance. Manual optimization may still be necessary for these languages.
 |py:cpy   |Python    |CPython|3.11.7 | 159.97 | 223.66 | 52.88  | 42.84  |
 |ruby     |Ruby      |(YJIT) |3.3.0  | 88.15  | 130.51 | 52.26  |        |
 |rust+    |Rust      |       |1.75.0 | 2.68   | 2.51   | 1.65   |        |
-|swift+   |Swift     |       |5.9.0  | 3.01   | 9.70   | 21.40  |        |
+|swift+   |Swift     |       |5.9.0  | 2.92   | 7.46   | 16.02  |        |
 |v+       |V         |       |0.4.3  | 2.63   | 3.17   |        |        |
 |zig+     |Zig       |       |0.11.0 | 2.74   | 0.73   |        |        |
 
@@ -180,3 +196,4 @@ performance. Manual optimization may still be necessary for these languages.
 [luablog]: https://attractivechaos.wordpress.com/2011/01/23/amazed-by-luajit/
 [yjit]: https://github.com/ruby/ruby/blob/master/doc/yjit/yjit.md
 [aot]: https://en.wikipedia.org/wiki/Ahead-of-time_compilation
+[clbg]: https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html
