@@ -1,8 +1,15 @@
 #!/usr/bin/env -S k8 --single-threaded
 
+function iit_sort_copy(a) {
+	a.sort((x, y) => (x[0] - y[0]));
+	let b = [];
+	for (let i = 0; i < a.length; ++i)
+		b.push(a[i].slice(0));
+	return b;
+}
+
 function iit_index(a) {
 	if (a.length == 0) return -1;
-	a.sort(function(x, y) { return x[0] - y[0] });
 	let last, last_i, k;
 	for (let i = 0; i < a.length; i += 2) last = a[i][2] = a[i][1], last_i = i;
 	for (k = 1; 1<<k <= a.length; ++k) {
@@ -79,7 +86,7 @@ function main(args)
 	let bit_st = 28, bit_len = 14, seed = 11, n = 1000000;
 	if (args.length >= 1) n = parseInt(args[0]);
 	let rng = splitmix32(seed)
-	const a1 = gen_intv(n, rng, bit_st, bit_len);
+	const a1 = iit_sort_copy(gen_intv(n, rng, bit_st, bit_len));
 	const a2 = gen_intv(n, rng, bit_st, bit_len);
 	iit_index(a1);
 	let tot_cov = 0;

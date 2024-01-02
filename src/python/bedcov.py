@@ -68,7 +68,10 @@ if __name__ == "__main__":
 	bit_st, bit_len, seed, n = 28, 14, 11, 1000000
 	if len(sys.argv) >= 2: n = int(sys.argv[1])
 	rng = splitmix32(seed)
-	a1 = sorted(gen_intv(n, rng, bit_st, bit_len), key=lambda t:t[0])
+	a1_raw = sorted(gen_intv(n, rng, bit_st, bit_len), key=lambda t:t[0])
+	a1 = []
+	for i in range(len(a1_raw)):
+		a1.append(a1_raw[i].copy())
 	a2 = gen_intv(n, rng, bit_st, bit_len)
 	max_level = iit_index(a1)
 	tot_cov = 0

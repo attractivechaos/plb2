@@ -1,7 +1,20 @@
 local bit = require("bit")
 
-function it_index(a)
+function it_sort_copy(a)
 	table.sort(a, function(x,y) return x[1] < y[1] end)
+	local b = {}
+	for i = 1, #a do
+		local t = {}
+		for k, v in pairs(a[i]) do
+			t[k] = v
+		end
+		table.insert(b, t)
+	end
+	return b
+end
+
+function it_index(a)
+	--table.sort(a, function(x,y) return x[1] < y[1] end)
 	local last, last_i
 	for i = 1, #a, 2 do
 		a[i][3], last, last_i = a[i][2], a[i][2], i
@@ -89,7 +102,7 @@ end
 local n = 1000000
 local rng = splitmix32(11)
 local bit_st, bit_len = 28, 14
-local a1 = gen_intv(n, rng, bit_st, bit_len)
+local a1 = it_sort_copy(gen_intv(n, rng, bit_st, bit_len))
 local a2 = gen_intv(n, rng, bit_st, bit_len)
 it_index(a1)
 local tot_cov = 0
