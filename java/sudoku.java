@@ -121,7 +121,7 @@ class sudoku {
 		};
 		sudoku a = new sudoku();
 		a.genmat();
-		int n = 100;
+		int n = 200;
 		for (int i = 0; i < n; ++i) {
 			for (int j = 0; j < hard20.length; ++j) {
 				if (hard20[j].length() >= 81) {

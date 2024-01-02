@@ -26,7 +26,7 @@ function matmul(n, a, b)
 	return c
 end
 
-local n = tonumber(arg[1]) or 1000
+local n = tonumber(arg[1]) or 1500
 local a = matgen(n)
 local b = matgen(n)
 local c = matmul(n, a, b)

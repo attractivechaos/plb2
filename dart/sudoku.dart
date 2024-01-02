@@ -119,7 +119,7 @@ main() {
 		".....1.2.3...4.5.....6....7..2.....1.8..9..3.4.....8..5....2....9..3.4....67....."
   ];
   final Sudoku s = new Sudoku();
-  var n = 100;
+  var n = 200;
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < hard20.length; ++j) {
       var rst = s.solve(hard20[j]);

@@ -206,7 +206,7 @@ int main(int argc, char *argv[])
 {
 	int bit_st = 28, bit_len = 14, max_level;
 	uint32_t x = 11;
-	size_t j, n = 500000, m_b = 0;
+	size_t j, n = 1000000, m_b = 0;
 	intv_t *a1, *a2, *b = 0;
 	stype_t tot_cov = 0;
 

@@ -44,7 +44,7 @@ fn matmul(n: u32, a: [][]f64, b: [][]f64) [][]f64 {
 }
 
 pub fn main() !void {
-	const n = 1000;
+	const n = 1500;
 	const a = matgen(n);
 	const b = matgen(n);
 	const c = matmul(n, a, b);

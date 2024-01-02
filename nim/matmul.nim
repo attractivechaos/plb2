@@ -18,7 +18,7 @@ proc matmul(n: int, a: seq[seq[float64]], b: seq[seq[float64]]): seq[seq[float64
         c[i][j] += aik * bk[j]
   return c
 
-var n = 1000
+var n = 1500
 var a = matgen(n)
 var b = matgen(n)
 var c = matmul(n, a, b)

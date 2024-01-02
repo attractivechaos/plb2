@@ -61,7 +61,7 @@ fn matmul(inout c: Matrix, a: Matrix, b: Matrix):
 				c[i, j] += aik * b[k, j]
 
 fn main():
-	let n = 1000
+	let n = 1500
 	var a = Matrix(n, n)
 	var b = Matrix(n, n)
 	var c = Matrix(n, n)

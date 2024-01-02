@@ -29,7 +29,7 @@ plot \
 	"" u ($5) t 'bedcov' ls 4
 
 set out "time-zoom.eps"
-set yran [0:25]
+set yran [0:40]
 plot \
 	"<k8 parse-readme.js ../README.md" u ($2):xtic(1) t 'nqueens' ls 1, \
 	"" u ($3) t 'matmul' ls 2, \

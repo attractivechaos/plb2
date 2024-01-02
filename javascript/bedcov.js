@@ -76,7 +76,7 @@ var ccc = {
 
 function main(args)
 {
-	let bit_st = 28, bit_len = 14, seed = 11, n = 500000;
+	let bit_st = 28, bit_len = 14, seed = 11, n = 1000000;
 	if (args.length >= 1) n = parseInt(args[0]);
 	let rng = splitmix32(seed)
 	const a1 = gen_intv(n, rng, bit_st, bit_len);

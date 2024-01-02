@@ -65,7 +65,7 @@ def gen_intv(n, rng, bit_st, bit_len):
 
 import sys
 if __name__ == "__main__":
-	bit_st, bit_len, seed, n = 28, 14, 11, 500000
+	bit_st, bit_len, seed, n = 28, 14, 11, 1000000
 	if len(sys.argv) >= 2: n = int(sys.argv[1])
 	rng = splitmix32(seed)
 	a1 = sorted(gen_intv(n, rng, bit_st, bit_len), key=lambda t:t[0])

@@ -24,7 +24,7 @@ def matmul(n, a, b)
 	return c
 end
 
-n = 1000
+n = 1500
 a = matgen(n)
 b = matgen(n)
 c = matmul(n, a, b)

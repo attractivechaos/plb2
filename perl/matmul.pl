@@ -6,7 +6,7 @@ use warnings;
 &main;
 
 sub main {
-	my $n = $ARGV[0] || 1000;
+	my $n = $ARGV[0] || 1500;
 	$n = int($n/2) * 2;
 	my (@a, @b, @x);
 	&matgen($n, \@a);

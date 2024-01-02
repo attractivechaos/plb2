@@ -23,7 +23,7 @@ List<Float64List> matmul(int n, a, b) {
 }
 
 main() {
-	var n = 1000;
+	var n = 1500;
 	final a = matgen(n);
 	final b = matgen(n);
 	final c = matmul(n, a, b);

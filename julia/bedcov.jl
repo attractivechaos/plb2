@@ -91,7 +91,7 @@ end
 function main(args)
 	bit_st, bit_len = 28, 14
 	x = Splitmix32(11)
-	n = 500000
+	n = 1000000
 	a1, x  = gen_intv(n, x, bit_st, bit_len)
 	a2, x  = gen_intv(n, x, bit_st, bit_len)
 	it_index!(a1)

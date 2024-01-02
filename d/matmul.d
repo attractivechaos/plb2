@@ -26,7 +26,7 @@ double[][] matmul(in double[][] a, in double[][] b) {
 }
 
 void main(in string[] args) {
-	int n = 1000;
+	int n = 1500;
 	auto a = matgen(n);
 	auto b = matgen(n);
 	auto c = matmul(a, b);

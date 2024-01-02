@@ -22,7 +22,7 @@ class matmul {
 		return c;
 	}
 	public static void main(String[] args) {
-		int n = 1000;
+		int n = 1500;
 		if (args.length >= 1) n = Integer.parseInt(args[0]);
 		n = n / 2 * 2;
 		matmul m = new matmul();

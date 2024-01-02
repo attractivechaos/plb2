@@ -203,7 +203,7 @@ const char *hard20[N_SUDOKU] = {
 
 int main(int argc, char *argv[])
 {
-	int i, j, n = 100;
+	int i, j, n = 200;
 	sdaux_t *a;
 	char buf[82];
 	if (argc > 1) n = atoi(argv[1]);

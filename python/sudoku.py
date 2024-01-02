@@ -107,7 +107,7 @@ hard20 = """
 """
 
 if __name__ == "__main__":
-	a, n = hard20.split("\n"), 100;
+	a, n = hard20.split("\n"), 200;
 	if len(sys.argv) >= 2: n = int(sys.argv[1]);
 	R, C = sd_genmat()
 	for i in range(n):

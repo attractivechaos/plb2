@@ -122,7 +122,7 @@ const string hard20 =
 .....1.2.3...4.5.....6....7..2.....1.8..9..3.4.....8..5....2....9..3.4....67.....`;
 
 void main() {
-	int n = 100;
+	int n = 200;
 	Sdaux a;
 	a.initialize();
 	auto b = hard20.split("\n");

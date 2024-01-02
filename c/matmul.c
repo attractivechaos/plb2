@@ -42,7 +42,7 @@ double **mat_mul(int n, int p, double **a, int m, double **b)
 
 int main(int argc, char *argv[])
 {
-	int n = 1000;
+	int n = 1500;
 	double **a, **b, **c;
 	if (argc > 1) n = atoi(argv[1]);
 	a = mat_gen(n);

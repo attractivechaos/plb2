@@ -86,7 +86,7 @@ function gen_intv(n, rng, bit_st, bit_len)
 	return a
 end
 
-local n = 500000
+local n = 1000000
 local rng = splitmix32(11)
 local bit_st, bit_len = 28, 14
 local a1 = gen_intv(n, rng, bit_st, bit_len)

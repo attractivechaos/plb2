@@ -21,7 +21,7 @@ func matmul(n: Int, a: [[Float64]], b: [[Float64]]) -> [[Float64]] {
 	return c
 }
 
-var n = 1000
+var n = 1500
 let a = matgen(n:n)
 let b = matgen(n:n)
 let c = matmul(n:n, a:a, b:b)

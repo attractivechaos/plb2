@@ -25,7 +25,7 @@ fn matmul(n: usize, a: Vec<Vec<f64>>, b: Vec<Vec<f64>>) -> Vec<Vec<f64>> {
 }
 
 fn main() {
-	let n = 1000;
+	let n = 1500;
 	let a = matgen(n);
 	let b = matgen(n);
 	let c = matmul(n, a, b);

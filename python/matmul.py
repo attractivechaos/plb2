@@ -17,7 +17,7 @@ def matmul(a, b):
 	return d
 
 def main():
-	n = 1000
+	n = 1500
 	if (len(sys.argv) > 1): n = int(sys.argv[1])
 	tmp = 1. / n / n
 	a = [[tmp * (i - j) * (i + j) for j in range(n)] for i in range(n)]

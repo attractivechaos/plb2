@@ -93,7 +93,7 @@ def gen_intv(n, x : UInt32, bit_st, bit_len)
 end
 
 x = 11_u32
-n, bit_st, bit_len = 500000, 28, 14
+n, bit_st, bit_len = 1000000, 28, 14
 a1, x = gen_intv(n, x, bit_st, bit_len)
 a2, x = gen_intv(n, x, bit_st, bit_len)
 IITree.index(a1)

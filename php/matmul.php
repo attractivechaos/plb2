@@ -19,7 +19,7 @@ function matmul(int $n, $a, $b) {
 	}
 	return $c;
 }
-$n = 1000;
+$n = 1500;
 $a = matgen($n);
 $b = matgen($n);
 $c = matmul($n, $a, $b);

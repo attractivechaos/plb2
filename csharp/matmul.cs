@@ -19,7 +19,7 @@ class Matmul {
 		return c;
 	}
 	public static void Main(String[] args) {
-		int n = 1000;
+		int n = 1500;
 		if (args.GetLength(0) >= 1) n = int.Parse(args[0]);
 		n = n / 2 * 2;
 		double[,] a, b, x;

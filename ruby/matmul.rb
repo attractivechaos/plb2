@@ -27,7 +27,7 @@ def matmul(a, b)
 	return c
 end
 
-n = 1000
+n = 1500
 if ARGV.length >= 1
 	n = ARGV[0].to_i
 end

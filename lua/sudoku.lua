@@ -122,7 +122,7 @@ local hard20 = {
 }
 
 local R, C = sd_genmat()
-local n = 100
+local n = 200
 for i = 1, n do
 	for _, l in ipairs(hard20) do
 		if #l >= 81 then

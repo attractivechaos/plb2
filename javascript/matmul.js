@@ -29,7 +29,7 @@ var ccc = {
 	argv: typeof k8_version == "function"? arguments.slice(0) : typeof Deno == "object"? Deno.args.slice(0) : typeof Bun == "function"? Bun.argv.slice(2) : process.argv.splice(2)
 };
 
-let n = ccc.argv.length > 0? parseInt(ccc.argv[0]) : 1000;
+let n = ccc.argv.length > 0? parseInt(ccc.argv[0]) : 1500;
 const a = matgen(n), b = matgen(n);
 const c = matmul(a, b);
 ccc.print(c[n>>1][n>>1]);

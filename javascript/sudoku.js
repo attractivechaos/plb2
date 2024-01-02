@@ -118,7 +118,7 @@ var ccc = {
 };
 
 function main(args) {
-	const n = args && args.length > 0? parseInt(args[0]) : 100;
+	const n = args && args.length > 0? parseInt(args[0]) : 200;
 	const a = hard20.split("\n");
 	const solver = new SudokuSolver();
 	for (let i = 0; i < n; ++i) {

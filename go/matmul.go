@@ -33,7 +33,7 @@ func matmul(n int, a [][]float64, b [][]float64) [][]float64 {
 }
 
 func main() {
-	n := 1000;
+	n := 1500;
 	a := matgen(n);
 	b := matgen(n);
 	c := matmul(n, a, b);

@@ -86,7 +86,7 @@ proc gen_intv(n: int64, rng: var Splitmix32, bit_st: int64, bit_len: int64): Int
     result.add((st, en, int64(i), 0'i64))
 
 var rng = Splitmix32(x:11)
-var n = 500000'i64
+var n = 1000000'i64
 var bit_st = 28
 var bit_len = 14
 var a1 = gen_intv(n, rng, bit_st, bit_len)
