@@ -27,8 +27,10 @@ complete. They are:
 Most of the implementations in plb2 were written by me. A few matmul and sudoku
 implementations were adapted from plb implementations contributed by others.
 I am mostly a C programmer and am not familiar with most languages in plb2. **If
-you can improve the performance of some implementations, please send a pull
-requst.**
+you can improve the performance of some implementations, please raise an issue
+or send a pull requst.**
+
+## Results and Discussions
 
 |Label    |Language  |Runtime|Version| nqueen | matmul | sudoku | bedcov |
 |:--------|:---------|:------|:------|-------:|-------:|-------:|-------:|
