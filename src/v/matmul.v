@@ -1,3 +1,4 @@
+@[direct_array_access]
 fn matgen(n int) [][]f64 {
 	mut a := [][]f64{len: n, init: []f64{len: n}}
 	tmp := 1.0 / f64(n) / f64(n)
@@ -9,6 +10,7 @@ fn matgen(n int) [][]f64 {
 	return a
 }
 
+@[direct_array_access]
 fn matmul(a [][]f64, b [][]f64) [][]f64 {
 	n := a.len
 	mut c := [][]f64{len: n, init: []f64{len: n}}
