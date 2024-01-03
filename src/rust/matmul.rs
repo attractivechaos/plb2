@@ -13,11 +13,10 @@ fn matgen(n: usize) -> Vec<Vec<f64>> {
 
 fn matmul(n: usize, a: Vec<Vec<f64>>, b: Vec<Vec<f64>>) -> Vec<Vec<f64>> {
 	let mut c = vec![vec![0f64; n]; n];
-	for i in 0..n {
-		for k in 0..n {
-			let aik = a[i][k]; // hoisting aik helps performance, but hoisting b[k] doesn't
-			for j in 0..n {
-				c[i][j] += aik * b[k][j];
+	for (ai, ci) in a.iter().zip(&mut c) {
+		for (&aik, bk) in ai.iter().zip(&b) {
+			for (cij, &bkj) in ci.iter_mut().zip(bk) {
+				*cij += aik * bkj;
 			}
 		}
 	}
