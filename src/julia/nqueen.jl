@@ -1,21 +1,22 @@
 function nq_solve(n)
-	a = [ 0 for i=1:n ]
-	l = [ 0 for i=1:n ]
-	c = [ 0 for i=1:n ]
-	r = [ 0 for i=1:n ]
+	T = UInt32
+	a = T[ 0 for i=1:n ]
+	l = T[ 0 for i=1:n ]
+	c = T[ 0 for i=1:n ]
+	r = T[ 0 for i=1:n ]
 	m = 0
-	y0 = (1<<n) - 1
+	y0 = T((1<<n) - 1)
 	k = 1
 	@inbounds while k >= 1
 		y = (l[k] | c[k] | r[k]) & y0
 		if xor(y, y0) >> a[k] != 0
 			i = a[k]
 			while i < n && (y & (1<<i)) != 0
-				i += 1
+				i += one(i)
 			end
 			if k < n
-				z = 1<<i
-				a[k] = i + 1
+				z = one(T) << i
+				a[k] = i + one(i)
 				k += 1
 				l[k] = (l[k-1] | z) << 1
 				c[k] = c[k-1] | z
