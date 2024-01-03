@@ -1,7 +1,7 @@
 function matgen(n)
 	a = Array{Float64}(undef, n, n)
 	tmp = 1.0 / n / n
-	for i = 1:n, j = 1:n
+	@inbounds for i = 1:n, j = 1:n
 		a[i,j] = tmp * (i - j) * (i + j - 2)
 	end
 	return a
