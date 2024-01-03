@@ -1,4 +1,4 @@
-VFLAGS=-prod
+VFLAGS=-prod -gc none
 VC=v
 EXE=matmul nqueen
 
