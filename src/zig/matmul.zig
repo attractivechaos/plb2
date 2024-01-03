@@ -1,10 +1,10 @@
 const std = @import("std");
 
 fn mat_alloc(n: u32) [][]f64 {
-	var a: [][]f64 = undefined;
-	a = std.heap.page_allocator.alloc([]f64, n) catch unreachable;
-	for (a) |*row| {
-		row.* = std.heap.page_allocator.alloc(f64, n) catch unreachable;
+        var a = std.heap.page_allocator.alloc([]f64, n) catch unreachable;
+        var storage: []f64 = std.heap.page_allocator.alloc(f64, n * n) catch unreachable;
+	for (a, 0..) |*row, i| {
+		row.* = storage[i * n..][0..n];
 	}
 	return a;
 }
