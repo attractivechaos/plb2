@@ -183,7 +183,7 @@ not optimistic.
 |js:deno  |JavaScript|Deno   |1.39.1 | 4.00   | 3.06   | 4.04   | 3.87   |
 |js:k8    |JavaScript|k8     |1.0    | 3.79   | 2.99   | 3.76   | 4.02   |
 |js:node  |JavaScript|Node   |21.5.0 | 3.73   | 2.88   | 3.77   | 3.83   |
-|julia    |Julia     |       |1.10.0 | 3.06   | 0.76   | 2.72   | 2.47   |
+|julia    |Julia     |       |1.10.0 | 3.06   | 0.76   | 2.72   | 1.96   |
 |luajit   |Lua       |LuaJIT |2.1    | 5.31   | 2.66   | 4.48   | 10.59  |
 |mojo+    |Mojo      |       |0.6.1  | 3.24   | 1.12   |        |        |
 |nim+     |Nim       |       |2.0.2  | 3.18   | 0.69   |        | 1.18   |
