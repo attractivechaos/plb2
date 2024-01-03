@@ -4,3 +4,4 @@
 *.dwarf
 *.json
 *.dll
+*.fasl
