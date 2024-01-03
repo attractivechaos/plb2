@@ -1,7 +1,7 @@
 function matgen(n)
 	a = Array{Float64}(undef, n, n)
 	tmp = 1.0 / n / n
-	for i = 1:n, j = 1:n
+	@inbounds for j = 1:n, i = 1:n
 		a[i,j] = tmp * (i - j) * (i + j - 2)
 	end
 	return a
@@ -9,11 +9,10 @@ end
 
 function matmul(n, a, b)
 	c = zeros(Float64, n, n)
-	for i = 1:n
+	for j = 1:n
 		for k = 1:n
-			aik = a[i,k]
-			for j = 1:n
-				c[i,j] += aik * b[k,j]
+			@inbounds for i = 1:n
+					c[i,j] += a[i,k] * b[k,j]
 			end
 		end
 	end
