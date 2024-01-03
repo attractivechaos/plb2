@@ -4,14 +4,14 @@ EXE=nqueen matmul
 all:$(EXE)
 
 nqueen:nqueen.asd
-	$(LISP) --load $< \
-		--eval "(ql:quickload :$@)" \
+	$(LISP) --eval "(require :asdf)" \
+		--load $< \
 		--eval "(asdf:make :$@)" \
 		--eval "(quit)"
 
 matmul:matmul.asd
-	$(LISP) --load $< \
-		--eval "(ql:quickload :$@)" \
+	$(LISP) --eval "(require :asdf)" \
+		--load $< \
 		--eval "(asdf:make :$@)" \
 		--eval "(quit)"
 
