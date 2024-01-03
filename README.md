@@ -194,7 +194,7 @@ not optimistic.
 |ruby     |Ruby      |(YJIT) |3.3.0  | 88.15  | 130.51 | 52.26  |        |
 |rust+    |Rust      |       |1.75.0 | 2.68   | 0.56   | 1.65   |        |
 |swift+   |Swift     |       |5.9.0  | 2.92   | 7.46   | 16.02  |        |
-|v+       |V         |       |0.4.3  | 2.63   | 0.56   |        |        |
+|v+       |V         |       |0.4.3  | 2.57   | 0.56   |        |        |
 |zig+     |Zig       |       |0.11.0 | 2.74   | 0.56   |        |        |
 
 [plb]: https://github.com/attractivechaos/plb
