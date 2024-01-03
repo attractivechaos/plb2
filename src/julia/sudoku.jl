@@ -7,7 +7,7 @@ function sd_genmat()
 	r = 1
 	for i = 0:8, j = 0:8, k = 0:8
 		C[r,1] = 9 * i + j + 1
-		C[r,2] = (floor(i/3)*3 + floor(j/3)) * 9 + k + 82
+		C[r,2] = (div(i, 3)*3 + div(j, 3)) * 9 + k + 82
 		C[r,3] = 9 * i + k + 163
 		C[r,4] = 9 * j + k + 244
 		r += 1
