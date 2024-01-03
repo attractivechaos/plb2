@@ -23,8 +23,11 @@ Programming Language Benchmark v2 (plb2) evaluates the performance of 20
 programming languages on four CPU-intensive tasks. It is a follow-up to
 [plb][plb] conducted in 2011. In plb2, all implementations use the same
 algorithm for each task and their performance bottlenecks do not fall in
-library functions. We do not intend to evaluate different algorithms or the
-quality of the standard libraries in these languages.
+library functions. We do not intend to compare different algorithms or the
+quality of the standard libraries in these languages. Plb2 is supposed to
+demonstrate the performance of a language when you have to implement a new
+algorithm in the language, which may happen if you can't find the algorithm in
+existing libraries.
 
 The four tasks in plb2 all take a few seconds for a fast implementation to
 complete. The tasks are:
@@ -142,9 +145,10 @@ human, but this might not be the case in other languages.
 The most well-known and the longest running language benchmark is the [Computer
 Language Benchmark Games][clbg]. Plb2 differs in that it includes more recent
 languages (e.g. Nim and Crystal), more language runtimes (e.g. PyPy and
-LuaJIT), more tasks, comes with more uniform implementations and focuses more
-on the performance of the language itself without library functions. It
-complements the Computer Language Benchmark Games.
+LuaJIT) and more tasks (all four tasks are new), and it comes with more uniform
+implementations and focuses more on the performance of the language itself
+without library functions. **Plb2 complements the Computer Language Benchmark
+Games.**
 
 One important area that plb2 does not evaluate is the performance of memory
 allocation and/or garbage collection. This may contribute more to practical
