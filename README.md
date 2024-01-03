@@ -82,7 +82,8 @@ depending on how and when compilation is done:
 
 3. JIT compiled with a separate compilation step (Java and C#). With separate
    compilation, Java and C# can afford to trade compilation time for running
-   time although they are not obviously faster than those in group 2.
+   time in theory, but in this benchmark, they are not obviously faster than
+   those in group 2.
 
 4. [Ahead-of-time compilation][aot] (the rest). Optimizing binaries for
    specific hardware, these compilers, except Swift, tend to generate the
@@ -133,7 +134,8 @@ this optimization. Manual optimization may actually hurt performance.
 
 However, **most other languages cannot optimize this nested loop.** If we
 manually move `a[i][k]` to the loop above it, we can often improve their
-performance. Manual optimization may still be necessary for these languages.
+performance. Some C/C++ programmers say compilers often optimize better than
+human, but this might not be the case in other languages.
 
 ## <a name="conclusion"></a>Discussions
 
