@@ -6,7 +6,7 @@ function nq_solve(n)
 	m = 0
 	y0 = (1<<n) - 1
 	k = 1
-	while k >= 1
+	@inbounds while k >= 1
 		y = (l[k] | c[k] | r[k]) & y0
 		if xor(y, y0) >> a[k] != 0
 			i = a[k]
