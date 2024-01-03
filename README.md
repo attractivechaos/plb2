@@ -1,8 +1,5 @@
 **TL;DR**: see the figure below. Note that nqueen and matmul are implemented in
 all languages but sudoku and bedcov are only implemented in some.
-NB: nqueen and matmul in V and nqueen in Julia have been updated in the
-[table](#table), but the figure is not in sync yet. Now V is the fastest on
-nqueen+matmul.
 
 <img align="left" src="analysis/rst-m1.png"/>
 
@@ -146,9 +143,9 @@ human, but this might not be the case in other languages.
 ## <a name="conclusion"></a>Discussions
 
 The most well-known and the longest running language benchmark is the [Computer
-Language Benchmark Games][clbg]. Plb2 differs in that it includes more recent
-languages (e.g. Nim and Crystal), more language runtimes (e.g. PyPy and
-LuaJIT) and more tasks (all four tasks are new), and it comes with more uniform
+Language Benchmark Games][clbg]. Plb2 differs in that it includes different
+languages (e.g. Nim and Crystal), different language runtimes (e.g. PyPy and
+LuaJIT) and new tasks, and it comes with more uniform
 implementations and focuses more on the performance of the language itself
 without library functions. **Plb2 complements the Computer Language Benchmark
 Games.**
@@ -179,7 +176,7 @@ not optimistic.
 |crystal+ |Crystal   |       |1.10.0 | 3.28   | 2.45   |        | 0.87   |
 |c#:.net+ |C#        |.NET   |8.0.100| 3.00   | 4.67   | 3.01   |        |
 |d:ldc2+  |D         |LDC2   |2.105.2| 2.68   | 0.57   | 1.60   |        |
-|dart     |Dart      |(JIT)  |3.2.4  | 3.62   | 4.81   | 3.24   |        |
+|dart:jit |Dart      |(JIT)  |3.2.4  | 3.62   | 4.81   | 3.24   |        |
 |go+      |Go        |       |1.21.5 | 2.94   | 1.63   | 2.04   |        |
 |java+    |Java      |OpenJDK|20.0.1 | 3.92   | 1.14   | 3.20   |        |
 |js:bun   |JavaScript|Bun    |1.0.20 | 3.11   | 1.75   | 3.07   | 2.83   |
