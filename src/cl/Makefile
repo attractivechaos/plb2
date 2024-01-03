@@ -1,9 +1,15 @@
 LISP ?= sbcl
-EXE=nqueen
+EXE=nqueen matmul
 
 all:$(EXE)
 
 nqueen:nqueen.asd
+	$(LISP) --load $< \
+		--eval "(ql:quickload :$@)" \
+		--eval "(asdf:make :$@)" \
+		--eval "(quit)"
+
+matmul:matmul.asd
 	$(LISP) --load $< \
 		--eval "(ql:quickload :$@)" \
 		--eval "(asdf:make :$@)" \
