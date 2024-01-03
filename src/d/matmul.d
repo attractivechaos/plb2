@@ -15,10 +15,12 @@ double[][] matmul(int n, in double[][] a, in double[][] b) {
 		for (int j = 0; j < n; ++j)
 			c[i][j] = 0.0;
 	for (int i = 0; i < n; ++i) {
+		auto ci = c[i];
 		for (int k = 0; k < n; ++k) {
 			auto aik = a[i][k]; // faster this way
+			auto bk = b[k];
 			for (int j = 0; j < n; ++j)
-				c[i][j] += aik * b[k][j];
+				ci[j] += aik * bk[j];
 		}
 	}
 	return c;
