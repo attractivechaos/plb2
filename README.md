@@ -1,6 +1,7 @@
 **TL;DR**: see the figure below. Note that nqueen and matmul are implemented in
 all languages but sudoku and bedcov are only implemented in some.
-NB: matmul in V has been updated in the [table](#table), but the figure is not in sync yet.
+NB: nqueen and matmul in V have been updated in the [table](#table), but the
+figure is not in sync yet. Now V is the fastest on nqueen+matmul.
 
 <img align="left" src="analysis/rst-m1.png"/>
 
