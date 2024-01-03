@@ -24,7 +24,8 @@ function main(args) {
 			let m, b = [t[1]];
 			for (let i = 5; i <= 8; ++i)
 				b.push((m = /(\d+\.\d+)/.exec(t[i])) != null? parseFloat(m[1]) : 0.0);
-			a.push(b);
+			if (b[1] > 0.0 && b[2] > 0.0)
+				a.push(b);
 		}
 	}
 	a.sort(function(x,y) { return (x[1]+x[2]) - (y[1]+y[2]) });
