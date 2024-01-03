@@ -22,10 +22,12 @@ func matmul(n int, a [][]float64, b [][]float64) [][]float64 {
 		c[i] = make([]float64, n);
 	}
 	for i := 0; i < n; i++ {
+		ci := c[i]
 		for k := 0; k < n; k++ {
 			t := a[i][k];
+			bk := b[k]
 			for j := 0; j < n; j++ {
-				c[i][j] += t * b[k][j];
+				ci[j] += t * bk[j];
 			}
 		}
 	}
