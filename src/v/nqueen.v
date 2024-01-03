@@ -1,6 +1,7 @@
+@[direct_array_access]
 fn nq_solve(n int) int {
 	mut a := []int{len: n, init: -1}
-	mut l := []int{len: n, init: 0}
+	mut l := []u32{len: n, init: 0}
 	mut c := []int{len: n, init: 0}
 	mut r := []int{len: n, init: 0}
 	mut m := 0
@@ -17,7 +18,7 @@ fn nq_solve(n int) int {
 				i += 1
 			}
 			if k < n - 1 {
-				z := 1<<i
+				z := u32(1)<<i
 				a[k] = i
 				k += 1
 				l[k] = (l[k-1]|z)<<1
