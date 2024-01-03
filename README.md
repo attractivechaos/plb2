@@ -1,5 +1,6 @@
 **TL;DR**: see the figure below. Note that nqueen and matmul are implemented in
 all languages but sudoku and bedcov are only implemented in some.
+NB: matmul in V has been updated in the [table](#table), but the figure is not in sync yet.
 
 <img align="left" src="analysis/rst-m1.png"/>
 
@@ -193,7 +194,7 @@ not optimistic.
 |ruby     |Ruby      |(YJIT) |3.3.0  | 88.15  | 130.51 | 52.26  |        |
 |rust+    |Rust      |       |1.75.0 | 2.68   | 0.56   | 1.65   |        |
 |swift+   |Swift     |       |5.9.0  | 2.92   | 7.46   | 16.02  |        |
-|v+       |V         |       |0.4.3  | 2.63   | 3.17   |        |        |
+|v+       |V         |       |0.4.3  | 2.63   | 0.56   |        |        |
 |zig+     |Zig       |       |0.11.0 | 2.74   | 0.56   |        |        |
 
 [plb]: https://github.com/attractivechaos/plb
