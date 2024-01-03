@@ -32,7 +32,6 @@ end
 function it_overlap!(a::Vector{Interval{S,T}}, st::S, en::S, b::Vector{Interval{S,T}}) where {S,T}
 	resize!(b, 0)
 	stack = Vector{Tuple{Int,Int,Int}}()
-	sizehint!(stack, 128)
 	h = 0
 	while (1<<h <= length(a)) h += 1 end
 	h -= 1
