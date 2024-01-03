@@ -12,7 +12,9 @@ function matmul(n, a, b)
 	for j = 1:n
 		for k = 1:n
 			for i = 1:n
-				c[i,j] += a[i,k] * b[k,j]
+				@inbounds begin
+					c[i,j] += a[i,k] * b[k,j]
+				end
 			end
 		end
 	end
