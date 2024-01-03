@@ -33,7 +33,8 @@ complete. The tasks are:
   by the second C implementation [from Rosetta Code][8qrc]. It involves nested
   loops and integer bit operations.
 
-* **matmul**: multiplying two square matrices of 1500x1500 in size.
+* **matmul**: multiplying two square matrices of 1500x1500 in size. The inner
+  loop resembles BLAS' [axpy][axpy] operation.
 
 * **sudoku**: solving 4000 hard [Sudokus][sudoku] (20 puzzles repeated for 200
   times) using the [kudoku algorithm][kudoku]. This algorithm heavily uses
@@ -47,8 +48,8 @@ Every language has nqueen and matmul implementations. Some languages do not
 have sudoku or bedcov implementations. In addition, I implemented most
 algorithms in plb2 and adapted a few contributed matmul and sudoku
 implementations in plb. As I am mostly a C programmer, implementations in other
-languages may be suboptimal and implementations in functional languages are
-lacking. **Pull requests are welcomed!**
+languages may be suboptimal and there are no implementations in functional
+languages. **Pull requests are welcomed!**
 
 ## <a name="result"></a>Results
 
@@ -56,9 +57,8 @@ The figure at the top of the page summarizes the elapsed time of each implementa
 measured on an Apple M1 MacBook Pro. [Hyperfine][hyperfine] was used for timing
 except for a few slow implementations which were timed with the "time" bash
 command without repetition. A plus sign "+" indicates an explicit compilation
-step. Exact timing can be found in the [table](#table) towards the end of this
-README. The figure was programmatically generated from the table but may be
-outdated.
+step. Exact timing can be found in the [table below](#table). The figure was
+programmatically generated from the table but may be outdated.
 
 ### <a name="overall"></a>Overall impression
 
@@ -71,24 +71,22 @@ depending on how and when compilation is done:
 
 2. JIT compiled without a separate compilation step (Dart, all JavaScript
    runtimes, Julia, LuaJIT, PHP, PyPy and Ruby3 with [YJIT][yjit]). These
-   language implementations compile the source code on the fly and execute.
-   They have to balance compilation and running time to achieve the best
+   language implementations compile hot code on the fly and then execute. They
+   have to balance compilation time and running time to achieve the best
    overall performance.
 
    In this group, although PHP and Ruby3 are faster than Perl and CPython, they
-   are still tens of times slower than PyPy and others. Notably, LuaJIT was
-   often [considered][luablog] as one of the fastest scripting language
-   implementations 10 years ago but it is no longer competitive due to
-   continuous improvements to Julia and JavaScript engines.
+   are still an order of magnitude slower than PyPy. The two JavaScript engines
+   (Bun and Node), Dart and Julia all perform well. They are about twice as
+   fast as PyPy.
 
 3. JIT compiled with a separate compilation step (Java and C#). With separate
-   compilation, these language implementations can afford to generate optimized
-   bytecode at length that run slightly faster at runtime, though only by a
-   little in comparison to group 2.
+   compilation, Java and C# can afford to trade compilation time for running
+   time although they are not obviously faster than those in group 2.
 
-4. [Ahead-of-time compilation][aot] (the rest). Applying all kinds of
-   optimizations available on specific hardware, these compilers, except Swift,
-   tend to generate the fastest executables.
+4. [Ahead-of-time compilation][aot] (the rest). Optimizing binaries for
+   specific hardware, these compilers, except Swift, tend to generate the
+   fastest executables.
 
 ### <a name="caveat"></a>Caveats
 
@@ -154,6 +152,15 @@ built-in allocator in a language implementation does not work well, we can
 implement customized memory allocator just for the specific task but this, in
 my view, would not represent typical use cases.
 
+When plb was conducted in 2011, half of the languages in the figure above were
+not mature or even did not exist. It is exciting to see many of them have
+reached the 1.0 milestone and are gaining popularity among modern programmers.
+On the other hand, Python remains one of the two most used scripting languages
+despite its poor performance. In my view, this is because PyPy would not be
+officially endorsed while other JIT-based languages are not general or good
+enough. Will there be a language to displace Python in the next decade? I am
+not optimistic.
+
 ## <a name="table"></a>Appendix: Timing on Apple M1 Macbook Pro
 
 |Label    |Language  |Runtime|Version| nqueen | matmul | sudoku | bedcov |
@@ -162,7 +169,7 @@ my view, would not represent typical use cases.
 |crystal+ |Crystal   |       |1.10.0 | 3.28   | 2.45   |        | 0.87   |
 |c#:.net+ |C#        |.NET   |8.0.100| 3.00   | 4.67   | 3.01   |        |
 |d:ldc2+  |D         |LDC2   |2.105.2| 2.68   | 2.30   | 1.60   |        |
-|dart     |Dart      |       |3.2.4  | 3.62   | 4.81   | 3.24   |        |
+|dart     |Dart      |(JIT)  |3.2.4  | 3.62   | 4.81   | 3.24   |        |
 |go+      |Go        |       |1.21.5 | 2.94   | 2.77   | 2.04   |        |
 |java+    |Java      |OpenJDK|20.0.1 | 3.92   | 1.14   | 3.20   |        |
 |js:bun   |JavaScript|Bun    |1.0.20 | 3.11   | 1.75   | 3.07   | 2.83   |
@@ -197,3 +204,4 @@ my view, would not represent typical use cases.
 [yjit]: https://github.com/ruby/ruby/blob/master/doc/yjit/yjit.md
 [aot]: https://en.wikipedia.org/wiki/Ahead-of-time_compilation
 [clbg]: https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html
+[axpy]: https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms#Level_1
