@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#define NQ_MAX 15
+#define NQ_MAX 31
 
 static int nq_solve(int n) // inspired the 2nd C implementation from Rossetta Code
 {
@@ -31,9 +31,11 @@ static int nq_solve(int n) // inspired the 2nd C implementation from Rossetta Co
 	return m;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
 	int n = 15;
+	if (argc > 1) n = atoi(argv[1]);
+	if (n > NQ_MAX || n <= 0) abort();
 	printf("%d\n", nq_solve(n));
 	return 0;
 }
