@@ -10,8 +10,11 @@ proc allocMat(n: int): Matrix =
 
 proc deallocMat(mat: Matrix, n: int) =
   for i in 0..<n:
+    for j in 0..<n:
+      `=destroy`(mat[i][j])
     dealloc(mat[i])
   dealloc(mat)
+  mat = nil
 
 proc matgen(n: int): Matrix =
   var tmp = 1.0 / float64(n) / float64(n)

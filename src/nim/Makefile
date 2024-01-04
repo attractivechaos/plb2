@@ -1,5 +1,5 @@
 NIM=nim
-NIM_FLAGS=--d:danger --passL: "-flto -march=native" --passC: "-flto"
+NIM_FLAGS=-d:release -d:lto
 EXE=nqueen matmul bedcov
 
 all:$(EXE)
