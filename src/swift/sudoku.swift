@@ -25,9 +25,9 @@ class Sudoku {
 			}
 		}
 	}
-	func update(sr: inout [Int], sc: inout [Int], r: Int, v: Int) -> Int {
+	func update(_ sr: inout [Int], _ sc: inout [Int], _ r: Int, _ v: Int) -> Int {
 		for c2 in 0...3 {
-			sc[self.C[r][c2]] += v<<7;
+			sc[self.C[r][c2]] ^= 1<<7;
 		}
 		var min = 10;
 		var min_c = 0;
@@ -67,35 +67,24 @@ class Sudoku {
 		return min<<16 | min_c;
 	}
 	// solve a Sudoku; _s is the standard dot/number representation
-	func solve(_s: String) {
+	func solve(_ s: String) {
 		var sr = Array(repeating: 0, count: 729);
-		var cr = Array(repeating: 0, count: 81);
+		var cr = Array(repeating: -1, count: 81);
 		var sc = Array(repeating: 9, count: 324);
-		var cc = Array(repeating: 0, count: 81);
-		var o  = Array(repeating: 0, count: 81);
+		var cc = Array(repeating: -1, count: 81);
+		var out = Array(s);
 		var hints = 0;
-		var i = 0;
-		for ch in _s {
-			var a = Int(ch.asciiValue ?? 48);
-			if a >= 49 && a <= 91 {
-				a -= 49;
-				_ = self.update(sr:&sr, sc:&sc, r:i * 9 + Int(a), v:1);
+		for i in 0..<81 {
+			let a = out[i].asciiValue ?? 48;
+			if a >= 49 && a <= 57 {
+				_ = self.update(&sr, &sc, i * 9 + Int(a - 49), 1);
 				hints += 1;
-			} else {
-				a = -1;
-			}
-			cr[i] = -1;
-			cc[i] = -1;
-			o[i] = a;
-			i += 1;
-			if i >= 81 {
-				break;
 			}
 		}
 		var dir = 1;
 		var cand = 10<<16 | 0;
 		var n = 0;
-		i = 0;
+		var i = 0;
 		while true {
 			while i >= 0 && i < 81 - hints {
 				if dir == 1 {
@@ -120,14 +109,14 @@ class Sudoku {
 				}
 				let c = cc[i];
 				if dir == -1 && cr[i] >= 0 {
-					_ = self.update(sr:&sr, sc:&sc, r:self.R[c][cr[i]], v:-1);
+					_ = self.update(&sr, &sc, self.R[c][cr[i]], -1);
 				}
 				var r2 = cr[i] + 1;
 				while r2 < 9 && sr[self.R[c][r2]] != 0 {
 					r2 += 1;
 				}
 				if r2 < 9 {
-					cand = self.update(sr:&sr, sc:&sc, r:self.R[c][r2], v:1);
+					cand = self.update(&sr, &sc, self.R[c][r2], 1);
 					cr[i] = r2;
 					i += 1;
 					dir = 1;
@@ -140,15 +129,11 @@ class Sudoku {
 			if i < 0 {
 				break;
 			}
-			var y: [UInt8] = Array(repeating: UInt8(0), count: 81);
-			for j in 0...80 {
-				y[j] = UInt8(o[j] + 49);
-			}
-			for j in 0...i-1 {
+			for j in 0..<i {
 				let r = self.R[cc[j]][cr[j]];
-				y[r/9] = UInt8(r%9 + 49);
+				out[r/9] = Character(String(r%9 + 1));
 			}
-			print(String(decoding: y, as: UTF8.self));
+			print(String(out))
 			n -= 1;
 			i -= 1;
 			dir = -1;
@@ -183,7 +168,7 @@ var n = 200;
 var a = Sudoku();
 for _ in 0...n-1 {
 	for j in 0...19 {
-		a.solve(_s:hard20[j]);
+		a.solve(hard20[j]);
 		print();
 	}
 }
