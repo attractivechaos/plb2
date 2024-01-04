@@ -59,21 +59,21 @@ languages. **Pull requests are welcomed!**
 The figure at the top of the page summarizes the elapsed time of each implementation
 measured on an Apple M1 MacBook Pro. [Hyperfine][hyperfine] was used for timing
 except for a few slow implementations which were timed with the "time" bash
-command without repetition. A plus sign "+" indicates an explicit compilation
-step. Exact timing can be found in the [table below](#table). The figure was
-programmatically generated from the table but may be outdated.
+command without repetition. A plus sign "+" indicates [ahead-of-time
+compilation][aot]. Exact timing can be found in the [table below](#table). The
+figure was programmatically generated from the table but may be outdated.
 
 ### <a name="overall"></a>Overall impression
 
-Programming language implementations in plb2 can be classified into four groups
+Programming language implementations in plb2 can be classified into three groups
 depending on how and when compilation is done:
 
 1. Purely interpretted with no compilation (Perl and [CPython][cpy], the
    official Python implementation). Not surprisingly, these are the slowest
    language implementations in this benchmark.
 
-2. JIT compiled without a separate compilation step (Dart, all JavaScript
-   runtimes, Julia, LuaJIT, PHP, PyPy and Ruby3 with [YJIT][yjit]). These
+2. JIT compiled (Dart, all JavaScript runtimes, Java, Julia, LuaJIT, PHP, PyPy
+   and Ruby3 with [YJIT][yjit]). These
    language implementations compile hot code on the fly and then execute. They
    have to balance compilation time and running time to achieve the best
    overall performance.
@@ -83,12 +83,7 @@ depending on how and when compilation is done:
    (Bun and Node), Dart and Julia all perform well. They are about twice as
    fast as PyPy.
 
-3. JIT compiled with a separate compilation step (Java and C#). With separate
-   compilation, Java and C# can afford to trade compilation time for running
-   time in theory, but in this benchmark, they are not obviously faster than
-   those in group 2.
-
-4. [Ahead-of-time compilation][aot] (the rest). Optimizing binaries for
+3. [Ahead-of-time compilation][aot] (the rest). Optimizing binaries for
    specific hardware, these compilers, except Swift, tend to generate the
    fastest executables.
 
@@ -174,12 +169,12 @@ not optimistic.
 |c:clang+ |C         |Clang  |15.0.0 | 2.70   | 0.54   | 1.54   | 0.84   |
 |cl:sbcl  |Lisp      |SBCL   |2.4.0  | 3.19   | 3.84   |        |        |
 |crystal+ |Crystal   |       |1.10.0 | 3.28   | 2.45   |        | 0.87   |
-|c#:.net+ |C#        |.NET   |8.0.100| 3.00   | 1.40   | 3.01   |        |
+|c#:.net+ |C#        |.NET   |8.0.100| 2.82   | 1.38   | 3.12   |        |
 |d:ldc2+  |D         |LDC2   |2.105.2| 2.68   | 0.57   | 1.60   |        |
 |dart:jit |Dart      |(JIT)  |3.2.4  | 3.62   | 4.81   | 3.24   |        |
 |elixir   |Elixir    |       |1.15.7 | 26.17  |        |        |        |
 |go+      |Go        |       |1.21.5 | 2.94   | 1.63   | 2.04   |        |
-|java+    |Java      |OpenJDK|20.0.1 | 3.92   | 1.14   | 3.20   |        |
+|java     |Java      |OpenJDK|20.0.1 | 3.92   | 1.14   | 3.20   |        |
 |js:bun   |JavaScript|Bun    |1.0.20 | 3.11   | 1.75   | 3.07   | 2.83   |
 |js:deno  |JavaScript|Deno   |1.39.1 | 4.00   | 3.06   | 4.04   | 3.87   |
 |js:k8    |JavaScript|k8     |1.0    | 3.79   | 2.99   | 3.76   | 4.02   |

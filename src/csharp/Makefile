@@ -5,13 +5,13 @@ EXE=nqueen matmul sudoku
 all:$(EXE)
 
 nqueen:nqueen.cs
-	$(DOTNET_ROOT)/dotnet build $(CSFLAGS) nqueen.csproj && cp bin/Release/*/*/$@{,.runtimeconfig.json,.dll} .
+	$(DOTNET_ROOT)/dotnet publish $(CSFLAGS) -o bin $<proj && mv bin/$@ .
 
 matmul:matmul.cs
-	$(DOTNET_ROOT)/dotnet build $(CSFLAGS) matmul.csproj && cp bin/Release/*/*/$@{,.runtimeconfig.json,.dll} .
+	$(DOTNET_ROOT)/dotnet publish $(CSFLAGS) -o bin $<proj && mv bin/$@ .
 
 sudoku:sudoku.cs
-	$(DOTNET_ROOT)/dotnet build $(CSFLAGS) sudoku.csproj && cp bin/Release/*/*/$@{,.runtimeconfig.json,.dll} .
+	$(DOTNET_ROOT)/dotnet publish $(CSFLAGS) -o bin $<proj && mv bin/$@ .
 
 clean:
 	rm -fr bin obj $(EXE) *.dll *.json
