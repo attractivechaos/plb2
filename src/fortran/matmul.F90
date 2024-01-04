@@ -1,14 +1,5 @@
-MODULE kinds
-    USE, INTRINSIC :: ISO_FORTRAN_ENV
-    IMPLICIT NONE
-    PRIVATE
-    PUBLIC :: sp, dp
-    INTEGER, PARAMETER :: sp = KIND(1.0)
-    INTEGER, PARAMETER :: dp = SELECTED_REAL_KIND(2*PRECISION(1.0_sp))
-END MODULE kinds
-
 MODULE mat_ops
-    USE kinds, ONLY: dp
+    USE, INTRINSIC :: ISO_FORTRAN_ENV
     IMPLICIT NONE
     PRIVATE
     PUBLIC :: mat_gen, mat_mul
@@ -16,10 +7,10 @@ CONTAINS
     SUBROUTINE mat_gen(n, mat)
         IMPLICIT NONE
         INTEGER, INTENT(IN) :: n
-        REAL(KIND=dp), DIMENSION(n,n), INTENT(OUT) :: mat
-        REAL(KIND=dp) :: tmp
+        REAL(KIND=REAL64), DIMENSION(n,n), INTENT(OUT) :: mat
+        REAL(KIND=REAL64) :: tmp
         INTEGER :: i, j
-        tmp = 1.0_dp / (n**2)
+        tmp = 1.0_REAL64 / (n**2)
         DO j = 1, n
             DO i = 1, n
                 mat(i,j) = tmp * (i-j) * (i+j-2)
@@ -30,11 +21,11 @@ CONTAINS
     SUBROUTINE mat_mul(n, p, mata, m, matb, matc)
         IMPLICIT NONE
         INTEGER, INTENT(IN) :: n, p, m
-        REAL(KIND=dp), DIMENSION(n, p), INTENT(IN) :: mata
-        REAL(KIND=dp), DIMENSION(p, m), INTENT(IN) :: matb
-        REAL(KIND=dp), DIMENSION(n, m), INTENT(OUT) :: matc
+        REAL(KIND=REAL64), DIMENSION(n, p), INTENT(IN) :: mata
+        REAL(KIND=REAL64), DIMENSION(p, m), INTENT(IN) :: matb
+        REAL(KIND=REAL64), DIMENSION(n, m), INTENT(OUT) :: matc
         INTEGER :: i, j, k
-        matc(:,:) = 0.0_dp
+        matc(:,:) = 0.0_REAL64
         DO j = 1, m
             DO k = 1, p
                 DO i = 1, n
@@ -48,15 +39,14 @@ CONTAINS
 END MODULE
 
 PROGRAM matmul
-    USE kinds, ONLY: dp
+    USE, INTRINSIC :: ISO_FORTRAN_ENV
     USE mat_ops, ONLY: mat_gen, mat_mul
     IMPLICIT NONE
     INTEGER :: n
-    REAL(KIND=dp), DIMENSION(:,:), ALLOCATABLE :: a, b, c
+    REAL(KIND=REAL64), DIMENSION(:,:), ALLOCATABLE :: a, b, c
     CHARACTER(len=32) :: arg
     INTEGER :: stat
     n = 1500
-    arg = ""
     CALL GET_COMMAND_ARGUMENT(1, arg)
     IF (LEN_TRIM(arg) > 0) THEN
         READ(arg, FMT=*, IOSTAT=stat) n
