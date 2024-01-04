@@ -166,13 +166,13 @@ not optimistic.
 |Label    |Language  |Runtime|Version| nqueen | matmul | sudoku | bedcov |
 |:--------|:---------|:------|:------|-------:|-------:|-------:|-------:|
 |c:clang+ |C         |Clang  |15.0.0 | 2.57   | 0.54   | 1.56   | 0.84   |
-|cl:sbcl  |Lisp      |SBCL   |2.4.0  | 3.19   | 3.84   |        |        |
+|cl:sbcl+ |Lisp      |SBCL   |2.4.0  | 3.19   | 3.84   |        |        |
 |crystal+ |Crystal   |       |1.10.0 | 3.28   | 2.45   |        | 0.87   |
 |c#:.net+ |C#        |.NET   |8.0.100| 2.82   | 1.38   | 3.12   |        |
 |d:ldc2+  |D         |LDC2   |2.105.2| 2.68   | 0.57   | 1.60   |        |
 |dart:jit |Dart      |(JIT)  |3.2.4  | 3.62   | 4.81   | 3.24   |        |
 |elixir   |Elixir    |       |1.15.7 | 26.17  |        |        |        |
-|f90:gcc  |Fortran90 |GCC    |13.2.0 | 2.67   | 0.51   |        |        |
+|f90:gcc+ |Fortran90 |GCC    |13.2.0 | 2.67   | 0.51   |        |        |
 |go+      |Go        |       |1.21.5 | 2.94   | 1.63   | 2.04   |        |
 |java     |Java      |OpenJDK|20.0.1 | 3.92   | 1.14   | 3.20   |        |
 |js:bun   |JavaScript|Bun    |1.0.20 | 3.11   | 1.75   | 3.07   | 2.83   |
