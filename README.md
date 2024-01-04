@@ -174,7 +174,7 @@ not optimistic.
 |c:clang+ |C         |Clang  |15.0.0 | 2.70   | 0.54   | 1.54   | 0.84   |
 |cl:sbcl  |Lisp      |SBCL   |2.4.0  | 3.19   | 3.84   |        |        |
 |crystal+ |Crystal   |       |1.10.0 | 3.28   | 2.45   |        | 0.87   |
-|c#:.net+ |C#        |.NET   |8.0.100| 3.00   | 4.67   | 3.01   |        |
+|c#:.net+ |C#        |.NET   |8.0.100| 3.00   | 1.40   | 3.01   |        |
 |d:ldc2+  |D         |LDC2   |2.105.2| 2.68   | 0.57   | 1.60   |        |
 |dart:jit |Dart      |(JIT)  |3.2.4  | 3.62   | 4.81   | 3.24   |        |
 |elixir   |Elixir    |       |1.15.7 | 26.17  |        |        |        |
@@ -194,8 +194,8 @@ not optimistic.
 |py:cpy   |Python    |CPython|3.11.7 | 159.97 | 223.66 | 52.88  | 42.84  |
 |ruby     |Ruby      |(YJIT) |3.3.0  | 88.15  | 130.51 | 52.26  |        |
 |rust+    |Rust      |       |1.75.0 | 2.68   | 0.56   | 1.65   |        |
-|swift+   |Swift     |       |5.9.0  | 2.92   | 7.46   | 16.02  |        |
-|v+       |V         |       |0.4.3  | 2.57   | 0.56   |        |        |
+|swift+   |Swift     |       |5.9.0  | 2.92   | 0.56   | 16.02  |        |
+|v+       |V         |       |0.4.3  | 2.56   | 0.56   |        |        |
 |zig+     |Zig       |       |0.11.0 | 2.74   | 0.56   |        |        |
 
 [plb]: https://github.com/attractivechaos/plb
