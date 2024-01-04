@@ -1,11 +1,29 @@
+type
+  CArray*[T] = object
+    len: int
+    data: ptr UncheckedArray[T]
+
+proc `=destroy`*[T](x: CArray[T]) =
+  if x.data != nil:
+    for i in 0..<x.len: `=destroy`(x.data[i])
+    dealloc(x.data)
+
+proc `[]=`*[T](arr: CArray[T], i: int, x: T) =
+  arr.data[i] = x
+
+proc `[]`*[T](arr: CArray[T], i: int): T =
+  return arr.data[i]
+
+proc newArray*[T](size: int): CArray[T] =
+  result.len = size
+  result.data = cast[ptr UncheckedArray[T]](alloc(size * sizeof(T)))
+
 proc nq_solve(n: int): int =
-  const
-    NQ_MAX = 31
   var
-    a: array[0..NQ_MAX, int]
-    l: array[0..NQ_MAX, int]
-    c: array[0..NQ_MAX, int]
-    r: array[0..NQ_MAX, int]
+    a = newArray[int](n)
+    l = newArray[int](n)
+    c = newArray[int](n)
+    r = newArray[int](n)
     m = 0
     y0 = (1 shl n) - 1
   for i in 0 .. n-1:
@@ -22,7 +40,7 @@ proc nq_solve(n: int): int =
         a[k] = i
         k += 1
         l[k] = (l[k-1] or z) shl 1
-        c[k] =  c[k-1] or z
+        c[k] = c[k-1] or z
         r[k] = (r[k-1] or z) shr 1
       else:
         m += 1
