@@ -27,9 +27,9 @@ fn matmul(a [][]f64, b [][]f64) [][]f64 {
 }
 
 fn main() {
-	n := 1500;
+	n := 1500
 	a := matgen(n)
 	b := matgen(n)
 	c := matmul(a, b)
-	println(c[n>>1][n>>1])
+	println(c[n >> 1][n >> 1])
 }
