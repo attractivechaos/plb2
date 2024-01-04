@@ -1,6 +1,7 @@
 FC=f95
-FFLAGS=-O3 -g
-EXE=sudoku nqueen matmul bedcov
+FFLAGS=-O3
+EXE=nqueen matmul
+#EXE=sudoku nqueen matmul bedcov
 
 all:$(EXE)
 
