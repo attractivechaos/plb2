@@ -166,7 +166,7 @@ not optimistic.
 
 |Label    |Language  |Runtime|Version| nqueen | matmul | sudoku | bedcov |
 |:--------|:---------|:------|:------|-------:|-------:|-------:|-------:|
-|c:clang+ |C         |Clang  |15.0.0 | 2.70   | 0.54   | 1.54   | 0.84   |
+|c:clang+ |C         |Clang  |15.0.0 | 2.57   | 0.54   | 1.56   | 0.84   |
 |cl:sbcl  |Lisp      |SBCL   |2.4.0  | 3.19   | 3.84   |        |        |
 |crystal+ |Crystal   |       |1.10.0 | 3.28   | 2.45   |        | 0.87   |
 |c#:.net+ |C#        |.NET   |8.0.100| 2.82   | 1.38   | 3.12   |        |
@@ -191,7 +191,7 @@ not optimistic.
 |rust+    |Rust      |       |1.75.0 | 2.68   | 0.56   | 1.65   |        |
 |swift+   |Swift     |       |5.9.0  | 2.92   | 0.56   | 9.56   |        |
 |v+       |V         |       |0.4.3  | 2.56   | 0.56   |        |        |
-|zig+     |Zig       |       |0.11.0 | 2.74   | 0.56   |        |        |
+|zig+     |Zig       |       |0.11.0 | 2.72   | 0.56   |        |        |
 
 [plb]: https://github.com/attractivechaos/plb
 [8queen]: https://en.wikipedia.org/wiki/Eight_queens_puzzle
