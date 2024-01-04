@@ -1,5 +1,5 @@
 NIM=nim
-NIM_FLAGS=-d:release -d:nimEmulateOverflowChecks --bound_checks:off
+NIM_FLAGS=-d:release -d:lto
 EXE=nqueen matmul bedcov
 
 all:$(EXE)

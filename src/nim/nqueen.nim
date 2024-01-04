@@ -7,6 +7,8 @@ proc `=destroy`*[T](x: CArray[T]) =
   if x.data != nil:
     for i in 0..<x.len: `=destroy`(x.data[i])
     dealloc(x.data)
+    x.data = nil
+
 
 proc `[]=`*[T](arr: CArray[T], i: int, x: T) =
   arr.data[i] = x
