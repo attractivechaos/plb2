@@ -1,6 +1,6 @@
 VFLAGS=-prod
 VC=v
-EXE=matmul nqueen sudoku
+EXE=matmul nqueen sudoku bedcov
 
 all:$(EXE)
 
@@ -11,6 +11,9 @@ nqueen:nqueen.v
 	$(VC) $(VFLAGS) -o $@ $<
 
 sudoku:sudoku.v
+	$(VC) $(VFLAGS) -o $@ $<
+
+bedcov:bedcov.v
 	$(VC) $(VFLAGS) -o $@ $<
 
 clean:
