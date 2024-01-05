@@ -1,4 +1,4 @@
-CFLAGS=-O3
+CFLAGS=-O3 -fwrapv -flto
 EXE=sudoku nqueen matmul bedcov
 
 all:$(EXE)

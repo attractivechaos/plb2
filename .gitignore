@@ -7,3 +7,4 @@
 *.fasl
 *.cmi
 *.cmx
+*.mod
