@@ -28,23 +28,23 @@ MODULE sudokus
         "1.......2.9.4...5...6...7...5.3.4.......6........58.4...2...6...3...9.8.7.......1", &
         ".....1.2.3...4.5.....6....7..2.....1.8..9..3.4.....8..5....2....9..3.4....67....."]
     TYPE sdaux_t
-        INTEGER(KIND=INT16), DIMENSION(0:323,0:8) :: r
-        INTEGER(KIND=INT16), DIMENSION(0:728,0:3) :: c
+        INTEGER(KIND=INT16), DIMENSION(0:8,0:323) :: r
+        INTEGER(KIND=INT16), DIMENSION(0:3,0:728) :: c
     END TYPE sdaux_t
 CONTAINS
     TYPE(sdaux_t) FUNCTION sd_genmat() RESULT(a)
         IMPLICIT NONE
-        INTEGER :: i,j,k,r,c,c2,r2;
+        INTEGER :: i,j,k,r,c2;
         INTEGER(KIND=INT16), DIMENSION(0:323) :: nr
         i = 0
         r = 0
         DO i = 0, 8
             DO j = 0, 8
                 DO k = 0, 8
-                    a%c(r,0) = 9*i+j
-                    a%c(r,1) = (i/3*3 + j/3) *9+k+81
-                    a%c(r,2) = 9 * i + k + 162
-                    a%c(r,3) = 9 * j + k + 243
+                    a%c(0,r) = 9*i+j
+                    a%c(1,r) = (i/3*3 + j/3) *9+k+81
+                    a%c(2,r) = 9 * i + k + 162
+                    a%c(3,r) = 9 * j + k + 243
                     r = r + 1
                 END DO
             END DO
@@ -52,8 +52,8 @@ CONTAINS
         nr(:) = 0
         DO r = 0, 728
             DO c2 = 0, 3
-                k = a%c(r,c2)
-                a%r(k,nr(k)) = r
+                k = a%c(c2,r)
+                a%r(nr(k),k) = r
                 nr(k) = nr(k) + 1
             END DO
         END DO
@@ -71,20 +71,19 @@ CONTAINS
         min = 10
         min_c = 0
         DO c2 = 0, 3
-            sc(aux%c(r, c2)) = IOR(sc(aux%c(r, c2)), ISHFT(1_INT16, 7))
+            sc(aux%c(c2, r)) = IOR(sc(aux%c(c2, r)), ISHFT(1_INT16, 7))
         END DO
         DO c2 = 0, 3
-            c = aux%c(r,c2)
+            c = aux%c(c2,r)
             DO r2 = 0, 8
-                rr = aux%r(c,r2)
+                rr = aux%r(r2, c)
                 IF (sr(rr) /= 0) THEN
                     sr(rr) = sr(rr) + 1
                     CYCLE
-                ELSE
-                    sr(rr) = sr(rr) + 1
                 END IF
+                sr(rr) = sr(rr) + 1
                 DO cc2 = 0, 3
-                    cc = aux%c(rr,cc2)
+                    cc = aux%c(cc2, rr)
                     sc(cc) = sc(cc) - 1
                     IF (sc(cc) < min) THEN
                         min = sc(cc)
@@ -102,20 +101,20 @@ CONTAINS
         INTEGER(KIND=INT16), DIMENSION(0:728), INTENT(INOUT) :: sr
         INTEGER(KIND=INT16), DIMENSION(0:323), INTENT(INOUT) :: sc
         INTEGER(KIND=INT16), INTENT(IN) :: r
-        INTEGER :: c2, r2, cc2, c, rr
+        INTEGER :: c2, r2, c, rr
         DO c2 = 0, 3
-            sc(aux%c(r, c2)) = IAND(sc(aux%c(r, c2)), Z'7f')
+            sc(aux%c(c2, r)) = IAND(sc(aux%c(c2, r)), Z'7f')
         END DO
         DO c2 = 0, 3
-            c = aux%c(r, c2)
+            c = aux%c(c2, r)
             DO r2 = 0, 8
-                rr = aux%r(c, r2)
+                rr = aux%r(r2, c)
                 sr(rr) = sr(rr) -1
                 IF (sr(rr) /= 0) CYCLE
-                sc(aux%c(rr, 0)) = sc(aux%c(rr, 0)) + 1
-                sc(aux%c(rr, 1)) = sc(aux%c(rr, 1)) + 1
-                sc(aux%c(rr, 2)) = sc(aux%c(rr, 2)) + 1
-                sc(aux%c(rr, 3)) = sc(aux%c(rr, 3)) + 1
+                sc(aux%c(0, rr)) = sc(aux%c(0, rr)) + 1
+                sc(aux%c(1, rr)) = sc(aux%c(1, rr)) + 1
+                sc(aux%c(2, rr)) = sc(aux%c(2, rr)) + 1
+                sc(aux%c(3, rr)) = sc(aux%c(3, rr)) + 1
             END DO
         END DO
     END SUBROUTINE sd_update_rev
@@ -129,7 +128,7 @@ CONTAINS
         INTEGER(KIND=INT16), DIMENSION(0:323) :: sc
         INTEGER(KIND=INT16), DIMENSION(0:80) :: cc
         CHARACTER(LEN=sudokulen) :: outstr
-        INTEGER :: a, i, j, r, r2, c, dir, cand, n, hints, stat, myi
+        INTEGER :: a, i, j, r, r2, c, dir, cand, n, hints, stat
         INTEGER :: min
         n = 0
         hints = 0
@@ -170,15 +169,15 @@ CONTAINS
                 END IF
                 c = cc(i)
                 IF (dir == -1 .AND. cr(i) >= 0) THEN
-                    CALL sd_update_rev(aux, sr, sc, INT(aux%r(c, cr(i)), INT16))
+                    CALL sd_update_rev(aux, sr, sc, INT(aux%r(cr(i), c), INT16))
                 END IF
                 r2 = cr(i) + 1
                 DO WHILE (r2 < 9)
-                    IF (sr(aux%r(c, r2)) == 0) EXIT
+                    IF (sr(aux%r(r2, c)) == 0) EXIT
                     r2 = r2 + 1
                 END DO
                 IF (r2 < 9) THEN
-                    CALL sd_update_for(aux, sr, sc, INT(aux%r(c,r2), INT16), cand)
+                    CALL sd_update_for(aux, sr, sc, INT(aux%r(r2, c), INT16), cand)
                     cr(i) = r2
                     dir = 1
                     i = i + 1
@@ -190,7 +189,7 @@ CONTAINS
             END DO
             IF (i < 0) EXIT
             DO j = 0, i - 1
-                r = aux%r(cc(j), cr(j))
+                r = aux%r(cr(j), cc(j))
                 WRITE(outstr(r/9+1:r/9+1), FMT='(I1)') MOD(r, 9) + 1
             END DO
             WRITE(*, FMT='(A)') outstr
