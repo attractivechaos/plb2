@@ -7,7 +7,7 @@ all languages but sudoku and bedcov are only implemented in some.
 
 - [Introduction](#intro)
 - [Results](#result)
-  - [Overall impressions](#overall)
+  - [Overall impression](#overall)
   - [Caveats](#caveat)
     - [Startup time](#startup)
 	- [Elapsed time vs CPU time](#cputime)
@@ -19,14 +19,14 @@ all languages but sudoku and bedcov are only implemented in some.
 
 ## <a name="intro"></a>Introduction
 
-Programming Language Benchmark v2 (plb2) evaluates the performance of 20
+Programming Language Benchmark v2 (plb2) evaluates the performance of 24
 programming languages on four CPU-intensive tasks. It is a follow-up to
 [plb][plb] conducted in 2011. In plb2, all implementations use the same
 algorithm for each task and their performance bottlenecks do not fall in
 library functions. We do not intend to compare different algorithms or the
-quality of the standard libraries in these languages. Plb2 is supposed to
-demonstrate the performance of a language when you have to implement a new
-algorithm in the language, which may happen if you can't find the algorithm in
+quality of the standard libraries in these languages. Plb2 aims to
+evaluate the performance of a language when you have to implement a new
+algorithm in the language - this may happen if you can't find the algorithm in
 existing libraries.
 
 The four tasks in plb2 all take a few seconds for a fast implementation to
@@ -48,11 +48,10 @@ complete. The tasks are:
   array access in a pattern similar to binary searches.
 
 Every language has nqueen and matmul implementations. Some languages do not
-have sudoku or bedcov implementations. In addition, I implemented most
-algorithms in plb2 and adapted a few contributed matmul and sudoku
-implementations in plb. As I am mostly a C programmer, implementations in other
-languages may be suboptimal and there are no implementations in functional
-languages. **Pull requests are welcomed!**
+have sudoku or bedcov implementations. Most programs were initially implemented
+by me and a few were contributed by others. As I am mostly a C programmer,
+implementations in other languages may be suboptimal and there are no
+implementations in functional languages. **Pull requests are welcomed!**
 
 ## <a name="result"></a>Results
 
@@ -60,16 +59,16 @@ The figure at the top of the page summarizes the elapsed time of each implementa
 measured on an Apple M1 MacBook Pro. [Hyperfine][hyperfine] was used for timing
 except for a few slow implementations which were timed with the "time" bash
 command without repetition. A plus sign "+" indicates [ahead-of-time
-compilation][aot]. Exact timing can be found in the [table below](#table). The
-figure was programmatically generated from the table but may be outdated.
+compilation][aot] (AOT). Exact timing can be found in the [table below](#table). The
+figure was [programmatically generated](analysis) from the table.
 
 ### <a name="overall"></a>Overall impression
 
 Programming language implementations in plb2 can be classified into three groups
 depending on how and when compilation is done:
 
-1. Purely interpretted with no compilation (Perl and [CPython][cpy], the
-   official Python implementation). Not surprisingly, these are the slowest
+1. Purely interpreted with no compilation (Elixir, Perl and [CPython][cpy], the
+   official Python implementation). Not surprisingly, these are among the slowest
    language implementations in this benchmark.
 
 2. JIT compiled (Dart, all JavaScript runtimes, Java, Julia, LuaJIT, PHP, PyPy
@@ -83,7 +82,7 @@ depending on how and when compilation is done:
    (Bun and Node), Dart and Julia all perform well. They are about twice as
    fast as PyPy.
 
-3. [Ahead-of-time compilation][aot] (the rest). Optimizing binaries for
+3. AOT compiled (the rest). Optimizing binaries for
    specific hardware, these compilers tend to generate the fastest executables.
 
 ### <a name="caveat"></a>Caveats
@@ -129,7 +128,7 @@ It is obvious that `c[i]`, `b[k]` and `a[i][k]` can be moved out of the inner
 loop to reduce the frequency of matrix access. The Clang compiler can apply
 this optimization. Manual optimization may actually hurt performance.
 
-However, **most other languages cannot optimize this nested loop.** If we
+However, **many other languages cannot optimize this nested loop.** If we
 manually move `a[i][k]` to the loop above it, we can often improve their
 performance. Some C/C++ programmers say compilers often optimize better than
 human, but this might not be the case in other languages.
