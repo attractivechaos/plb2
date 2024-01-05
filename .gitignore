@@ -5,4 +5,6 @@
 *.json
 *.dll
 *.fasl
+*.cmi
+*.cmx
 *.mod
