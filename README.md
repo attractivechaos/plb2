@@ -1,7 +1,7 @@
 **TL;DR**: see the figure below. Note that nqueen and matmul are implemented in
 all languages but sudoku and bedcov are only implemented in some.
 
-<img align="left" src="analysis/rst-m1.png?v8"/>
+<img align="left" src="https://lh3.sourceforge.io/images/plb2-m1.png?v9"/>
 
 ## Table of Contents
 
@@ -172,17 +172,18 @@ not optimistic.
 |d:ldc2+  |D         |LDC2   |2.105.2| 2.68   | 0.57   | 1.60   |        |
 |dart:jit |Dart      |(JIT)  |3.2.4  | 3.62   | 4.81   | 3.24   |        |
 |elixir   |Elixir    |       |1.15.7 | 26.17  | 67.39  |        |        |
-|f90:gcc+ |Fortran90 |GCC    |13.2.0 | 2.67   | 0.51   |        |        |
+|f90:gcc+ |Fortran90 |GCC    |13.2.0 | 2.67   | 0.51   | 1.84   |        |
 |go+      |Go        |       |1.21.5 | 2.94   | 1.63   | 2.04   |        |
 |java     |Java      |OpenJDK|20.0.1 | 3.92   | 1.14   | 3.20   |        |
 |js:bun   |JavaScript|Bun    |1.0.20 | 3.11   | 1.75   | 3.07   | 2.83   |
 |js:deno  |JavaScript|Deno   |1.39.1 | 4.00   | 3.06   | 4.04   | 3.87   |
 |js:k8    |JavaScript|k8     |1.0    | 3.79   | 2.99   | 3.76   | 4.02   |
 |js:node  |JavaScript|Node   |21.5.0 | 3.73   | 2.88   | 3.77   | 3.83   |
-|julia    |Julia     |       |1.10.0 | 3.06   | 0.76   | 2.72   | 1.96   |
+|julia    |Julia     |       |1.10.0 | 3.02   | 0.76   | 2.35   | 1.96   |
 |luajit   |Lua       |LuaJIT |2.1    | 5.31   | 2.66   | 4.48   | 10.59  |
 |mojo+    |Mojo      |       |0.6.1  | 3.24   | 1.12   |        |        |
-|nim+     |Nim       |       |2.0.2  | 2.83   | 0.56   |        | 1.18   |
+|nim+     |Nim       |       |2.0.2  | 2.57   | 0.56   | 1.64   | 1.07   |
+|ocaml+   |OCaml     |       |4.14.1 | 3.71   | 3.15   |        |        |
 |perl     |Perl      |       |5.34.1 | 158.34 | 158.01 | 90.78  |        |
 |php      |PHP       |       |8.3    | 48.15  | 71.20  |        |        |
 |py:pypy  |Python    |Pypy   |7.3.14 | 6.91   | 4.95   | 8.82   | 6.27   |

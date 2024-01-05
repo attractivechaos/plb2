@@ -9,7 +9,7 @@ set style line 4 lt 1 lc rgb "#decbe4" lw 1;
 set size 1,1
 
 set style histogram rowstacked
-set xtics rotate by 40 right nomirror font "Helvetica,16"
+set xtics rotate by 40 right nomirror font "Helvetica,14"
 set boxwidth 0.8 relative
 set style data histograms
 set style fill solid 1.0 border lt -1
@@ -21,7 +21,7 @@ set key top left
 
 set title "On arm64-darwin (sorted by nqueens + matmul)"
 
-set out "time-all.eps"
+set out "time-full2.eps"
 plot \
 	"<./parse-readme.pl -j ../README.md" u ($2):xtic(1) t 'nqueens' ls 1, \
 	"" u ($3) t 'matmul' ls 2, \
