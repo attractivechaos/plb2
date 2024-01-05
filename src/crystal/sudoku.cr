@@ -15,8 +15,7 @@ def sd_genmat()
 	end
 	nr = Array.new(324) { 0 }
 	(0...729).each do |r|
-		(0...4).each do |c2|
-			k = mc[r][c2]
+		mc[r].each do |k|
 			mr[k][nr[k]] = r
 			nr[k] += 1
 		end
@@ -24,48 +23,41 @@ def sd_genmat()
 	return mr, mc
 end
 
-def sd_update(mr, mc, sr, sc, r, v)
+def sd_update_for(mr, mc, sr, sc, r)
 	min, min_c = 10, 0
-	(0...4).each do |c2|
-		if v > 0
-			sc[mc[r][c2]] |= 0x80 
-		else sc[mc[r][c2]] &= 0x7F end
+	mc[r].each do |x|
+		sc[x] |= 0x80
 	end
-	(0...4).each do |c2|
-		c = mc[r][c2]
-		if v > 0
-			(0...9).each do |r2|
-				rr = mr[c][r2]
-				sr[rr] += 1
-				if sr[rr] == 1
-					p = mc[rr]
-					sc[p[0]] -= 1; sc[p[1]] -= 1; sc[p[2]] -= 1; sc[p[3]] -= 1
-					if sc[p[0]] < min
-						min, min_c = sc[p[0]], p[0]
+	mc[r].each do |c|
+		mr[c].each do |rr|
+			sr[rr] += 1
+			if sr[rr] == 1
+				mc[rr].each do |cc|
+					sc[cc] -= 1
+					v = sc[cc] # this interestingly seems faster
+					if v < min
+						min, min_c = v, cc
 					end
-					if sc[p[1]] < min
-						min, min_c = sc[p[1]], p[1]
-					end
-					if sc[p[2]] < min
-						min, min_c = sc[p[2]], p[2]
-					end
-					if sc[p[3]] < min
-						min, min_c = sc[p[3]], p[3]
-					end
-				end
-			end
-		else
-			(0...9).each do |r2|
-				rr = mr[c][r2]
-				sr[rr] -= 1
-				if sr[rr] == 0
-					p = mc[rr]
-					sc[p[0]] += 1; sc[p[1]] += 1; sc[p[2]] += 1; sc[p[3]] += 1
 				end
 			end
 		end
 	end
 	return min, min_c
+end
+
+def sd_update_rev(mr, mc, sr, sc, r)
+	mc[r].each do |x|
+		sc[x] &= 0x7F
+	end
+	mc[r].each do |c|
+		mr[c].each do |rr|
+			sr[rr] -= 1
+			if sr[rr] == 0
+				p = mc[rr]
+				sc[p[0]] += 1; sc[p[1]] += 1; sc[p[2]] += 1; sc[p[3]] += 1
+			end
+		end
+	end
 end
 
 def sd_solve(mr, mc, s : String)
@@ -76,7 +68,7 @@ def sd_solve(mr, mc, s : String)
 			a = s[i].ord - 49
 		end
 		if a >= 0
-			sd_update(mr, mc, sr, sc, i * 9 + a, 1)
+			sd_update_for(mr, mc, sr, sc, i * 9 + a)
 			hints += 1
 		end
 	end
@@ -87,9 +79,9 @@ def sd_solve(mr, mc, s : String)
 		while i >= 0 && i < 81 - hints
 			if dir == 1
 				if min > 1
-					(0...324).each do |c|
-						if sc[c] < min
-							min, cc[i] = sc[c], c
+					sc.each_with_index do |v, c|
+						if v < min
+							min, cc[i] = v, c
 							if min < 2
 								break
 							end
@@ -102,14 +94,14 @@ def sd_solve(mr, mc, s : String)
 			end
 			c = cc[i]
 			if dir == -1 && cr[i] >= 0
-				sd_update(mr, mc, sr, sc, mr[c][cr[i]], -1)
+				sd_update_rev(mr, mc, sr, sc, mr[c][cr[i]])
 			end
 			r2 = cr[i] + 1
 			while r2 < 9 && sr[mr[c][r2]] != 0
 				r2 += 1
 			end
 			if r2 < 9
-				min, cc[i+1] = sd_update(mr, mc, sr, sc, mr[c][r2], 1)
+				min, cc[i+1] = sd_update_for(mr, mc, sr, sc, mr[c][r2])
 				cr[i], dir, i = r2, 1, i + 1
 			else
 				cr[i], dir, i = -1, -1, i - 1
