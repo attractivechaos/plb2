@@ -23,15 +23,31 @@ set title "On arm64-darwin (sorted by nqueens + matmul)"
 
 set out "time-all.eps"
 plot \
-	"<./parse-readme.pl ../README.md | grep -v k8 | grep -v deno" u ($2):xtic(1) t 'nqueens' ls 1, \
+	"<./parse-readme.pl -j ../README.md" u ($2):xtic(1) t 'nqueens' ls 1, \
 	"" u ($3) t 'matmul' ls 2, \
 	"" u ($4) t 'sudoku' ls 3, \
 	"" u ($5) t 'bedcov' ls 4
 
-set out "time-zoom.eps"
+set out "time-zoom2.eps"
 set yran [0:30]
 plot \
-	"<./parse-readme.pl ../README.md | grep -v k8 | grep -v deno" u ($2):xtic(1) t 'nqueens' ls 1, \
+	"<./parse-readme.pl -j ../README.md" u ($2):xtic(1) t 'nqueens' ls 1, \
+	"" u ($3) t 'matmul' ls 2, \
+	"" u ($4) t 'sudoku' ls 3, \
+	"" u ($5) t 'bedcov' ls 4
+
+set title "On arm64-darwin (sorted by nqueens + matmul + sudoku)"
+set out "time-zoom3.eps"
+plot \
+	"<./parse-readme.pl -jn3 ../README.md" u ($2):xtic(1) t 'nqueens' ls 1, \
+	"" u ($3) t 'matmul' ls 2, \
+	"" u ($4) t 'sudoku' ls 3, \
+	"" u ($5) t 'bedcov' ls 4
+
+set title "On arm64-darwin (sorted by total time)"
+set out "time-zoom4.eps"
+plot \
+	"<./parse-readme.pl -jn4 ../README.md" u ($2):xtic(1) t 'nqueens' ls 1, \
 	"" u ($3) t 'matmul' ls 2, \
 	"" u ($4) t 'sudoku' ls 3, \
 	"" u ($5) t 'bedcov' ls 4

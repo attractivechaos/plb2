@@ -1,3 +1,5 @@
+import os
+
 @[direct_array_access]
 fn matgen(n int) [][]f64 {
 	mut a := [][]f64{len: n, init: []f64{len: n}}
@@ -27,7 +29,10 @@ fn matmul(a [][]f64, b [][]f64) [][]f64 {
 }
 
 fn main() {
-	n := 1500
+	mut n := 1500
+	if os.args.len > 1{
+		n = os.args[1].int();
+	}
 	a := matgen(n)
 	b := matgen(n)
 	c := matmul(a, b)

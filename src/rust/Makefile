@@ -1,6 +1,6 @@
 RUSTC=rustc
 RUST_FLAGS=-C debuginfo=0 -C opt-level=3
-EXE=nqueen sudoku matmul
+EXE=nqueen sudoku matmul bedcov
 
 all:$(EXE)
 
@@ -11,6 +11,9 @@ nqueen:nqueen.rs
 	$(RUSTC) $(RUST_FLAGS) -o $@ $<
 
 matmul:matmul.rs
+	$(RUSTC) $(RUST_FLAGS) -o $@ $<
+
+bedcov:bedcov.rs
 	$(RUSTC) $(RUST_FLAGS) -o $@ $<
 
 clean:
