@@ -34,8 +34,6 @@ CONTAINS
             END DO
         END DO
     END SUBROUTINE mat_mul
-                    
-
 END MODULE
 
 PROGRAM matmul
