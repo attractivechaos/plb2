@@ -1,3 +1,5 @@
+lshift(x, i) = x << (i & (8*sizeof(x)-1))
+
 function nq_solve(n)
 	T = UInt32
 	a = T[ 0 for i=1:n ]
@@ -11,11 +13,11 @@ function nq_solve(n)
 		y = (l[k] | c[k] | r[k]) & y0
 		if xor(y, y0) >> a[k] != 0
 			i = a[k]
-			while i < n && (y & (1<<i)) != 0
+			while i < n && (y & (lshift(1, i))) != 0
 				i += one(i)
 			end
 			if k < n
-				z = one(T) << i
+				z = lshift(one(T), i)
 				a[k] = i + one(i)
 				k += 1
 				l[k] = (l[k-1] | z) << 1
