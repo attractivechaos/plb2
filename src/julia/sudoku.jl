@@ -5,7 +5,7 @@ function sd_genmat()
 	C = Array{Int}(undef, 729, 4)
 	R = Array{Int}(undef, 324, 9)
 	r = 1
-	for i = 0:8, j = 0:8, k = 0:8
+	@inbounds for i = 0:8, j = 0:8, k = 0:8
 		C[r,1] = 9 * i + j + 1
 		C[r,2] = (div(i, 3)*3 + div(j, 3)) * 9 + k + 82
 		C[r,3] = 9 * i + k + 163
@@ -13,7 +13,7 @@ function sd_genmat()
 		r += 1
 	end
 	nr = ones(Int,324)
-	for r = 1:729, c = 1:4
+	@inbounds for r = 1:729, c = 1:4
 		k = C[r,c]
 		R[k,nr[k]] = r
 		nr[k] += 1
@@ -23,10 +23,10 @@ end
 function sd_update(R,C,sr,sc,r)
 	m = 10
 	m_c = 0
-	for c2 = 1:4
+	@inbounds for c2 = 1:4
 		sc[C[r,c2]] += 128
 	end
- 	for c2 = 1:4
+    @inbounds for c2 = 1:4
  		c = C[r,c2]
 		for r2 = 1:9
 			rr = R[c,r2] #10
@@ -45,10 +45,10 @@ function sd_update(R,C,sr,sc,r)
  	return m<<16|m_c
 end
 function revert(R,C,sr,sc,r)
-	for c2 = 1:4
+	@inbounds for c2 = 1:4
 		sc[C[r,c2]] -= 128
 	end
- 	for c2 = 1:4
+    @inbounds for c2 = 1:4
  		c = C[r,c2]
 		for r2 = 1:9 
 			rr = R[c,r2]
@@ -67,7 +67,7 @@ function sd_solve(R,C,_s)
 	fill!(sc, 9)
 	cr = zeros(Int, 81)
 	cc = zeros(Int, 81)
-	for i = 1:81
+	@inbounds for i = 1:81
 		a = isdigit(_s[i]) ? _s[i]-'1' : -1
 		if a >= 0 
 			sd_update(R,C,sr,sc,(i-1)*9+a+1)
@@ -76,7 +76,7 @@ function sd_solve(R,C,_s)
 		out[i] = a + 1
 	end
 	i, d, cand = 1, 1, 10<<16|0
-	while true
+	@inbounds while true
 		while i >= 1 && i < 82 - hints
 			if d == 1 
 				m, cc[i] = cand>>16, (cand&0xffff)+1
@@ -120,7 +120,7 @@ function sd_solve(R,C,_s)
 	end
 	return out
 end
-hard20 = [
+const hard20 = [
 	"..............3.85..1.2.......5.7.....4...1...9.......5......73..2.1........4...9",
 	".......12........3..23..4....18....5.6..7.8.......9.....85.....9...4.5..47...6...",
 	".2..5.7..4..1....68....3...2....8..3.4..2.5.....6...1...2.9.....9......57.4...9..",
