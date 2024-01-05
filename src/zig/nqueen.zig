@@ -1,7 +1,7 @@
 const std = @import("std");
 
 fn nq_solve(n: u5) i32 {
-	const NQ_MAX: u32 = 32;
+	const NQ_MAX: u32 = 31;
 	var a = [_]i32{-1} ** NQ_MAX;
 	var l = [_]u32{0} ** NQ_MAX;
 	var c = [_]u32{0} ** NQ_MAX;

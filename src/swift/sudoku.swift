@@ -17,7 +17,7 @@ struct Matrix {
     }
 }
 
-class Sudoku {
+struct Sudoku {
 	var R: Matrix
 	var C: Matrix
 	init() {
