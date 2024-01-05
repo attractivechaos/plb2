@@ -68,7 +68,7 @@ figure was programmatically generated from the table but may be outdated.
 Programming language implementations in plb2 can be classified into three groups
 depending on how and when compilation is done:
 
-1. Purely interpretted with no compilation (Perl and [CPython][cpy], the
+1. Purely interpreted with no compilation (Perl and [CPython][cpy], the
    official Python implementation). Not surprisingly, these are the slowest
    language implementations in this benchmark.
 
