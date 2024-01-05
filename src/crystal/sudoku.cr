@@ -1,30 +1,30 @@
 def sd_genmat()
-	mr = Array.new(324) { Array.new(9) { 0_u16 } }
-	mc = Array.new(729) { Array.new(4) { 0_u16 } }
+	mr = Array.new(324) { Array.new(9) { 0 } }
+	mc = Array.new(729) { Array.new(4) { 0 } }
 	r = 0
-	(0_u16...9_u16).each do |i|
-		(0_u16...9_u16).each do |j|
-			(0_u16...9_u16).each do |k|
-				mc[r][0] = (9_u16 * i + j).as(UInt16)
-				mc[r][1] = ((i // 3_u16 * 3_u16 + j // 3_u16) * 9_u16 + k + 81_u16).as(UInt16)
-				mc[r][2] = (9_u16 * i + k + 162_u16).as(UInt16)
-				mc[r][3] = (9_u16 * j + k + 243_u16).as(UInt16)
+	(0...9).each do |i|
+		(0...9).each do |j|
+			(0...9).each do |k|
+				mc[r][0] = 9 * i + j
+				mc[r][1] = (i // 3 * 3 + j // 3) * 9 + k + 81_u16
+				mc[r][2] = 9 * i + k + 162
+				mc[r][3] = 9 * j + k + 243
 				r += 1
 			end
 		end
 	end
-	nr = Array.new(324) { 0_i8 }
-	(0_u16...729_u16).each do |r|
-		(0_u16...4_u16).each do |c2|
+	nr = Array.new(324) { 0 }
+	(0...729).each do |r|
+		(0...4).each do |c2|
 			k = mc[r][c2]
-			mr[k][nr[k]] = r.as(UInt16)
+			mr[k][nr[k]] = r
 			nr[k] += 1
 		end
 	end
 	return mr, mc
 end
 
-def sd_update(mr : Array(Array(UInt16)), mc : Array(Array(UInt16)), sr : Array(Int8), sc : Array(UInt8), r : Int, v : Int)
+def sd_update(mr, mc, sr, sc, r, v)
 	min, min_c = 10, 0
 	(0...4).each do |c2|
 		if v > 0
@@ -68,8 +68,8 @@ def sd_update(mr : Array(Array(UInt16)), mc : Array(Array(UInt16)), sr : Array(I
 	return min, min_c
 end
 
-def sd_solve(mr : Array(Array(UInt16)), mc : Array(Array(UInt16)), s : String)
-	sr, sc, hints = Array.new(729) { 0_i8 }, Array.new(324) { 9_u8 }, 0
+def sd_solve(mr, mc, s : String)
+	sr, sc, hints = Array.new(729) { 0 }, Array.new(324) { 9 }, 0
 	(0...81).each do |i|
 		a = -1
 		if s[i] >= '1' && s[i] <= '9'
@@ -80,15 +80,16 @@ def sd_solve(mr : Array(Array(UInt16)), mc : Array(Array(UInt16)), s : String)
 			hints += 1
 		end
 	end
-	cr, cc = Array.new(81) { -1_i8 }, Array.new(81) { 0_i16 }
+	cr, cc = Array.new(81) { -1 }, Array.new(81) { 0 }
 	i, min, dir = 0, 10, 1
+	sum = 0
 	while true
 		while i >= 0 && i < 81 - hints
 			if dir == 1
 				if min > 1
 					(0...324).each do |c|
 						if sc[c] < min
-							min, cc[i] = sc[c], c.as(Int16)
+							min, cc[i] = sc[c], c
 							if min < 2
 								break
 							end
@@ -117,15 +118,15 @@ def sd_solve(mr : Array(Array(UInt16)), mc : Array(Array(UInt16)), s : String)
 		if i < 0
 			break
 		end
-		o = Array.new(81) { 49u8 }
+		o = Array.new(81) { 49 }
 		(0...81).each do |j|
 			o[j] = s[j].ord - 48
 		end
 		(0...i).each do |j|
 			r = mr[cc[j]][cr[j]]
-			o[r/9] = r % 9 + 1
+			o[r//9] = r % 9 + 1
 		end
-		puts String.new(o)
+		puts o.to_s()
 		i, dir = i - 1, -1
 	end
 end

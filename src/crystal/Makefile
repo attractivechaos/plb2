@@ -1,6 +1,6 @@
 CRYSTAL=crystal
 CRYSTAL_FLAGS=--release
-EXE=nqueen matmul bedcov
+EXE=nqueen matmul bedcov sudoku
 
 all:$(EXE)
 
@@ -11,6 +11,9 @@ matmul:matmul.cr
 	$(CRYSTAL) build $(CRYSTAL_FLAGS) $<
 
 bedcov:bedcov.cr
+	$(CRYSTAL) build $(CRYSTAL_FLAGS) $<
+
+sudoku:sudoku.cr
 	$(CRYSTAL) build $(CRYSTAL_FLAGS) $<
 
 clean:

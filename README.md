@@ -1,7 +1,7 @@
 **TL;DR**: see the figure below. Note that nqueen and matmul are implemented in
 all languages but sudoku and bedcov are only implemented in some.
 
-<img align="left" src="https://lh3.sourceforge.io/images/plb2-m1.png?v10"/>
+<img align="left" src="https://lh3.sourceforge.io/images/plb2-m1.png?v11"/>
 
 ## Table of Contents
 
@@ -166,7 +166,7 @@ not optimistic.
 |:--------|:---------|:------|:------|-------:|-------:|-------:|-------:|
 |c:clang+ |C         |Clang  |15.0.0 | 2.57   | 0.54   | 1.56   | 0.84   |
 |cl:sbcl+ |Lisp      |SBCL   |2.4.0  | 3.19   | 3.84   |        |        |
-|crystal+ |Crystal   |       |1.10.0 | 3.28   | 2.45   |        | 0.87   |
+|crystal+ |Crystal   |       |1.10.0 | 3.28   | 2.45   | 3.82   | 0.87   |
 |c#:.net+ |C#        |.NET   |8.0.100| 2.82   | 1.38   | 3.12   |        |
 |d:ldc2+  |D         |LDC2   |2.105.2| 2.68   | 0.57   | 1.60   |        |
 |dart:jit |Dart      |(JIT)  |3.2.4  | 3.62   | 4.81   | 3.24   |        |
