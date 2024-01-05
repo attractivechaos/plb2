@@ -7,7 +7,6 @@ proc `=destroy`*[T](x: CArray[T]) =
   if x.data != nil:
     for i in 0..<x.len: `=destroy`(x.data[i])
     dealloc(x.data)
-    x.data = nil
 
 
 proc `[]=`*[T](arr: CArray[T], i: int, x: T) =
@@ -22,26 +21,26 @@ proc newArray*[T](size: int): CArray[T] =
 
 proc nq_solve(n: int): int =
   var
-    a = newArray[int](n)
-    l = newArray[int](n)
-    c = newArray[int](n)
-    r = newArray[int](n)
+    a = newArray[int32](n)
+    l = newArray[uint32](n)
+    c = newArray[int32](n)
+    r = newArray[int32](n)
     m = 0
     y0 = (1 shl n) - 1
   for i in 0 .. n-1:
     a[i] = -1
   var k = 0
   while k >= 0:
-    var y = (l[k] or c[k] or r[k]) and y0
+    var y = (int32(l[k]) or c[k] or r[k]) and y0
     if ((y xor y0) shr (a[k] + 1)) != 0:
       var i = a[k] + 1
       while i < n and (y and (1 shl i)) != 0:
         i += 1
       if k < n - 1:
-        var z = 1 shl i
+        var z = int32(1) shl i
         a[k] = i
         k += 1
-        l[k] = (l[k-1] or z) shl 1
+        l[k] = (l[k-1] or uint32(z)) shl 1
         c[k] = c[k-1] or z
         r[k] = (r[k-1] or z) shr 1
       else:
