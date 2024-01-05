@@ -1,5 +1,5 @@
 NIM=nim
-NIM_FLAGS=-d:release -d:nimEmulateOverflowChecks --bound_checks:off
+NIM_FLAGS=-d:release -d:lto --bound_checks:off --overflow_checks:off -d:nimEmulateOverflowChecks
 EXE=nqueen matmul bedcov sudoku
 
 all:$(EXE)
