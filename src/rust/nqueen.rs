@@ -1,9 +1,8 @@
 pub fn nq_solve(n: usize) -> usize {
-	const MAX_N: usize = 32;
-	let mut a: [i32; MAX_N] = [-1; MAX_N];
-	let mut l: [i32; MAX_N] = [0; MAX_N];
-	let mut c: [i32; MAX_N] = [0; MAX_N];
-	let mut r: [i32; MAX_N] = [0; MAX_N];
+	let mut a: Vec<i32> = vec![-1; n];
+	let mut l: Vec<i32> = vec![0; n];
+	let mut c: Vec<i32> = vec![0; n];
+	let mut r: Vec<i32> = vec![0; n];
 	let mut m = 0;
 	let y0 = (1<<n) - 1;
 	let mut k = 0;
@@ -40,5 +39,9 @@ pub fn nq_solve(n: usize) -> usize {
 }
 
 fn main() {
-	println!("{}", nq_solve(15));
+	let mut n = 15;
+	if std::env::args().len() > 1 {
+		n = std::env::args().nth(1).unwrap().parse().unwrap();
+	}
+	println!("{}", nq_solve(n));
 }

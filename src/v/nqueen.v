@@ -1,3 +1,5 @@
+import os
+
 @[direct_array_access]
 fn nq_solve(n int) int {
 	mut a := []int{len: n, init: -1}
@@ -37,6 +39,9 @@ fn nq_solve(n int) int {
 }
 
 fn main() {
-	n := 15
+	mut n := 15
+	if os.args.len > 1 {
+		n = os.args[1].int();
+	}
 	println(nq_solve(n))
 }
