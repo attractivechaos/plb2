@@ -186,9 +186,9 @@ indicates JIT compilation.
 |ocaml*   |OCaml     |       |4.14.1 | 3.56   | 2.14   |        |        |
 |perl     |Perl      |       |5.34.1 | 158.34 | 158.01 | 90.78  |        |
 |php+     |PHP       |       |8.3    | 48.15  | 71.20  |        |        |
-|py:codon\*|Python   |Codon  |0.16.3 | 2.91   |        | 3.10   |        |
-|py:cpy   |Python    |CPython|3.11.7 | 159.97 | 108.21 | 52.88  | 42.84  |
-|py:pypy+ |Python    |Pypy   |7.3.14 | 6.91   | 4.95   | 8.82   | 6.27   |
+|py:codon\*|Python-  |Codon  |0.16.3 | 2.91   | 2.48   | 3.10   |        |
+|py:cpy   |Python    |CPython|3.11.7 | 159.97 | 117.81 | 52.88  | 42.84  |
+|py:pypy+ |Python    |PyPy   |7.3.14 | 6.91   | 4.89   | 8.82   | 6.27   |
 |ruby+    |Ruby      |(YJIT) |3.3.0  | 88.15  | 130.51 | 52.26  |        |
 |rust*    |Rust      |       |1.75.0 | 2.49   | 0.56   | 1.65   | 0.94   |
 |swift*   |Swift     |       |5.9.0  | 2.92   | 0.56   | 1.78   |        |
