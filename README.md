@@ -1,7 +1,7 @@
 **TL;DR**: see the figure below. Note that nqueen and matmul are implemented in
 all languages but sudoku and bedcov are only implemented in some.
 
-<img align="left" src="https://lh3.sourceforge.io/images/plb2-m1.png?v14"/>
+<img align="left" src="https://i.ibb.co/25Hs7b4/template.png?v15"/>
 
 ## Table of Contents
 
