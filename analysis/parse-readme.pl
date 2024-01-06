@@ -22,7 +22,7 @@ while (<>) {
 			push(@b, $t[$i] =~ /(\d+\.\d+)/? $1 + 0.0 : 0.0);
 		}
 		if (defined $opts{j}) {
-			next if ($t[1] =~ /js:(k8|deno)/ || $t[1] eq "js:node");
+			next if ($t[1] =~ /js:(k8|deno)/ || $t[1] eq "js:node" || $t[1] =~ "codon");
 		}
 		if ($opts{n} == 2) {
 			if ($b[1] > 0.0 && $b[2] > 0.0) {
