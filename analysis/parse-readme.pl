@@ -16,12 +16,13 @@ while (<>) {
 		$state = 1;
 	} elsif ($state && /^\|[^:]/) {
 		my @t = split(/\|/, $line);
+		$t[1] =~ s/^\s+|\s+$//g;
 		my @b = ($t[1]);
 		for my $i (5 .. 8) {
 			push(@b, $t[$i] =~ /(\d+\.\d+)/? $1 + 0.0 : 0.0);
 		}
 		if (defined $opts{j}) {
-			next if ($t[1] =~ /js:(k8|deno)/);
+			next if ($t[1] =~ /js:(k8|deno)/ || $t[1] eq "js:node");
 		}
 		if ($opts{n} == 2) {
 			if ($b[1] > 0.0 && $b[2] > 0.0) {

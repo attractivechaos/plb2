@@ -78,7 +78,11 @@ function gen_intv(n, rng, bit_st, bit_len) {
 
 var ccc = {
 	print: typeof print == "function"? print : console.log,
-	argv: typeof k8_version == "function"? arguments.slice(0) : typeof Deno == "object"? Deno.args.slice(0) : typeof Bun == "function"? Bun.argv.slice(2) : process.argv.splice(2)
+	argv: typeof k8_version == "function"? arguments.slice(0) // k8
+		: typeof scriptArgs == "object"? scriptArgs.slice(1)  // quickjs
+		: typeof Deno == "object"? Deno.args.slice(0) // Deno
+		: typeof Bun == "function"? Bun.argv.slice(2) // Bun
+		: process.argv.splice(2) // Node
 };
 
 function main(args)

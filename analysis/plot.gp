@@ -22,11 +22,15 @@ set key top left
 set title "On arm64-darwin (sorted by nqueens + matmul)"
 
 set out "time-full2.eps"
+set label "* for AOT compilation" at 2, 300
+set label "+ for JIT compilation" at 2, 270
 plot \
 	"<./parse-readme.pl -j ../README.md" u ($2):xtic(1) t 'nqueens' ls 1, \
 	"" u ($3) t 'matmul' ls 2, \
 	"" u ($4) t 'sudoku' ls 3, \
 	"" u ($5) t 'bedcov' ls 4
+
+unset label
 
 set out "time-zoom2.eps"
 set yran [0:30]
