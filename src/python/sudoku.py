@@ -2,16 +2,11 @@
 
 import sys, string
 
-try:
-	xrange(1)
-except NameError:
-	xrange = range
-
 def sd_genmat():
 	C = [[n//9, n//81*9 + n%9 + 81, n%81 + 162, n%9*9 + n//243*3 + n//27%3 + 243] for n in range(729)]
-	R = [[] for c in xrange(324)]
-	for r in xrange(729):
-		for c2 in xrange(4):
+	R = [[] for c in range(324)]
+	for r in range(729):
+		for c2 in range(4):
 			R[C[r][c2]].append(r)
 	return R, C
 
@@ -42,7 +37,7 @@ def sd_solve(R, C, s):
 	sc = [9] * 324
 	cr = [-1] * 81
 	cc = [-1] * 81
-	for i in xrange(81):
+	for i in range(81):
 		if ord(s[i]) >= 49 and ord(s[i]) <= 57: a = ord(s[i]) - 49
 		else: a = -1
 		if a >= 0:
@@ -54,7 +49,7 @@ def sd_solve(R, C, s):
 		while i >= 0 and i < 81 - hints:
 			if d == 1:
 				if m > 1:
-					for c in xrange(324): # using enumerate() here is slower
+					for c in range(324): # using enumerate() here is slower
 						if sc[c] < m:
 							m, cc[i] = sc[c], c
 							if m < 2: break
@@ -64,7 +59,7 @@ def sd_solve(R, C, s):
 			c = cc[i]
 			if d == -1 and cr[i] >= 0: sd_update(R, C, sr, sc, R[c][cr[i]], -1)
 			r2_ = 9
-			for r2 in xrange(cr[i] + 1, 9):
+			for r2 in range(cr[i] + 1, 9):
 				if sr[R[c][r2]] == 0: r2_ = r2; break
 			if r2_ < 9:
 				m, cc[i+1] = sd_update(R, C, sr, sc, R[c][r2], 1)
@@ -75,7 +70,7 @@ def sd_solve(R, C, s):
 				i -= 1
 		if i < 0: break
 		y = out[:81]
-		for j in xrange(i):
+		for j in range(i):
 			r = R[cc[j]][cr[j]]
 			y[r//9] = r%9 + 1
 		ret.append(y)
