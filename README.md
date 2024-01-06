@@ -67,23 +67,19 @@ figure was [programmatically generated](analysis) from the table.
 Programming language implementations in plb2 can be classified into three groups
 depending on how and when compilation is done:
 
-1. Purely interpreted with no compilation (Elixir, Perl and [CPython][cpy], the
-   official Python implementation). Not surprisingly, these are among the slowest
-   language implementations in this benchmark.
+1. Purely interpreted (QuickJS, Perl and [CPython][cpy], the official Python
+   implementation). Not surprisingly, these are among the slowest language
+   implementations in this benchmark.
 
-2. JIT compiled (Dart, all JavaScript runtimes, Java, Julia, LuaJIT, PHP, PyPy
-   and Ruby3 with [YJIT][yjit]). These
-   language implementations compile hot code on the fly and then execute. They
-   have to balance compilation time and running time to achieve the best
-   overall performance.
+2. JIT compiled (Dart, Bun/Node, Java, Julia, LuaJIT, PHP, PyPy and Ruby3 with
+   [YJIT][yjit]). They are generally faster than pure interpretation.
+   Nonetheless, there is a large variance in this group. While PHP and Ruby3
+   are faster than Perl and CPython, they are still an order of magnitude
+   slower than PyPy. The two JavaScript engines (Bun and Node) and Julia
+   perform well. They are about twice as fast as PyPy.
 
-   In this group, although PHP and Ruby3 are faster than Perl and CPython, they
-   are still an order of magnitude slower than PyPy. The two JavaScript engines
-   (Bun and Node), Dart and Julia all perform well. They are about twice as
-   fast as PyPy.
-
-3. AOT compiled (the rest). Optimizing binaries for
-   specific hardware, these compilers tend to generate the fastest executables.
+3. AOT compiled (the rest). Optimizing binaries for specific hardware, these
+   compilers tend to generate the fastest executables.
 
 ### <a name="caveat"></a>Caveats
 
