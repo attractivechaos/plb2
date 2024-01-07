@@ -94,7 +94,7 @@ function gen_intv(n, rng, bit_st, bit_len)
 	for i = 1, n do
 		st = bit.band(rng(), mask_st)
 		en = st + bit.band(rng(), mask_len)
-		table.insert(a, { st, en, i - 1 })
+		table.insert(a, { st, en, 0, i - 1 })
 	end
 	return a
 end

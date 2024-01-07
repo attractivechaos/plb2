@@ -71,7 +71,7 @@ function gen_intv(n, rng, bit_st, bit_len) {
 	for (let i = 0; i < n; ++i) {
 		const st = rng() & mask_st;
 		const len = rng() & mask_len;
-		a.push([st, st + len]);
+		a.push([st, st + len, 0, i]);
 	}
 	return a;
 }
