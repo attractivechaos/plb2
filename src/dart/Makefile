@@ -1,5 +1,5 @@
 DART=dart
-EXE=nqueen matmul sudoku
+EXE=nqueen matmul sudoku bedcov
 
 all:$(EXE)
 
@@ -10,6 +10,9 @@ matmul:matmul.dart
 	$(DART) compile exe -o $@ $<
 
 sudoku:sudoku.dart
+	$(DART) compile exe -o $@ $<
+
+bedcov:bedcov.dart
 	$(DART) compile exe -o $@ $<
 
 clean:
