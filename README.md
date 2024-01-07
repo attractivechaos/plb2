@@ -36,8 +36,7 @@ complete. The tasks are:
   by the second C implementation [from Rosetta Code][8qrc]. It involves nested
   loops and integer bit operations.
 
-* **matmul**: multiplying two square matrices of 1500x1500 in size. The inner
-  loop resembles BLAS' [axpy][axpy] operation.
+* **matmul**: multiplying two square matrices of 1500x1500 in size.
 
 * **sudoku**: solving 4000 hard [Sudokus][sudoku] (20 puzzles repeated for 200
   times) using the [kudoku algorithm][kudoku]. This algorithm heavily uses
