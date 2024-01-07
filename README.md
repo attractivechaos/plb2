@@ -1,7 +1,7 @@
 **TL;DR**: see the figure below. Note that nqueen and matmul are implemented in
 all languages but sudoku and bedcov are only implemented in some.
 
-<img align="left" src="https://i.ibb.co/ZYtjrTh/template.png?v21">
+<img align="left" src="https://i.ibb.co/C9W8WNK/template.png?v22">
 
 ## Table of Contents
 
@@ -173,10 +173,10 @@ indicates JIT compilation.
 |f90:gcc* |Fortran90 |GCC    |13.2.0 | 2.67   | 0.51   | 1.84   |        |
 |go*      |Go        |       |1.21.5 | 2.94   | 1.63   | 2.04   |        |
 |java+    |Java      |OpenJDK|20.0.1 | 3.92   | 1.14   | 3.20   |        |
-|js:bun+  |JavaScript|Bun    |1.0.20 | 3.11   | 1.75   | 3.07   | 2.93   |
-|js:deno+ |JavaScript|Deno   |1.39.1 | 4.00   | 3.06   | 4.04   | 3.34   |
-|js:k8+   |JavaScript|k8     |1.0    | 3.79   | 2.99   | 3.76   | 3.27   |
-|js:node+ |JavaScript|Node   |21.5.0 | 3.73   | 2.88   | 3.77   | 3.29   |
+|js:bun+  |JavaScript|Bun    |1.0.20 | 3.11   | 1.75   | 3.07   | 2.32   |
+|js:deno+ |JavaScript|Deno   |1.39.1 | 4.00   | 3.06   | 4.04   | 2.50   |
+|js:k8+   |JavaScript|k8     |1.0    | 3.79   | 2.99   | 3.76   | 2.60   |
+|js:node+ |JavaScript|Node   |21.5.0 | 3.73   | 2.88   | 3.77   | 2.45   |
 |js:node  |JavaScript|Node-nojit|21.5.0|55.48 | 162.84 | 63.91  | 20.81  |
 |js:qjs   |JavaScript|QuickJS|23-12-09|59.04  | 135.66 | 67.55  | 37.56  |
 |julia+   |Julia     |       |1.10.0 | 3.02   | 0.76   | 2.35   | 1.96   |
