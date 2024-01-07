@@ -19,7 +19,7 @@ all languages but sudoku and bedcov are only implemented in some.
 
 ## <a name="intro"></a>Introduction
 
-Programming Language Benchmark v2 (plb2) evaluates the performance of 24
+Programming Language Benchmark v2 (plb2) evaluates the performance of 25
 programming languages on four CPU-intensive tasks. It is a follow-up to
 [plb][plb] conducted in 2011. In plb2, all implementations use the same
 algorithm for each task and their performance bottlenecks do not fall in
@@ -190,7 +190,7 @@ indicates JIT compilation.
 |py:pypy+ |Python    |PyPy   |7.3.14 | 6.91   | 4.89   | 8.82   | 6.27   |
 |ruby+    |Ruby      |(YJIT) |3.3.0  | 88.15  | 130.51 | 52.26  |        |
 |rust*    |Rust      |       |1.75.0 | 2.49   | 0.56   | 1.65   | 0.94   |
-|scm:ch+  |Scheme    |       |9.5.8  | 3.54   | 18.98  |        |        |
+|scm:ch+  |Scheme    |Chez   |9.5.8  | 3.54   | 18.98  |        |        |
 |swift*   |Swift     |       |5.9.0  | 2.92   | 0.56   | 1.78   |        |
 |v*       |V         |       |0.4.3  | 2.55   | 0.57   | 1.66   | 1.23   |
 |zig*     |Zig       |       |0.11.0 | 2.72   | 0.56   |        |        |
