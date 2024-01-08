@@ -192,7 +192,7 @@ indicates JIT compilation.
 |rust*    |Rust      |       |1.75.0 | 2.49   | 0.56   | 1.65   | 0.94   |
 |scm:ch+  |Scheme    |Chez   |9.5.8  | 3.54   | 18.98  |        |        |
 |swift*   |Swift     |       |5.9.0  | 2.92   | 0.56   | 1.78   |        |
-|v*       |V         |       |0.4.3  | 2.55   | 0.57   | 1.66   | 1.23   |
+|v*       |V         |       |0.4.3  | 2.55   | 0.57   | 1.59   | 1.23   |
 |zig*     |Zig       |       |0.11.0 | 2.72   | 0.56   |        |        |
 
 [plb]: https://github.com/attractivechaos/plb
