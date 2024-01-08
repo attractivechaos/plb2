@@ -143,10 +143,7 @@ fn ss_solve(ss &SudokuSolver, s string) int {
 			r := ss.r[cc[j]][cr[j]]
 			out[r / 9] = u8(r % 9) + 49
 		}
-		for c in out { // FIXME: there must be a better way! This costs 0.03 sec
-			print(c - 48)
-		}
-		println('')
+		println(out[..].bytestr())
 		n++
 		i--
 		dir = -1
