@@ -222,6 +222,7 @@ i = 0
 while i < n
   hard20.each do |line|
     sd_solve(mr, mc, line)
+	puts ""
   end
   i += 1
 end

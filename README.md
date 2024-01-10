@@ -1,7 +1,7 @@
 **TL;DR**: see the figure below. Note that nqueen and matmul are implemented in
 all languages but sudoku and bedcov are only implemented in some.
 
-<img align="left" width="100%" src="https://i.ibb.co/GnP4tHC/template.png?v23">
+<img align="left" width="100%" src="https://i.ibb.co/9qw28cb/template.png?v24">
 
 ## Table of Content
 
@@ -188,7 +188,7 @@ indicates JIT compilation.
 |php+     |PHP       |       |8.3    | 48.15  | 71.20  |        |        |
 |py:cpy   |Python    |CPython|3.11.7 | 159.97 | 117.81 | 52.88  | 42.84  |
 |py:pypy+ |Python    |PyPy   |7.3.14 | 6.91   | 4.89   | 8.82   | 6.27   |
-|ruby+    |Ruby      |(YJIT) |3.3.0  | 87.53  | 130.51 | 17.47  |        |
+|ruby+    |Ruby      |(YJIT) |3.3.0  | 87.53  | 64.95  | 17.47  |        |
 |rust*    |Rust      |       |1.75.0 | 2.49   | 0.56   | 1.65   | 0.94   |
 |scm:ch+  |Scheme    |Chez   |9.5.8  | 3.54   | 18.98  |        |        |
 |swift*   |Swift     |       |5.9.0  | 2.92   | 0.56   | 1.78   |        |
