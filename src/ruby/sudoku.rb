@@ -28,7 +28,7 @@ def sd_genmat
   while r2 < 729
     c2 = 0
     while c2 < 4
-      mr[mc[r2][c2]].push(r2)
+      mr[mc[r2][c2]] << r2
       c2 += 1
     end
     r2 += 1
@@ -222,7 +222,7 @@ i = 0
 while i < n
   hard20.each do |line|
     sd_solve(mr, mc, line)
-	puts ""
+    puts ""
   end
   i += 1
 end

@@ -2,13 +2,11 @@
 
 def matgen(n)
   tmp = 1.0 / n / n
-  a = Array.new(n) { Array.new(n, 0.0) }
-  for i in 0...n
-    for j in 0...n
-      a[i][j] = tmp * (i - j) * (i + j)
-    end
-  end
-  a
+  Array.new(n) { |i|
+    Array.new(n) { |j|
+      tmp * (i - j) * (i + j)
+    }
+  }
 end
 
 def matmul(a, b)
