@@ -1,4 +1,4 @@
-EXE=nqueen sudoku matmul
+EXE=nqueen sudoku matmul bedcov
 
 all:$(EXE)
 
@@ -9,6 +9,9 @@ matmul:matmul.go
 	go build $<
 
 sudoku:sudoku.go
+	go build $<
+
+bedcov:bedcov.go
 	go build $<
 
 clean:
