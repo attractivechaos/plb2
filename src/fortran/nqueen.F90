@@ -11,10 +11,10 @@ CONTAINS
         INTEGER :: k, i
         m = 0
         y0 = ISHFT(1, n) - 1
-        a(:) = -1
-        l(:) = 0
-        c(:) = 0
-        r(:) = 0
+        a = -1
+        l = 0
+        c = 0
+        r = 0
         k = 0
         DO WHILE (k >= 0)
             y = IAND(y0, IOR(r(k), IOR(l(k), c(k))))
