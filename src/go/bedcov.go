@@ -1,89 +1,156 @@
+// Finds overlaps between two arrays of 1,000,000 intervals with implicit interval trees.
+// The algorithm involves frequent array access in a pattern similar to binary searches.
+//
+// Implementation mimics the C implementation in src/c/bedcov.c
+// Links:
+// * https://en.wikipedia.org/wiki/Interval_tree
+// * https://academic.oup.com/bioinformatics/article/37/9/1315/5910546?login=false
 package main
 
 import (
 	"fmt"
-	"sort"
+	"slices"
 )
 
+// SplitMix32 generates pseudo-random 32 bits numbers.
 type SplitMix32 struct {
 	state uint32
 }
 
-func splitmix32(rng *SplitMix32) uint32 {
-	(*rng).state += 0x9e3779b9
-	z := (*rng).state
+// random yields the next pseudo-random `uint32` number.
+func (s *SplitMix32) random() uint32 {
+	s.state += 0x9e3779b9
+	z := s.state
 	z = (z ^ (z >> 16)) * 0x21f0aaad
 	z = (z ^ (z >> 15)) * 0x735a2d97
 	return z ^ (z >> 15)
 }
 
-type SType int64
-type DType int64
+// RangeType used to represent an interval.
+type RangeType int64
 
+// DataType with the information stored in the interval.
+type DataType int64
+
+// Interval representation.
 type Interval struct {
-	st SType
-	en SType
-	max SType
-	data DType
+	start RangeType
+	end   RangeType
+	max   RangeType
+	data  DataType
 }
 
-func gen_intv(n int, rng *SplitMix32, bit_st int, bit_len int) []Interval {
-	a := make([]Interval, n)
-	mask_st := (SType(1) << bit_st) - 1
-	mask_len := (SType(1) << bit_len) - 1
-	for i := 0; i < n; i++ {
-		st := SType(splitmix32(rng)) & mask_st
-		en := st + (SType(splitmix32(rng)) & mask_len)
-		a[i] = Interval{ SType(st), SType(en), 0, DType(i) }
+// GenerateIntervals randomly, with the start using up to startBits, and the length of the interval defined by
+// up to lenBits.
+func GenerateIntervals(num int, rng *SplitMix32, startBits int, lenBits int) (intervals []Interval) {
+	intervals = make([]Interval, num)
+	startMask := (RangeType(1) << startBits) - 1
+	lenMask := (RangeType(1) << lenBits) - 1
+	for ii := 0; ii < num; ii++ {
+		start := RangeType(rng.random()) & startMask
+		end := start + (RangeType(rng.random()) & lenMask)
+		intervals[ii] = Interval{start, end, 0, DataType(ii)}
 	}
-	return a
+	return
 }
 
-func iit_index(a []Interval) int {
-	sort.SliceStable(a, func(i, j int) bool {
-		return a[i].st < a[j].st
-	})
-	n := len(a)
+/*
+ImplicitIntervalTree representation, stored as a slice.
+
+Suppose there are N=2^(K+1)-1 sorted numbers in an array a[]. They
+implicitly form a complete binary tree of height K+1. We consider leaves to
+be at level 0.
+
+Example: N=7, K=2
+
+	    011
+	  /     \
+	001     101
+	/ \     / \
+
+000 010 100 110
+
+	The binary tree has the following properties:
+
+	1. The lowest k-1 bits of nodes at level k are all 1. The k-th bit is 0.
+	   The first node at level k is indexed by 2^k-1. The root of the tree is
+	   indexed by 2^K-1.
+
+	2. For a node x at level k, its left child is x-2^(k-1) and the right child
+	   is x+2^(k-1).
+
+	3. For a node x at level k, it is a left child if its (k+1)-th bit is 0. Its
+	   parent node is x+2^k. Similarly, if the (k+1)-th bit is 1, x is a right
+	   child and its parent is x-2^k.
+
+	4. For a node x at level k, there are 2^(k+1)-1 nodes in the subtree
+	   descending from x, including x. The left-most leaf is x&~(2^k-1) (masking
+	   the lowest k bits to 0).
+
+	When numbers can't fill a complete binary tree, the parent of a node may not
+	be present in the array. The implementation here still mimics a complete
+	tree, though getting the special casing right is a little complex. There may
+	be alternative solutions.
+
+	As a sorted array can be considered as a binary search tree, we can
+	implement an interval tree on top of the idea. We only need to record, for
+	each node, the maximum value in the subtree descending from the node.
+*/
+type ImplicitIntervalTree struct {
+	intervals []Interval
+	depth     int
+	stack     [64]StackCell
+}
+
+// MakeImplicitIntervalTree takes over the intervals slice and index them in an implicit interval tree for fast access.
+//
+// Note: Since these are integers, one could use a radix sort. Not done yet because sort uses only ~10% of the time.
+func MakeImplicitIntervalTree(intervals []Interval) ImplicitIntervalTree {
+	// Sort by interval start.
+	//timer := time.Now()
+	slices.SortFunc(intervals, func(i, j Interval) int { return int(i.start - j.start) })
+	//fmt.Printf("Sort time: %.3f\n", float64(time.Since(timer).Microseconds())/1e6)
+	n := len(intervals)
 	if n == 0 {
-		return -1
+		return ImplicitIntervalTree{}
 	}
-	last_i := 0
-	last := SType(0)
+	lastIdx := 0
+	last := RangeType(0)
 	for i := 0; i < n; i += 2 {
-		last_i = i
-		a[i].max = a[i].en
-		last = a[i].max
+		lastIdx = i
+		intervals[i].max = intervals[i].end
+		last = intervals[i].max
 	}
 	k := 1
-	for 1 << k <= n {
+	for 1<<k <= n {
 		x := 1 << (k - 1)
 		i0 := (x << 1) - 1
 		step := x << 2
 		for i := i0; i < n; i += step {
-			el := a[i - x].max
+			el := intervals[i-x].max
 			er := last
-			if i + x < n {
-				er = a[i + x].max
+			if i+x < n {
+				er = intervals[i+x].max
 			}
-			e := a[i].en
+			e := intervals[i].end
 			if e < el {
 				e = el
 			}
 			if e < er {
 				e = er
 			}
-			a[i].max = e
+			intervals[i].max = e
 		}
-		last_i = last_i + x
-		if last_i >> k & 1 != 0 {
-			last_i = last_i - x
+		lastIdx = lastIdx + x
+		if lastIdx>>k&1 != 0 {
+			lastIdx = lastIdx - x
 		}
-		if last_i < n && a[last_i].max > last {
-			last = a[last_i].max
+		if lastIdx < n && intervals[lastIdx].max > last {
+			last = intervals[lastIdx].max
 		}
 		k += 1
 	}
-	return k - 1
+	return ImplicitIntervalTree{intervals: intervals, depth: k - 1}
 }
 
 type StackCell struct {
@@ -92,95 +159,96 @@ type StackCell struct {
 	w int8
 }
 
-func iit_overlap(a []Interval, max_level int, st SType, en SType, b []Interval) []Interval {
-	n := len(a)
-	b = b[:0]
-	stack := make([]StackCell, 64);
-	stack[0] = StackCell{ (1 << max_level) - 1, int8(max_level), 0 };
+func (tree *ImplicitIntervalTree) FindOverlaps(start, end RangeType, overlapsBuffer []Interval) []Interval {
+	maxDepth := tree.depth
+	intervals := tree.intervals
+
+	n := len(intervals)
+	overlaps := overlapsBuffer[:0]
+	tree.stack[0] = StackCell{(1 << maxDepth) - 1, int8(maxDepth), 0}
 	t := 1
 	for t > 0 {
 		t -= 1
-		z := stack[t]
+		z := tree.stack[t]
 		if z.k <= 3 {
-			i0 := z.x >> z.k << z.k
-			i1 := i0 + ((1 << (z.k + 1)) - 1)
+			i0 := int(z.x) >> z.k << z.k
+			i1 := i0 + ((1 << int(z.k+1)) - 1)
 			if i1 >= n {
 				i1 = n
 			}
 			i := i0
-			for i < i1 && a[i].st < en {
-				if st < a[i].en {
-					b = append(b, a[i])
+			for i < i1 && intervals[i].start < end {
+				if start < intervals[i].end {
+					overlaps = append(overlaps, intervals[i])
 				}
 				i += 1
 			}
 		} else if z.w == 0 {
-			y := z.x - 1 << (z.k - 1)
-			stack[t] = StackCell{ z.x, z.k, 1 }
+			y := int(z.x) - 1<<int(z.k-1)
+			tree.stack[t] = StackCell{z.x, z.k, 1}
 			t += 1
-			if y >= n || a[y].max > st {
-				stack[t] = StackCell{ y, z.k - 1, 0 }
+			if y >= n || intervals[y].max > start {
+				tree.stack[t] = StackCell{y, z.k - 1, 0}
 				t += 1
 			}
-		} else if z.x < n && a[z.x].st < en {
-			if st < a[z.x].en {
-				b = append(b, a[z.x])
+		} else if int(z.x) < n && intervals[z.x].start < end {
+			if start < intervals[z.x].end {
+				overlaps = append(overlaps, intervals[z.x])
 			}
-			stack[t] = StackCell{ z.x + (1 << (z.k - 1)), z.k - 1, 0 }
+			tree.stack[t] = StackCell{z.x + (1 << (z.k - 1)), z.k - 1, 0}
 			t += 1
 		}
 	}
-	return b
+	return overlaps
 }
 
+const (
+
+	// Parameters of random interval generation.
+
+	NumIntervals       = 1000000
+	IntervalStartBits  = 28
+	IntervalLengthBits = 14
+)
+
 func main() {
-	n := 1000000
-	bit_st := 28
-	bit_len := 14
-	rng := new(SplitMix32)
-	rng.state = 11
-	a1 := gen_intv(n, rng, bit_st, bit_len)
-	max_level := iit_index(a1)
-	b := []Interval{}
-	a2 := gen_intv(n, rng, bit_st, bit_len)
-	tot_cov := SType(0)
-	for j := 0; j < len(a2); j++ {
-		st0 := a2[j].st
-		en0 := a2[j].en
-		b = iit_overlap(a1, max_level, st0, en0, b)
-		if len(b) == 0 {
+	var rng = &SplitMix32{state: 11} // Fixed seed, to get deterministic (always the same) result.
+	tree := MakeImplicitIntervalTree(GenerateIntervals(NumIntervals, rng, IntervalStartBits, IntervalLengthBits))
+	intervalsToCheck := GenerateIntervals(NumIntervals, rng, IntervalStartBits, IntervalLengthBits)
+
+	totalCoverage := RangeType(0)
+	var overlaps = make([]Interval, 0, 1<<IntervalLengthBits) // Reused to avoid extra allocations.
+	for _, interval := range intervalsToCheck {
+		currentStart, currentEnd := interval.start, interval.end
+		overlaps = tree.FindOverlaps(currentStart, currentEnd, overlaps)
+		if len(overlaps) == 0 {
 			continue
 		}
-		cov_st := st0
-		if b[0].st > st0 {
-			cov_st = b[0].st
+
+		coverage := RangeType(0) // Accumulates coverage of `interval` in tree.
+		coveredStart := currentStart
+		if overlaps[0].start > currentStart {
+			coveredStart = overlaps[0].start
 		}
-		cov_en := en0
-		if b[0].en < en0 {
-			cov_en = b[0].en
+		coveredEnd := currentEnd
+		if overlaps[0].end < currentEnd {
+			coveredEnd = overlaps[0].end
 		}
-		cov := SType(0)
-		for i := 0; i < len(b); i++ {
-			st1 := st0
-			if b[i].st > st0 {
-				st1 = b[i].st
-			}
-			en1 := en0
-			if b[i].en < en0 {
-				en1 = b[i].en
-			}
-			if st1 > cov_en {
-				cov += cov_en - cov_st
-				cov_st = st1
-				cov_en = en1
+		for _, overlap := range overlaps {
+			newStart := max(currentStart, overlap.start)
+			newEnd := min(currentEnd, overlap.end)
+			if newStart > coveredEnd {
+				coverage += coveredEnd - coveredStart
+				coveredStart = newStart
+				coveredEnd = newEnd
 			} else {
-				if cov_en < en1 {
-					cov_en = en1
+				if coveredEnd < newEnd {
+					coveredEnd = newEnd
 				}
 			}
 		}
-		cov += cov_en - cov_st
-		tot_cov += cov
+		coverage += coveredEnd - coveredStart
+		totalCoverage += coverage
 	}
-	fmt.Println(tot_cov)
+	fmt.Println(totalCoverage)
 }
