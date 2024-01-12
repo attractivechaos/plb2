@@ -50,17 +50,13 @@ PROGRAM matmul
         READ(arg, FMT=*, IOSTAT=stat) n
         IF (stat > 0) CALL EXIT(1)
     END IF
-    ALLOCATE(a(n,n))
-    ALLOCATE(b(n,n))
-    ALLOCATE(c(n,n))
+    ALLOCATE(a(n,n), b(n,n), c(n,n))
     CALL mat_gen(n, a)
     CALL mat_gen(n, b)
     CALL mat_mul(n, n, a, n, b, c)
 
     WRITE(*,*) c(n/2+1,n/2+1)
 
-    DEALLOCATE(a)
-    DEALLOCATE(b)
-    DEALLOCATE(c)
+    DEALLOCATE(a, b, c)
 
 END PROGRAM matmul
