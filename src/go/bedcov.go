@@ -9,7 +9,7 @@ package main
 
 import (
 	"fmt"
-	"slices"
+	"math/bits"
 )
 
 // SplitMix32 generates pseudo-random 32 bits numbers.
@@ -27,7 +27,7 @@ func (s *SplitMix32) random() uint32 {
 }
 
 // RangeType used to represent an interval.
-type RangeType int64
+type RangeType uint64
 
 // DataType with the information stored in the interval.
 type DataType int64
@@ -52,6 +52,67 @@ func GenerateIntervals(num int, rng *SplitMix32, startBits int, lenBits int) (in
 		intervals[ii] = Interval{start, end, 0, DataType(ii)}
 	}
 	return
+}
+
+// InplaceRadixSort intervals by its start value, using radix sort with 2 buckets (per bit).
+//
+// It uses 1-bit radix, and sort in-place, splitting one bit at a time. O(log2(maxStart)*n)
+func InplaceRadixSort(intervals []Interval) {
+	maxStart := intervals[0].start
+	for _, interval := range intervals {
+		maxStart = max(maxStart, interval.start)
+	}
+	maxBit := 64 - bits.LeadingZeros64(uint64(maxStart)) - 1 // Highest bit used.
+	if maxBit < 0 {
+		return
+	}
+	radixSortRecursive(intervals, maxBit)
+}
+
+// radixSortRecursive sorts the slice by the given bit, and then recursively sorts
+// the two parts (separated by the given bit value) by the next bit down to bit 0.
+func radixSortRecursive(intervals []Interval, bit int) {
+	n := len(intervals)
+	if n <= 1 {
+		return
+	}
+	mask := RangeType(1) << bit
+
+	// Split slice by given bit: start values with bit set to 0 goes to the first part, bit 1 goes to the second.
+	indexBit0, indexBit1 := 0, len(intervals)-1
+	for {
+		// Find first interval with start bit set to 1 in the bottom part of the slice.
+		for (intervals[indexBit0].start&mask == 0) && indexBit0 < indexBit1 {
+			indexBit0++
+		}
+		// Find last interval with start bit set to 0 in the top part of the slice.
+		for (intervals[indexBit1].start&mask > 0) && indexBit1 > indexBit0 {
+			indexBit1--
+		}
+		if indexBit0 >= indexBit1 {
+			if intervals[indexBit0].start&mask == 0 {
+				indexBit0++ // Make sure indexBit0 points to one-past the last element with bit==0
+			}
+			// We are done splitting by given bit.
+			break
+		}
+		// Swap elements pointed by indexBit0 and indexBit1, since they are out of order.
+		intervals[indexBit0], intervals[indexBit1] = intervals[indexBit1], intervals[indexBit0]
+		indexBit0++
+		indexBit1--
+	}
+	if bit == 0 {
+		// Last bit to sort.
+		return
+	}
+	// Recursively sort the two splits on the next lower bits.
+	bit--
+	if indexBit0 > 0 {
+		radixSortRecursive(intervals[:indexBit0], bit)
+	}
+	if indexBit0 < n {
+		radixSortRecursive(intervals[indexBit0:], bit)
+	}
 }
 
 /*
@@ -108,7 +169,8 @@ type ImplicitIntervalTree struct {
 func MakeImplicitIntervalTree(intervals []Interval) ImplicitIntervalTree {
 	// Sort by interval start.
 	//timer := time.Now()
-	slices.SortFunc(intervals, func(i, j Interval) int { return int(i.start - j.start) })
+	InplaceRadixSort(intervals)
+	// slices.SortFunc(intervals, func(i, j Interval) int { return int(i.start - j.start) })
 	//fmt.Printf("Sort time: %.3f\n", float64(time.Since(timer).Microseconds())/1e6)
 	n := len(intervals)
 	if n == 0 {
