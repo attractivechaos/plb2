@@ -5,7 +5,7 @@ use warnings;
 use Getopt::Std;
 
 my %opts = (n=>2);
-getopts("n:j", \%opts);
+getopts("n:jr", \%opts);
 
 my $state = 0;
 my @a;
@@ -18,11 +18,11 @@ while (<>) {
 		my @t = split(/\|/, $line);
 		$t[1] =~ s/^\s+|\s+$//g;
 		my @b = ($t[1]);
-		for my $i (5 .. 8) {
+		for my $i (6 .. 9) {
 			push(@b, $t[$i] =~ /(\d+\.\d+)/? $1 + 0.0 : 0.0);
 		}
 		if (defined $opts{j}) {
-			next if ($t[1] =~ /js:(k8|deno)/ || $t[1] eq "js:node" || $t[1] =~ "codon");
+			next if $t[5] =~ "N";
 		}
 		if ($opts{n} == 2) {
 			if ($b[1] > 0.0 && $b[2] > 0.0) {
@@ -36,6 +36,18 @@ while (<>) {
 			if ($b[1] > 0.0 && $b[2] > 0.0 && $b[3] > 0.0 && $b[4]) {
 				push(@a, \@b);
 			}
+		}
+	}
+}
+
+if (defined $opts{r}) {
+	my @baseline;
+	for my $x (@a) {
+		@baseline = @$x if $x->[0] =~ /^c:clang/;
+	}
+	for my $x (@a) {
+		for my $i (1 .. 4) {
+			$x->[$i] /= $baseline[$i] * 4;
 		}
 	}
 }

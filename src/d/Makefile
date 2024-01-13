@@ -1,5 +1,5 @@
 LDC=ldc2
-DFLAGS=-O3 -release -flto=full --boundscheck=off
+DFLAGS=-O3 -release #--boundscheck=off #-flto=full
 EXE=nqueen matmul sudoku bedcov
 
 all:$(EXE)

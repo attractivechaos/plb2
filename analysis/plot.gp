@@ -55,3 +55,13 @@ plot \
 	"" u ($3) t 'matmul' ls 2, \
 	"" u ($4) t 'sudoku' ls 3, \
 	"" u ($5) t 'bedcov' ls 4
+
+set title "On arm64-darwin (sorted by total relative time)"
+set out "time-zoom4r.eps"
+set yran [0:7]
+set ylab "Relative to elapsed time in C" of +0.0,0
+plot \
+	"<./parse-readme.pl -jrn4 ../README.md" u ($2):xtic(1) t 'nqueens' ls 1, \
+	"" u ($3) t 'matmul' ls 2, \
+	"" u ($4) t 'sudoku' ls 3, \
+	"" u ($5) t 'bedcov' ls 4

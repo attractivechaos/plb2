@@ -1,7 +1,7 @@
 **TL;DR**: see the figure below. Note that nqueen and matmul are implemented in
 all languages but sudoku and bedcov are only implemented in some.
 
-<img align="left" width="100%" src="https://i.ibb.co/0B6TL5h/template.png?v26">
+<img align="left" width="100%" src="https://i.ibb.co/16pCzXX/template.png?v27">
 
 ## Table of Content
 
@@ -49,8 +49,7 @@ complete. The tasks are:
 Every language has nqueen and matmul implementations. Some languages do not
 have sudoku or bedcov implementations. Most programs were initially implemented
 by me and a few were contributed by others. As I am mostly a C programmer,
-implementations in other languages may be suboptimal and there are no
-implementations in functional languages. **Pull requests are welcomed!**
+implementations in other languages may be suboptimal. **Pull requests are welcomed!**
 
 ## <a name="result"></a>Results
 
@@ -160,40 +159,40 @@ not optimistic.
 In the following table, star "\*" indicates AOT compilation and plus "+"
 indicates JIT compilation.
 
-|Label    |Language  |Runtime|Version| nqueen | matmul | sudoku | bedcov |
-|:--------|:---------|:------|:------|-------:|-------:|-------:|-------:|
-|c:clang* |C         |Clang  |15.0.0 | 2.57   | 0.54   | 1.56   | 0.84   |
-|cl:sbcl* |Lisp      |SBCL   |2.4.0  | 3.19   | 3.84   |        |        |
-|codon\*  |Codon     |       |0.16.3 | 2.91   | 2.48   | 3.10   |        |
-|crystal* |Crystal   |       |1.10.0 | 3.28   | 2.45   | 3.14   | 0.87   |
-|c#:.net* |C#        |.NET   |8.0.100| 2.82   | 1.38   | 3.12   |        |
-|d:ldc2*  |D         |LDC2   |2.105.2| 2.68   | 0.57   | 1.60   |        |
-|dart:jit+|Dart      |(JIT)  |3.2.4  | 3.62   | 2.74   | 3.24   | 2.85   |
-|elixir+  |Elixir    |       |1.15.7 | 26.17  | 67.39  |        |        |
-|f90:gcc* |Fortran90 |GCC    |13.2.0 | 2.67   | 0.51   | 1.84   |        |
-|go*      |Go        |       |1.21.5 | 2.94   | 1.14   | 2.04   | 0.94   |
-|java+    |Java      |OpenJDK|20.0.1 | 3.92   | 1.14   | 3.20   |        |
-|js:bun+  |JavaScript|Bun    |1.0.20 | 3.11   | 1.75   | 3.07   | 2.32   |
-|js:deno+ |JavaScript|Deno   |1.39.1 | 4.00   | 3.06   | 4.04   | 2.50   |
-|js:k8+   |JavaScript|k8     |1.0    | 3.79   | 2.99   | 3.76   | 2.60   |
-|js:node+ |JavaScript|Node   |21.5.0 | 3.73   | 2.88   | 3.77   | 2.45   |
-|js:node  |JavaScript|Node-nojit|21.5.0|55.48 | 162.84 | 63.91  | 20.81  |
-|js:qjs   |JavaScript|QuickJS|23-12-09|59.04  | 135.66 | 67.55  | 37.56  |
-|julia+   |Julia     |       |1.10.0 | 3.02   | 0.76   | 2.18   | 1.96   |
-|luajit+  |Lua       |LuaJIT |2.1    | 5.31   | 2.66   | 4.48   | 10.52  |
-|mojo*    |Mojo      |       |0.6.1  | 3.24   | 1.12   |        |        |
-|nim*     |Nim       |       |2.0.2  | 2.57   | 0.56   | 1.64   | 1.07   |
-|ocaml*   |OCaml     |       |4.14.1 | 3.56   | 2.14   |        |        |
-|perl     |Perl      |       |5.34.1 | 158.34 | 158.01 | 90.78  |        |
-|php+     |PHP       |       |8.3    | 48.15  | 71.20  |        |        |
-|py:cpy   |Python    |CPython|3.11.7 | 159.97 | 117.81 | 52.88  | 42.84  |
-|py:pypy+ |Python    |PyPy   |7.3.14 | 6.91   | 4.89   | 8.82   | 6.27   |
-|ruby+    |Ruby      |(YJIT) |3.3.0  | 87.53  | 64.95  | 17.47  |        |
-|rust*    |Rust      |       |1.75.0 | 2.49   | 0.56   | 1.65   | 0.94   |
-|scm:ch+  |Scheme    |Chez   |9.5.8  | 3.54   | 18.98  |        |        |
-|swift*   |Swift     |       |5.9.0  | 2.92   | 0.56   | 1.78   |        |
-|v*       |V         |       |0.4.3  | 2.55   | 0.57   | 1.59   | 1.23   |
-|zig*     |Zig       |       |0.11.0 | 2.72   | 0.56   |        |        |
+|Label    |Language  |Runtime|Version| Plot | nqueen | matmul | sudoku | bedcov |
+|:--------|:---------|:------|:------|:----:|-------:|-------:|-------:|-------:|
+|c:clang* |C         |Clang  |15.0.0 | Y    | 2.57   | 0.54   | 1.56   | 0.84   |
+|cl:sbcl* |Lisp      |SBCL   |2.4.0  | Y    | 3.19   | 3.84   |        |        |
+|codon\*  |Codon     |       |0.16.3 | N    | 2.91   | 2.48   | 3.10   |        |
+|crystal* |Crystal   |       |1.10.0 | Y    | 3.28   | 2.45   | 3.14   | 0.87   |
+|c#:.net* |C#        |.NET   |8.0.100| Y    | 2.82   | 1.38   | 3.12   |        |
+|d:ldc2*  |D         |LDC2   |1.35.0 | Y    | 2.68   | 0.57   | 1.60   | 0.98   |
+|dart:jit+|Dart      |(JIT)  |3.2.4  | Y    | 3.62   | 2.74   | 3.24   | 2.85   |
+|elixir+  |Elixir    |       |1.15.7 | Y    | 26.17  | 67.39  |        |        |
+|f90:gcc* |Fortran   |GCC    |13.2.0 | Y    | 2.67   | 0.51   | 1.84   |        |
+|go*      |Go        |       |1.21.5 | Y    | 2.94   | 1.14   | 2.04   | 0.94   |
+|java+    |Java      |OpenJDK|20.0.1 | Y    | 3.92   | 1.14   | 3.20   |        |
+|js:bun+  |JavaScript|Bun    |1.0.20 | Y    | 3.11   | 1.75   | 3.07   | 2.32   |
+|js:deno+ |JavaScript|Deno   |1.39.1 | N    | 4.00   | 3.06   | 4.04   | 2.50   |
+|js:k8+   |JavaScript|k8     |1.0    | N    | 3.79   | 2.99   | 3.76   | 2.60   |
+|js:node+ |JavaScript|Node   |21.5.0 | Y    | 3.73   | 2.88   | 3.77   | 2.45   |
+|js:node  |JavaScript|Node-nojit|21.5.0|N   | 55.48  | 162.84 | 63.91  | 20.81  |
+|js:qjs   |JavaScript|QuickJS|23-12-09|Y    | 59.04  | 135.66 | 67.55  | 37.56  |
+|julia+   |Julia     |       |1.10.0 | Y    | 3.02   | 0.76   | 2.18   | 1.96   |
+|luajit+  |Lua       |LuaJIT |2.1    | Y    | 5.31   | 2.66   | 4.48   | 10.52  |
+|mojo*    |Mojo      |       |0.6.1  | Y    | 3.24   | 1.12   |        |        |
+|nim*     |Nim       |       |2.0.2  | Y    | 2.57   | 0.56   | 1.64   | 1.07   |
+|ocaml*   |OCaml     |       |4.14.1 | Y    | 3.56   | 2.14   |        |        |
+|perl     |Perl      |       |5.34.1 | Y    | 158.34 | 158.01 | 90.78  |        |
+|php+     |PHP       |       |8.3    | Y    | 48.15  | 71.20  |        |        |
+|py:cpy   |Python    |CPython|3.11.7 | Y    | 159.97 | 117.81 | 52.88  | 42.84  |
+|py:pypy+ |Python    |PyPy   |7.3.14 | Y    | 6.91   | 4.89   | 8.82   | 6.27   |
+|ruby+    |Ruby      |(YJIT) |3.3.0  | Y    | 87.53  | 64.95  | 17.47  |        |
+|rust*    |Rust      |       |1.75.0 | Y    | 2.49   | 0.56   | 1.65   | 0.94   |
+|scm:ch+  |Scheme    |Chez   |9.5.8  | Y    | 3.54   | 18.98  |        |        |
+|swift*   |Swift     |       |5.9.0  | Y    | 2.92   | 0.56   | 1.78   |        |
+|v*       |V         |       |0.4.3  | Y    | 2.55   | 0.57   | 1.59   | 1.23   |
+|zig*     |Zig       |       |0.11.0 | Y    | 2.72   | 0.56   |        |        |
 
 [plb]: https://github.com/attractivechaos/plb
 [8queen]: https://en.wikipedia.org/wiki/Eight_queens_puzzle
