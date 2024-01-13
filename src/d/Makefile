@@ -1,11 +1,11 @@
 LDC=ldc2
-DLFAGS=-O3 -release -flto=full --boundscheck=off
+DFLAGS=-O3 -release -flto=full --boundscheck=off
 EXE=nqueen matmul sudoku bedcov
 
 all:$(EXE)
 
 nqueen:nqueen.d
-	$(LDC) $(DLFAGS) $<
+	$(LDC) $(DFLAGS) $<
 
 matmul:matmul.d
 	$(LDC) $(DFLAGS) $<
