@@ -1,16 +1,20 @@
 LDC=ldc2
-EXE=nqueen matmul sudoku
+DLFAGS=-O3 -release -flto=full --boundscheck=off
+EXE=nqueen matmul sudoku bedcov
 
 all:$(EXE)
 
 nqueen:nqueen.d
-	$(LDC) -O3 -release $<
+	$(LDC) $(DLFAGS) $<
 
 matmul:matmul.d
-	$(LDC) -O3 -release $<
+	$(LDC) $(DFLAGS) $<
 
 sudoku:sudoku.d
-	$(LDC) -O3 -release $<
+	$(LDC) $(DFLAGS) $<
+
+bedcov:bedcov.d
+	$(LDC) $(DFLAGS) $<
 
 clean:
 	rm -f $(EXE) *.o
