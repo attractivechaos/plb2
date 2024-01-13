@@ -23,7 +23,7 @@ function it_index!(a::Vector{Interval{S,T}}) where {S,T}
 			max_end = max(max_end, e)
 			a[i] = Interval{S,T}(a[i].data, a[i].st, a[i].en, max_end)
 		end
-		last_i = if ((last_i>>k&1) != 0) last_i + (1<<(k-1)) else last_i - (1<<(k-1)) end
+		last_i = if ((last_i>>k&1) != 0) last_i - (1<<(k-1)) else last_i + (1<<(k-1)) end
 		if (last_i <= length(a)) last = max(last, a[last_i].max) end
 		k += 1
 	end
