@@ -1,5 +1,5 @@
 JAVAC=javac
-EXE=nqueen.class matmul.class sudoku.class
+EXE=nqueen.class matmul.class sudoku.class bedcov.class
 
 all:$(EXE)
 
@@ -12,5 +12,8 @@ matmul.class:matmul.java
 sudoku.class:sudoku.java
 	$(JAVAC) $<
 
+bedcov.class:bedcov.java
+	$(JAVAC) $<
+
 clean:
-	rm -f $(EXE)
+	rm -f $(EXE) *.class
