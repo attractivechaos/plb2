@@ -1,7 +1,7 @@
 **TL;DR**: see the figure below. Note that nqueen and matmul are implemented in
 all languages but sudoku and bedcov are only implemented in some.
 
-<img align="left" width="100%" src="https://i.ibb.co/PYrG0s4/template.png?v29">
+<img align="left" width="100%" src="https://i.ibb.co/KwF5Y4S/template.png?v30">
 
 ## Table of Content
 
@@ -190,7 +190,7 @@ indicates JIT compilation.
 |ruby+    |Ruby      |(YJIT) |3.3.0  | Y    | 87.53  | 64.95  | 17.47  |        |
 |rust*    |Rust      |       |1.75.0 | Y    | 2.49   | 0.56   | 1.65   | 0.94   |
 |scm:ch+  |Scheme    |Chez   |9.5.8  | Y    | 3.54   | 18.98  |        |        |
-|swift*   |Swift     |       |5.9.0  | Y    | 2.92   | 0.56   | 1.78   |        |
+|swift*   |Swift     |       |5.9.0  | Y    | 2.92   | 0.56   | 1.78   | 1.21   |
 |v*       |V         |       |0.4.3  | Y    | 2.55   | 0.57   | 1.59   | 1.23   |
 |zig*     |Zig       |       |0.11.0 | Y    | 2.72   | 0.56   |        |        |
 
