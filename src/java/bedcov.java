@@ -37,11 +37,17 @@ class bedcov {
 		}
 		return a;
 	}
+	static Interval[] sort_intv(int n, Interval[] a) {
+		Interval[] b = new Interval[n];
+		Arrays.sort(a);
+		for (int i = 0; i < n; ++i)
+			b[i] = new Interval(a[i].st, a[i].en, a[i].data);
+		return b;
+	}
 	static int iit_index(int n, Interval[] a) {
 		int last_i = -1;
 		long last = -1;
 		if (n == 0) return -1;
-		Arrays.sort(a);
 		for (int i = 0; i < n; i += 2) {
 			last_i = i;
 			last = a[i].max = a[i].en;
@@ -90,7 +96,7 @@ class bedcov {
 	public static void main(String[] args) throws Exception {
 		long[] x = { 11 };
 		int n = 1000000, bit_st = 28, bit_len = 14;
-		Interval[] a1 = gen_intv(n, x, bit_st, bit_len);
+		Interval[] a1 = sort_intv(n, gen_intv(n, x, bit_st, bit_len));
 		Interval[] a2 = gen_intv(n, x, bit_st, bit_len);
 		int max_level = iit_index(n, a1);
 		ArrayList<Interval> b = new ArrayList<Interval>();

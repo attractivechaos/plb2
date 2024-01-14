@@ -1,7 +1,7 @@
 **TL;DR**: see the figure below. Note that nqueen and matmul are implemented in
 all languages but sudoku and bedcov are only implemented in some.
 
-<img align="left" width="100%" src="https://i.ibb.co/16pCzXX/template.png?v27">
+<img align="left" width="100%" src="https://i.ibb.co/jL5KdgV/template.png?v28">
 
 ## Table of Content
 
@@ -171,7 +171,7 @@ indicates JIT compilation.
 |elixir+  |Elixir    |       |1.15.7 | Y    | 26.17  | 67.39  |        |        |
 |f90:gcc* |Fortran   |GCC    |13.2.0 | Y    | 2.67   | 0.51   | 1.84   |        |
 |go*      |Go        |       |1.21.5 | Y    | 2.94   | 1.14   | 2.04   | 0.94   |
-|java+    |Java      |OpenJDK|20.0.1 | Y    | 3.92   | 1.14   | 3.20   |        |
+|java+    |Java      |OpenJDK|20.0.1 | Y    | 3.92   | 1.14   | 3.20   | 3.04   |
 |js:bun+  |JavaScript|Bun    |1.0.20 | Y    | 3.11   | 1.75   | 3.07   | 2.32   |
 |js:deno+ |JavaScript|Deno   |1.39.1 | N    | 4.00   | 3.06   | 4.04   | 2.50   |
 |js:k8+   |JavaScript|k8     |1.0    | N    | 3.79   | 2.99   | 3.76   | 2.60   |
