@@ -1,4 +1,4 @@
-class Sudoku {
+struct Sudoku {
 	int[,] R, C;
 	public Sudoku() {
 		R = new int[324,9];
