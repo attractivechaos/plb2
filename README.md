@@ -186,10 +186,10 @@ indicates JIT compilation.
 |perl     |Perl      |       |5.34.1 | Y    | 158.34 | 158.01 | 90.78  |        |
 |php+     |PHP       |       |8.3    | Y    | 48.15  | 71.20  |        |        |
 |py:cpy   |Python    |CPython|3.11.7 | Y    | 159.97 | 117.81 | 52.88  | 42.84  |
-|py:graal+|Python    |GraalEE|23.1.1 | N    | 4.38   | 16.22  | 59.52  | 12.32  |
+|py:graal+|Python    |Graal EE|23.1.1| N    | 4.38   | 16.22  | 59.52  | 12.32  |
 |py:pypy+ |Python    |PyPy   |7.3.14 | Y    | 6.91   | 4.89   | 8.82   | 6.27   |
-|rb:mri+  |Ruby      |(YJIT) |3.3.0  | Y    | 87.53  | 64.95  | 17.47  | 37.07  |
-|rb:graal+|Ruby      |GraalEE|23.1.1 | Y    | 6.54   | 4.10   | 4.11   | 5.23   |
+|rb:crb+  |Ruby      |CRuby+yjit|3.3.0| Y   | 87.53  | 64.95  | 17.47  | 37.07  |
+|rb:graal+|Ruby      |Graal EE|23.1.1| Y    | 6.54   | 4.10   | 4.11   | 5.23   |
 |rust*    |Rust      |       |1.75.0 | Y    | 2.49   | 0.56   | 1.65   | 0.94   |
 |scm:ch+  |Scheme    |Chez   |9.5.8  | Y    | 3.54   | 18.98  |        |        |
 |swift*   |Swift     |       |5.9.0  | Y    | 2.92   | 0.56   | 1.78   | 1.21   |
