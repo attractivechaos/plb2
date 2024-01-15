@@ -1,7 +1,7 @@
 **TL;DR**: see the figure below. Note that nqueen and matmul are implemented in
 all languages but sudoku and bedcov are only implemented in some.
 
-<img align="left" width="100%" src="https://i.ibb.co/KwF5Y4S/template.png?v30">
+<img align="left" width="100%" src="https://i.ibb.co/N3nKCk1/template.png?v31">
 
 ## Table of Content
 
@@ -188,8 +188,8 @@ indicates JIT compilation.
 |py:cpy   |Python    |CPython|3.11.7 | Y    | 159.97 | 117.81 | 52.88  | 42.84  |
 |py:graal+|Python    |Graal  |23.1.1 | N    | 4.38   | 16.22  | 59.52  | 12.32  |
 |py:pypy+ |Python    |PyPy   |7.3.14 | Y    | 6.91   | 4.89   | 8.82   | 6.27   |
-|rb:mri+  |Ruby      |(YJIT) |3.3.0  | Y    | 87.53  | 64.95  | 17.47  |        |
-|rb:graal+|Ruby      |Graal  |23.1.1 | N    | 6.54   | 4.10   | 4.11   |        |
+|rb:mri+  |Ruby      |(YJIT) |3.3.0  | Y    | 87.53  | 64.95  | 17.47  | 37.07  |
+|rb:graal+|Ruby      |Graal  |23.1.1 | Y    | 6.54   | 4.10   | 4.11   | 5.23   |
 |rust*    |Rust      |       |1.75.0 | Y    | 2.49   | 0.56   | 1.65   | 0.94   |
 |scm:ch+  |Scheme    |Chez   |9.5.8  | Y    | 3.54   | 18.98  |        |        |
 |swift*   |Swift     |       |5.9.0  | Y    | 2.92   | 0.56   | 1.78   | 1.21   |
