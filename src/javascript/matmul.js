@@ -30,7 +30,8 @@ var ccc = {
 		: typeof scriptArgs == "object"? scriptArgs.slice(1)  // quickjs
 		: typeof Deno == "object"? Deno.args.slice(0) // Deno
 		: typeof Bun == "function"? Bun.argv.slice(2) // Bun
-		: process.argv.splice(2) // Node
+		: typeof process == "object"? process.argv.splice(2) // Node
+		: []
 };
 
 let n = ccc.argv.length > 0? parseInt(ccc.argv[0]) : 1500;
