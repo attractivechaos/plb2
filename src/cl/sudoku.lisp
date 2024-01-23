@@ -222,5 +222,6 @@
     (dotimes (i n)
       (loop :for puzzle :of-type Sudoku-String :across puzzles
             :do
-               (format t "~A~%"
-                       (solve puzzle))))))
+               (progn
+                 (solve puzzle)
+                 (terpri))))))
