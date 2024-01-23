@@ -1,5 +1,5 @@
 LISP ?= sbcl
-EXE=nqueen matmul
+EXE=nqueen matmul sudoku
 
 all:$(EXE)
 
@@ -10,6 +10,12 @@ nqueen:nqueen.asd
 		--eval "(quit)"
 
 matmul:matmul.asd
+	$(LISP) --eval "(require :asdf)" \
+		--load $< \
+		--eval "(asdf:make :$@)" \
+		--eval "(quit)"
+
+sudoku:sudoku.asd
 	$(LISP) --eval "(require :asdf)" \
 		--load $< \
 		--eval "(asdf:make :$@)" \
