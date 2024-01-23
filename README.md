@@ -1,7 +1,7 @@
 **TL;DR**: see the figure below. Note that nqueen and matmul are implemented in
 all languages but sudoku and bedcov are only implemented in some.
 
-<img align="left" width="100%" src="https://i.ibb.co/N3nKCk1/template.png?v31">
+<img align="left" width="100%" src="https://i.ibb.co/zGgbmVG/template.png?v32">
 
 ## Table of Content
 
@@ -162,7 +162,7 @@ indicates JIT compilation.
 |Label    |Language  |Runtime|Version| Plot | nqueen | matmul | sudoku | bedcov |
 |:--------|:---------|:------|:------|:----:|-------:|-------:|-------:|-------:|
 |c:clang* |C         |Clang  |15.0.0 | Y    | 2.57   | 0.54   | 1.56   | 0.84   |
-|cl:sbcl* |Lisp      |SBCL   |2.4.0  | Y    | 3.19   | 3.84   |        |        |
+|cl:sbcl* |Lisp      |SBCL   |2.4.0  | Y    | 3.19   | 3.84   | 3.40   |        |
 |codon\*  |Codon     |       |0.16.3 | N    | 2.91   | 2.48   | 3.10   |        |
 |crystal* |Crystal   |       |1.10.0 | Y    | 3.28   | 2.45   | 3.14   | 0.87   |
 |c#:.net* |C#        |.NET   |8.0.100| Y    | 2.82   | 1.38   | 1.62   | 0.99   |
