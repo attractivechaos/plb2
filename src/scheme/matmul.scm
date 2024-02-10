@@ -1,4 +1,4 @@
-(import (chezscheme))
+(import (chezscheme))  ; requires version >=10.0.0
 
 ; simple vector-backed, column-major matrix type
 (define-record-type matrix
@@ -9,10 +9,10 @@
   (protocol
     (lambda (new)
       (lambda (rows columns fill)
-        (new (make-vector (fx* rows columns) fill) rows columns)))))
+        (new (make-flvector (fx* rows columns) fill) rows columns)))))
 
 (define (matrix-length a)
-  (vector-length (matrix-data a)))
+  (flvector-length (matrix-data a)))
 
 (define (linear-index a i j)
   (fx+ i (fx* j (matrix-rows a))))
@@ -22,13 +22,13 @@
     (values i j)))
 
 (define (matrix-ref a i j)
-  (vector-ref (matrix-data a)
-              (linear-index a i j)))
+  (flvector-ref (matrix-data a)
+                (linear-index a i j)))
 
 (define (matrix-set! a i j v)
-  (vector-set! (matrix-data a)
-               (linear-index a i j)
-               v))
+  (flvector-set! (matrix-data a)
+                 (linear-index a i j)
+                 v))
 
 (define (matrix-generate n)
   (let* ([m (fixnum->flonum n)]
