@@ -1,51 +1,43 @@
-# ===----------------------------------------------------------------------=== #
-# Copyright (c) 2023, Modular Inc. All rights reserved.
-#
-# Licensed under the Apache License v2.0 with LLVM Exceptions:
-# https://llvm.org/LICENSE.txt
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ===----------------------------------------------------------------------=== #
+# This sample demonstrates how various systems optimizations can be applied to a
+# naive matmul implementation in Mojo to gain significant performance speedups
 
+import benchmark
 from memory import memset_zero
+from algorithm import (
+    vectorize_unroll,
+    parallelize,
+    Static2DTileUnitFunc as Tile2DFunc,
+)
 
-alias type = DType.float64
+alias n = 1500  # cols of A, B, and C
+alias type = DType.float32
 
-struct Matrix: # this struct comes from matmul.mojo in mojo/examples
-	var data: DTypePointer[type]
-	var rows: Int
-	var cols: Int
+# simdwidth of = amount of `type` elements that fit into a single SIMD register
+# 2x multiplier will use multiple SIMD registers in parallel where possible
+alias nelts = simdwidthof[type]() * 2
+alias tile_n = 64  # N must be a multiple of this
+alias tile_k = 4  # K must be a multiple of this
 
-	# Initialize zeroeing all values
-	fn __init__(inout self, rows: Int, cols: Int):
-		self.data = DTypePointer[type].alloc(rows * cols)
-		memset_zero(self.data, rows * cols)
-		self.rows = rows
-		self.cols = cols
 
-	# Initialize taking a pointer, don't set any elements
-	fn __init__(
-		inout self, rows: Int, cols: Int, data: DTypePointer[type]
-	):
-		self.data = data
-		self.rows = rows
-		self.cols = cols
+struct Matrix[rows: Int, cols: Int]:
+    var data: DTypePointer[type]
 
-	fn __getitem__(self, y: Int, x: Int) -> Float64:
-		return self.load[1](y, x)
+    # Initialize zeroeing all values
+    fn __init__(inout self):
+        self.data = DTypePointer[type].alloc(rows * cols)
+        memset_zero(self.data, rows * cols)
 
-	fn __setitem__(inout self, y: Int, x: Int, val: Float64):
-		self.store[1](y, x, val)
+    fn __getitem__(self, y: Int, x: Int) -> SIMD[type, 1]:
+        return self.load[1](y, x)
 
-	fn load[nelts: Int](self, y: Int, x: Int) -> SIMD[type, nelts]:
-		return self.data.simd_load[nelts](y * self.cols + x)
+    fn __setitem__(inout self, y: Int, x: Int, val: SIMD[type, 1]):
+        self.store[1](y, x, val)
 
-	fn store[nelts: Int](self, y: Int, x: Int, val: SIMD[type, nelts]):
-		return self.data.simd_store[nelts](y * self.cols + x, val)
+    fn load[nelts: Int](self, y: Int, x: Int) -> SIMD[type, nelts]:
+        return self.data.simd_load[nelts](y * self.cols + x)
+
+    fn store[nelts: Int](self, y: Int, x: Int, val: SIMD[type, nelts]):
+        return self.data.simd_store[nelts](y * self.cols + x, val)
 
 fn matgen(inout a: Matrix):
 	let tmp = 1.0 / a.rows / a.cols
@@ -53,19 +45,52 @@ fn matgen(inout a: Matrix):
 		for j in range(a.cols):
 			a[i, j] = tmp * (i - j) * (i + j)
 
-fn matmul(inout c: Matrix, a: Matrix, b: Matrix):
-	for i in range(a.rows):
-		for k in range(b.cols):
-			let aik = a[i, k] # hoisting aik is faster
-			for j in range(a.cols):
-				c[i, j] += aik * b[k, j]
+# Perform 2D tiling on the iteration space defined by end_x and end_y
+fn tile[tiled_fn: Tile2DFunc, tile_x: Int, tile_y: Int](end_x: Int, end_y: Int):
+    for y in range(0, end_y, tile_y):
+        for x in range(0, end_x, tile_x):
+            tiled_fn[tile_x, tile_y](x, y)
 
-fn main():
-	let n = 1500
-	var a = Matrix(n, n)
-	var b = Matrix(n, n)
-	var c = Matrix(n, n)
-	matgen(a)
-	matgen(b)
-	matmul(c, a, b)
-	print(c[n>>1,n>>1])
+# Unroll the vectorized loop by a constant factor
+fn matmul_unrolled(inout C: Matrix, A: Matrix, B: Matrix):
+    @parameter
+    fn calc_row(m: Int):
+        @parameter
+        fn calc_tile[tile_x: Int, tile_y: Int](x: Int, y: Int):
+            @unroll(tile_y)
+            for k in range(y, y + tile_y):
+
+                @parameter
+                fn dot[nelts: Int](n: Int):
+                    C.store(
+                        m,
+                        n + x,
+                        C.load[nelts](m, n + x)
+                        + A[m, k] * B.load[nelts](k, n + x),
+                    )
+
+                alias unroll_factor = tile_x // nelts
+                vectorize_unroll[nelts, tile_x, unroll_factor, dot]()
+
+        tile[calc_tile, tile_n, tile_k](C.cols, B.rows)
+
+    parallelize[calc_row](C.rows, C.rows)
+
+fn main() raises:   
+    var a = Matrix[n, n]()
+    matgen(a)
+    var b = Matrix[n, n]()
+    matgen(b)
+    var c = Matrix[n, n]()
+
+    @always_inline
+    @parameter
+    fn test_fn():
+        _ = matmul_unrolled(c, a, b)
+
+    let secs = benchmark.run[test_fn](max_runtime_secs=0.5).mean()
+
+    a.data.free()
+    b.data.free()
+    print(c[n>>1,n>>1])
+    c.data.free()
