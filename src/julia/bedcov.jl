@@ -1,3 +1,5 @@
+lsh(a, b) = a << (b & 63)
+
 struct Interval{S,T}
 	data::T
 	st::S
@@ -56,7 +58,7 @@ function it_overlap!(
 			end
 		elseif w == 0
 			stack[stack_len += 1] = (x, h, 1)
-			y = x - (1<<(h-1))
+			y = x - lsh(1, (h-1))
 			if y > length(a) || a[y].max > st
 				stack[stack_len += 1] = (y, h - 1, 0)
 			end
