@@ -5,7 +5,7 @@ struct Interval{S,T}
 	max::S
 end
 
-function it_index!(a::Vector{Interval{S,T}}) where {S,T}
+function it_index!(a::Memory{Interval{S,T}}) where {S,T}
 	sort!(a, by = x -> x.st)
 	last_i = 1
 	last::S = 0
@@ -29,7 +29,7 @@ function it_index!(a::Vector{Interval{S,T}}) where {S,T}
 	end
 end
 
-function it_overlap!(a::Vector{Interval{S,T}}, st::S, en::S, b::Vector{Interval{S,T}}) where {S,T}
+function it_overlap!(a::Memory{Interval{S,T}}, st::S, en::S, b::Vector{Interval{S,T}}) where {S,T}
 	empty!(b)
 	stack = Memory{Tuple{Int, Int, Int}}(undef, 64)
 	h = 0
@@ -78,13 +78,13 @@ end
 function gen_intv(n, x::Splitmix32, bit_st, bit_len)
 	mask_st  = (1<<bit_st)  - 1
 	mask_len = (1<<bit_len) - 1
-	a = Vector{Interval{Int64,Int64}}()
+	a = Memory{Interval{Int64,Int64}}(undef, n)
 	for i = 1:n
 		s = splitmix32!(x)
 		l = splitmix32!(x)
 		st = s & mask_st
 		en = st + (l & mask_len)
-		push!(a, Interval{Int64,Int64}(i, st, en, 0))
+		a[i] = Interval{Int64,Int64}(i, st, en, 0)
 	end
 	return a, x
 end
