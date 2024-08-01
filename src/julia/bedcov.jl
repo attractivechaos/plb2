@@ -29,9 +29,14 @@ function it_index!(a::Memory{Interval{S,T}}) where {S,T}
 	end
 end
 
-function it_overlap!(a::Memory{Interval{S,T}}, st::S, en::S, b::Vector{Interval{S,T}}) where {S,T}
+function it_overlap!(
+	a::Memory{Interval{S,T}},
+	stack::Memory{NTuple{3, Int}},
+	st::S,
+	en::S,
+	b::Vector{Interval{S,T}}
+) where {S,T}
 	empty!(b)
-	stack = Memory{Tuple{Int, Int, Int}}(undef, 64)
 	h = 0
 	while (1<<h <= length(a)) h += 1 end
 	h -= 1
@@ -98,9 +103,10 @@ function main(args)
 	it_index!(a1)
 	tot_cov = 0
 	b = Vector{Interval{Int64,Int64}}()
+	stack = Memory{NTuple{3, Int}}(undef, 64)
 	for k = 1:n
 		st0, en0 = a2[k].st, a2[k].en
-		it_overlap!(a1, st0, en0, b)
+		it_overlap!(a1, stack, st0, en0, b)
 		cov_st, cov_en, cov = 0, 0, 0
 		for i = 1:length(b)
 			st1 = max(b[i].st, st0)
