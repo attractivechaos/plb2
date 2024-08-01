@@ -30,14 +30,16 @@ function it_index!(a::Vector{Interval{S,T}}) where {S,T}
 end
 
 function it_overlap!(a::Vector{Interval{S,T}}, st::S, en::S, b::Vector{Interval{S,T}}) where {S,T}
-	resize!(b, 0)
-	stack = Vector{Tuple{Int,Int,Int}}()
+	empty!(b)
+	stack = Memory{Tuple{Int, Int, Int}}(undef, 64)
 	h = 0
 	while (1<<h <= length(a)) h += 1 end
 	h -= 1
-	push!(stack, ((1<<h), h, 0))
-	@inbounds while length(stack) > 0
-		x, h, w = pop!(stack)
+	@inbounds stack[1] = ((1<<h), h, 0)
+	stack_len = 1
+	@inbounds while stack_len > 0
+		x, h, w = stack[stack_len]
+		stack_len -= 1
 		if h <= 3
 			i0 = ((x-1) >> h << h) + 1
 			i1 = i0 + (1 << (h+1)) - 2
@@ -48,14 +50,14 @@ function it_overlap!(a::Vector{Interval{S,T}}, st::S, en::S, b::Vector{Interval{
 				i += 1
 			end
 		elseif w == 0
-			push!(stack, (x, h, 1))
+			stack[stack_len += 1] = (x, h, 1)
 			y = x - (1<<(h-1))
 			if y > length(a) || a[y].max > st
-				push!(stack, (y, h - 1, 0))
+				stack[stack_len += 1] = (y, h - 1, 0)
 			end
 		elseif x <= length(a) && a[x].st < en
 			if (st < a[x].en) push!(b, a[x]) end
-			push!(stack, (x + (1<<(h-1)), h - 1, 0))
+			stack[stack_len += 1] = (x + (1<<(h-1)), h - 1, 0)
 		end
 	end
 end
