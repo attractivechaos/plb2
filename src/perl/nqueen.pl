@@ -9,19 +9,14 @@ sub nq_solve() {
 	my @l = (0) x $n;
 	my @c = (0) x $n;
 	my @r = (0) x $n;
-	for my $i (0 .. $n - 1) {
-		$a[$i] = -1;
-		$l[$i] = $c[$i] = $r[$i] = 0;
-	}
 	my $y0 = (1<<$n) - 1;
-	my $m = 0;
-	my $k = 0;
+	my ($k, $m) = 0;
 	while ($k >= 0) {
 		my $y = ($l[$k] | $c[$k] | $r[$k]) & $y0;
 		if (($y ^ $y0) >> ($a[$k] + 1)) {
 			my $i = $a[$k] + 1;
 			while ($i < $n && ($y & 1<<$i)) {
-				++$i;
+				$i++;
 			}
 			if ($k < $n - 1) {
 				my $z = 1<<$i;
@@ -30,8 +25,8 @@ sub nq_solve() {
 				$c[$k] =  $c[$k-1] | $z;
 				$r[$k] = ($r[$k-1] | $z) >> 1;
 			} else {
-				++$m;
-				--$k;
+				$m++;
+				$k--;
 			}
 		} else {
 			$a[$k--] = -1;
