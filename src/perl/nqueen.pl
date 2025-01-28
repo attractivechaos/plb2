@@ -3,7 +3,11 @@
 use strict;
 use warnings;
 
-sub nq_solve() {
+my $n = 15;
+$n = int($ARGV[0]) if @ARGV > 0;
+print nq_solve($n), "\n";
+
+sub nq_solve {
 	my $n = shift;
 	my @a = (-1) x $n;
 	my @l = (0) x $n;
@@ -34,7 +38,3 @@ sub nq_solve() {
 	}
 	return $m;
 }
-
-my $n = 15;
-$n = int($ARGV[0]) if @ARGV > 0;
-print(&nq_solve($n), "\n");
