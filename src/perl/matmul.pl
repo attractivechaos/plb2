@@ -3,44 +3,42 @@
 use strict;
 use warnings;
 
-&main;
+my $n = $ARGV[0] || 1500;
+$n = int($n/2) * 2;
+my $a = matgen($n);
+my $b = matgen($n);
+my $x = matmul($a, $b);
+print $x->[$n/2][$n/2], "\n";
 
-sub main {
-	my $n = $ARGV[0] || 1500;
-	$n = int($n/2) * 2;
-	my (@a, @b, @x);
-	&matgen($n, \@a);
-	&matgen($n, \@b);
-	&matmul(\@a, \@b, \@x);
-	print $x[$n/2][$n/2], "\n";
-}
+exit;
 
 sub matgen {
-	my ($n, $a) = @_;
-	@$a = ();
-	my $tmp = 1. / $n / $n;
+	my ($n) = @_;
+	my $a;
+	my $tmp = 1 / $n / $n;
 	for my $i (0 .. $n - 1) {
 		for my $j (0 .. $n - 1) {
 			$a->[$i][$j] = $tmp * ($i - $j) * ($i + $j);
 		}
 	}
+	return $a;
 }
 
 sub matmul {
-	my ($a, $b, $x) = @_;
-	my $m = @$a;
+	my ($a, $b) = @_;
+	my $x;
 	my $n = @{$a->[0]};
 	my $p = @{$b->[0]};
-	my @c;
-	for my $i (0 .. $m - 1) {
-		@{$x->[$i]} = (0) x $n;
-		my $xi = \@{$x->[$i]};
+
+	for my $i (0 .. @$a - 1) {
+		my $xi = $x->[$i] = [ () x $n ];
 		for my $k (0 .. $n - 1) {
 			my $aik = $a->[$i][$k];
-			my $bk = \@{$b->[$k]};
+			my $bk  = \@{$b->[$k]};
 			for my $j (0 .. $p - 1) {
 				$xi->[$j] += $aik * $bk->[$j];
 			}
 		}
 	}
+	return $x;
 }
