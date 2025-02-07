@@ -1,3 +1,5 @@
+lsh(a, b) = a << (b & 63)
+
 struct Interval{S,T}
 	data::T
 	st::S
@@ -5,7 +7,7 @@ struct Interval{S,T}
 	max::S
 end
 
-function it_index!(a::Vector{Interval{S,T}}) where {S,T}
+function it_index!(a::Memory{Interval{S,T}}) where {S,T}
 	sort!(a, by = x -> x.st)
 	last_i = 1
 	last::S = 0
@@ -29,15 +31,22 @@ function it_index!(a::Vector{Interval{S,T}}) where {S,T}
 	end
 end
 
-function it_overlap!(a::Vector{Interval{S,T}}, st::S, en::S, b::Vector{Interval{S,T}}) where {S,T}
-	resize!(b, 0)
-	stack = Vector{Tuple{Int,Int,Int}}()
+function it_overlap!(
+	a::Memory{Interval{S,T}},
+	stack::Memory{NTuple{3, Int}},
+	st::S,
+	en::S,
+	b::Vector{Interval{S,T}}
+) where {S,T}
+	empty!(b)
 	h = 0
 	while (1<<h <= length(a)) h += 1 end
 	h -= 1
-	push!(stack, ((1<<h), h, 0))
-	@inbounds while length(stack) > 0
-		x, h, w = pop!(stack)
+	@inbounds stack[1] = ((1<<h), h, 0)
+	stack_len = 1
+	@inbounds while stack_len > 0
+		x, h, w = stack[stack_len]
+		stack_len -= 1
 		if h <= 3
 			i0 = ((x-1) >> h << h) + 1
 			i1 = i0 + (1 << (h+1)) - 2
@@ -48,14 +57,14 @@ function it_overlap!(a::Vector{Interval{S,T}}, st::S, en::S, b::Vector{Interval{
 				i += 1
 			end
 		elseif w == 0
-			push!(stack, (x, h, 1))
-			y = x - (1<<(h-1))
+			stack[stack_len += 1] = (x, h, 1)
+			y = x - lsh(1, (h-1))
 			if y > length(a) || a[y].max > st
-				push!(stack, (y, h - 1, 0))
+				stack[stack_len += 1] = (y, h - 1, 0)
 			end
 		elseif x <= length(a) && a[x].st < en
 			if (st < a[x].en) push!(b, a[x]) end
-			push!(stack, (x + (1<<(h-1)), h - 1, 0))
+			stack[stack_len += 1] = (x + (1<<(h-1)), h - 1, 0)
 		end
 	end
 end
@@ -76,13 +85,13 @@ end
 function gen_intv(n, x::Splitmix32, bit_st, bit_len)
 	mask_st  = (1<<bit_st)  - 1
 	mask_len = (1<<bit_len) - 1
-	a = Vector{Interval{Int64,Int64}}()
+	a = Memory{Interval{Int64,Int64}}(undef, n)
 	for i = 1:n
 		s = splitmix32!(x)
 		l = splitmix32!(x)
 		st = s & mask_st
 		en = st + (l & mask_len)
-		push!(a, Interval{Int64,Int64}(i, st, en, 0))
+		a[i] = Interval{Int64,Int64}(i, st, en, 0)
 	end
 	return a, x
 end
@@ -96,9 +105,10 @@ function main(args)
 	it_index!(a1)
 	tot_cov = 0
 	b = Vector{Interval{Int64,Int64}}()
+	stack = Memory{NTuple{3, Int}}(undef, 64)
 	for k = 1:n
 		st0, en0 = a2[k].st, a2[k].en
-		it_overlap!(a1, st0, en0, b)
+		it_overlap!(a1, stack, st0, en0, b)
 		cov_st, cov_en, cov = 0, 0, 0
 		for i = 1:length(b)
 			st1 = max(b[i].st, st0)
