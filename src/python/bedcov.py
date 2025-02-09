@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def iit_index(a):
 	i, last_i, k = 0, 0, 1
